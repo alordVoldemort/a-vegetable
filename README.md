@@ -1,270 +1,108 @@
-ithin the download you'll find the following directories and files:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p align="center">
+<img width="60" height="68" alt="EverShop Logo" src="https://evershop.io/img/logo.png"/>
+</p>
+<p align="center">
+  <h1 align="center">EverShop</h1>
+</p>
+<h4 align="center">
+    <a href="https://evershop.io/docs/development/getting-started/introduction">Documentation</a> |
+    <a href="https://demo.evershop.io/">Demo</a>
+</h4>
 
+<p align="center">
+  <img src="https://github.com/nodeonline/nodejscart/actions/workflows/build.yml/badge.svg" alt="Github Action">
+  <a href="https://twitter.com/evershopjs">
+    <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/evershopjs?style=social">
+  </a>
+  <a href="https://discord.gg/GSzt7dt7RM">
+    <img src="https://img.shields.io/discord/757179260417867879?label=discord" alt="Discord">
+  </a>
+  <a href="https://opensource.org/licenses/GPL-3.0">
+    <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License">
+  </a>
+</p>
+
+<p align="center">
+<img alt="EverShop" width="950" src="https://raw.githubusercontent.com/evershopcommerce/evershop/dev/.github/images/banner.png"/>
+</p>
+
+## Introduction
+
+EverShop is a GraphQL Based and React ecommerce platform with essential commerce features. Built with React, modular and fully customizable.
+
+## Installation Using Docker
+
+
+You can get started with EverShop in minutes by using the Docker image. The Docker image is a great way to get started with EverShop without having to worry about installing dependencies or configuring your environment.
+
+```bash
+curl -sSL https://raw.githubusercontent.com/evershopcommerce/evershop/main/docker-compose.yml > docker-compose.yml
+docker-compose up -d
 ```
-vision-dashboard-react/
-├── public
-│   ├── apple-icon.png
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── manifest.json
-│   └── robots.txt
-└── src
-    ├── assets
-    │   ├── images
-    │   └── theme
-    │       ├── base
-    │       │   ├── borders.js
-    │       │   ├── boxShadows.js
-    │       │   ├── breakpoints.js
-    │       │   ├── colors.js
-    │       │   ├── globals.js
-    │       │   ├── typography.css
-    │       │   └── typography.js
-    │       ├── components
-    │       │   ├── button
-    │       │   ├── card
-    │       │   ├── dialog
-    │       │   ├── form
-    │       │   ├── list
-    │       │   ├── menu
-    │       │   ├── stepper
-    │       │   ├── table
-    │       │   ├── tabs
-    │       │   ├── appBar.js
-    │       │   ├── avatar.js
-    │       │   ├── breadcrumbs.js
-    │       │   ├── buttonBase.js
-    │       │   ├── container.js
-    │       │   ├── divider.js
-    │       │   ├── icon.js
-    │       │   ├── iconButton.js
-    │       │   ├── linearProgress.js
-    │       │   ├── link.js
-    │       │   ├── popover.js
-    │       │   ├── slider.js
-    │       │   ├── svgIcon.js
-    │       │   └── tooltip.js
-    │       ├── functions
-    │       │   ├── boxShadow.js
-    │       │   ├── gradientChartLine.js
-    │       │   ├── hexToRgb.js
-    │       │   ├── linearGradient.js
-    │       │   ├── pxToRem.js
-    │       │   ├── radialGradient.js
-    │       │   ├── rgba.js
-    │       │   └── tripleLinearGradient.js
-    │       ├── index.js
-    │       └── theme-rtl.js
-    ├── components
-    │   ├── VuiAlert
-    │   │   ├── index.js
-    │   │   ├── VuiAlertCloseIcon.js
-    │   │   └── VuiAlertRoot.js
-    │   ├── VuiAvatar
-    │   │   ├── index.js
-    │   │   └── VuiAvatarRoot.js
-    │   ├── VuiBadge
-    │   │   ├── index.js
-    │   │   └── VuiBadgeRoot.js
-    │   ├── VuiBox
-    │   │   ├── index.js
-    │   │   └── VuiBoxRoot.js
-    │   ├── VuiButton
-    │   │   ├── index.js
-    │   │   └── VuiButtonRoot.js
-    │   ├── VuiInput
-    │   │   ├── index.js
-    │   │   ├── VuiInputIconBoxRoot.js
-    │   │   ├── VuiInputIconRoot.js
-    │   │   ├── VuiInputIcon.js
-    │   │   └── VuiInputWithIconRoot.js
-    │   ├── VuiPagination
-    │   │   ├── index.js
-    │   │   └── VuiPaginationItemRoot.js
-    │   ├── VuiProgress
-    │   │   ├── index.js
-    │   │   └── VuiProgressRoot.js
-    │   ├── VuiSwitch
-    │   │   ├── index.js
-    │   │   └── VuiSwitchRoot.js
-    │   └── VuiTypography
-    │       ├── index.js
-    │       └── VuiTypographyRoot.js
-    ├── context
-    │   └── index.js
-    ├── examples
-    │   ├── Breadcrumbs
-    │   │   └── index.js
-    │   ├── Calendar
-    │   │   ├── CalendarRoot.js
-    │   │   └── index.js
-    │   ├── Cards
-    │   │   ├── InfoCards
-    │   │   │   └── index.js
-    │   │   ├── MasterCard
-    │   │   │   └── index.js
-    │   │   ├── ProjectCards
-    │   │   │   └── index.js
-    │   │   └── StatisticsCards
-    │   │      └── index.js
-    │   ├── Charts
-    │   │   ├── BarCharts
-    │   │   │   └── BarChart.js
-    │   │   └── LineCharts
-    │   │       └── LineChart.js
-    │   ├── Configurator
-    │   │   ├── ConfiguratorRoot.js
-    │   │   └── index.js
-    │   ├── Footer
-    │   │   └── index.js
-    │   ├── GradientBorder
-    │   │   ├── GradientBorderRoot.js
-    │   │   └── index.js
-    │   ├── Icons
-    │   ├── Items
-    │   │   ├── index.js
-    │   │   └── styles.js
-    │   ├── LayoutContainers
-    │   │   ├── DashboardLayout
-    │   │   │   └── index.js
-    │   │   └── PageLayout
-    │   │       └── index.js
-    │   ├── Lists
-    │   │   └── index.js
-    │   ├── Navbars
-    │   │   ├── DashboardNavbar
-    │   │   │   ├── index.js
-    │   │   │   └── styles.js
-    │   │   ├── DefaultNavbar
-    │   │   │   ├── DefaultNavbarLink.js
-    │   │   │   ├── DefaultNavbarMobile.js
-    │   │   │   └── index.js
-    │   ├── Scrollbar
-    │   │   └── index.js
-    │   ├── Sidenav
-    │   │   ├── styles
-    │   │   │   ├── sidenav.js
-    │   │   │   ├── sidenavCard.js
-    │   │   │   └── sidenavCollapse.js
-    │   │   ├── index.js
-    │   │   ├── SidenavCard.js
-    │   │   ├── SidenavCollapse.js
-    │   │   └── SidenavRoot.js
-    │   ├── Tables
-    │   │   └── index.js
-    │   └── Timeline
-    │       ├── context
-    │       │   └── index.js
-    │       ├── TimelineItem
-    │       │   ├── index.js
-    │       │   └── styles.js
-    │       └── TimelineList
-    │           └── index.js
-    ├── layouts
-    │   ├── authentication
-    │   │   ├── components
-    │   │   │   ├── BasicLayout
-    │   │   │   │   └── index.js
-    │   │   │   ├── CoverLayout
-    │   │   │   │   └── index.js
-    │   │   │   ├── Footer
-    │   │   │   │   └── index.js
-    │   │   │   ├── IllustrationLayout
-    │   │   │   │   └── index.js
-    │   │   │   ├── Separator
-    │   │   │   │   └── index.js
-    │   │   │   └── Socials
-    │   │   │       └── index.js
-    │   │   ├── sign-in
-    │   │   │   └── index.js
-    │   │   └── sign-up
-    │   │       └── index.js
-    │   ├── billing
-    │   │   ├── components
-    │   │   │   ├── Bill
-    │   │   │   │   └── index.js
-    │   │   │   ├── BillingInformation
-    │   │   │   │   └── index.js
-    │   │   │   ├── CreditBalance
-    │   │   │   │   └── index.js
-    │   │   │   ├── Invoice
-    │   │   │   │   └── index.js
-    │   │   │   ├── PaymentMethod
-    │   │   │   │   └── index.js
-    │   │   │   ├── Transaction
-    │   │   │   │   └── index.js
-    │   │   │   └── Transactions
-    │   │   │       └── index.js
-    │   │   └── index.js
-    │   ├── dashboard
-    │   │   ├── components
-    │   │   │   ├── OrderOverview
-    │   │   │   │   └── index.js
-    │   │   │   ├── Projects
-    │   │   │   │   └── index.js
-    │   │   │   ├── RefferalTracking
-    │   │   │   │   └── index.js
-    │   │   │   ├── SatisfactionRate
-    │   │   │   │   └── index.js
-    │   │   │   └── WelcomeMark
-    │   │   │       └── index.js
-    │   │   ├── data
-    │   │   │   ├── barChartData.js
-    │   │   │   ├── barChartOptions.js
-    │   │   │   ├── lineChartData.js
-    │   │   │   └── lineChartOptions.js
-    │   │   └── index.js
-    │   ├── profile
-    │   │   ├── components
-    │   │   │   ├── CarInformations
-    │   │   │   │   └── index.js
-    │   │   │   ├── Header
-    │   │   │   │   └── index.js
-    │   │   │   ├── PlatformSettings
-    │   │   │   │   └── index.js
-    │   │   │   └── Welcome
-    │   │   │       └── index.js
-    │   │   ├── data
-    │   │   │   ├── lineChartData1.js
-    │   │   │   ├── lineChartData2.js
-    │   │   │   ├── lineChartOptions1.js
-    │   │   │   └── lineChartOptions2.js
-    │   │   └── index.js
-    │   ├── rtl
-    │   │   ├── components
-    │   │   │   ├── OrderOverview
-    │   │   │   │   └── index.js
-    │   │   │   ├── Projects
-    │   │   │   │   └── index.js
-    │   │   │   ├── RefferalTracking
-    │   │   │   │   └── index.js
-    │   │   │   ├── SatisfactionRate
-    │   │   │   │   └── index.js
-    │   │   │   └── WelcomeMark
-    │   │   │       └── index.js
-    │   │   ├── data
-    │   │   │   ├── barChartData.js
-    │   │   │   ├── barChartOptions.js
-    │   │   │   ├── lineChartData.js
-    │   │   │   └── lineChartOptions.js
-    │   │   └── index.js
-    │   ├── tables
-    │   │   ├── data
-    │   │   │   ├── authorsTableData.js
-    │   │   │   └── projectsTableData.js
-    │   │   └── index.js
-    ├── variables
-    │   └── charts.js
-    ├── App.js
-    ├── index.js
-    ├── routes.js
-    ├── .eslintrc.json
-    ├── .gitignore
-    ├── .prettierrc.json
-    ├── CHANGELOG.md
-    ├── ISSUE_TEMPLALTE.md
-    ├── jsconfig.json
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
-```
+
+For the full installation guide, please refer to our [Installation guide](https://evershop.io/docs/development/getting-started/installation-guide).
+
+## Documentation
+
+- [Installation guide](https://evershop.io/docs/development/getting-started/installation-guide).
+
+- [Extension development](https://evershop.io/docs/development/module/create-your-first-extension).
+
+- [Theme development](https://evershop.io/docs/development/theme/theme-overview).
+
+
+## Demo
+
+Explore our demo store.
+
+<p align="left">
+  <a href="https://demo.evershop.io/admin" target="_blank">
+    <img alt="evershop-backend-demo" height="35" alt="EverShop Admin Demo" src="https://raw.githubusercontent.com/evershopcommerce/evershop/dev/.github/images/evershop-admin-demo.png"/>
+  </a>
+</p>
+<b>Demo user:</b>
+
+Email: demo@evershop.io<br/>
+Password: 123456
+
+<p align="left">
+  <a href="https://demo.evershop.io/" target="_blank">
+    <img alt="evershop-store-demo" height="35" alt="EverShop Store Demo" src="https://raw.githubusercontent.com/evershopcommerce/evershop/dev/.github/images/evershop-store-front-demo.png"/>
+  </a>
+</p>
+
+## Support
+
+If you like my work, feel free to:
+
+- ⭐ this repository. It helps.
+- [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)][tweet] about EverShop. Thank you!
+
+[tweet]: https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fevershopcommerce%2Fevershop&text=Awesome%20React%20Ecommerce%20Project&hashtags=react,ecommerce,expressjs,graphql
+### Ask a question about EverShop
+
+You can ask questions, and participate in discussions about EverShop-related topics in the EverShop Discord channel.
+
+
+### Create a bug report
+
+If you see an error message or run into an issue, please [create bug report](https://github.com/evershopcommerce/evershop/issues/new). This effort is valued and it will help all EverShop users.
+
+
+### Submit a feature request
+
+If you have an idea, or you're missing a capability that would make development easier and more robust, please [Submit feature request](https://github.com/evershopcommerce/evershop/issues/new).
+
+If a similar feature request already exists, don't forget to leave a "+1".
+If you add some more information such as your thoughts and vision about the feature, your comments will be embraced warmly :)
+
+## Contributing
+
+EverShop is an open-source project. We are committed to a fully transparent development process and appreciate highly any contributions. Whether you are helping us fix bugs, proposing new features, improving our documentation or spreading the word - we would love to have you as part of the EverShop community.
+
+Please refer to our [Contribution Guidelines](./CONTRIBUTING.md) and [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+## License
+
+[GPL-3.0 License](https://github.com/evershopcommerce/evershop/blob/main/LICENSE)
