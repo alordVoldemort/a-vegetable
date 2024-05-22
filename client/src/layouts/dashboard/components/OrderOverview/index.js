@@ -16,8 +16,8 @@ import { BsCreditCardFill } from "react-icons/bs";
 import { SiDropbox } from "react-icons/si";
 
 // Vision UI Dashboard React example components
-import TimelineItem from "examples/Timeline/TimelineItem";
-import AdobeXD from "examples/Icons/AdobeXD";
+import TimelineItem from "controllers/Timeline/TimelineItem";
+import AdobeXD from "controllers/Icons/AdobeXD";
 
 // Vision UI Dashboard theme imports
 import palette from "assets/theme/base/colors";
@@ -27,7 +27,7 @@ function OrdersOverview() {
     <Card className="h-100">
       <VuiBox mb="16px">
         <VuiTypography variant="lg" fontWeight="bold" mb="5px" color="white">
-          Orders overview
+          Todays Orders
         </VuiTypography>
         <VuiBox mb={2}>
           <VuiBox display="flex" alignItems="center">

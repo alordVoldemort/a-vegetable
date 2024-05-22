@@ -7,11 +7,11 @@ import Grid from "@mui/material/Grid";
 import VuiBox from "components/VuiBox";
 
 // Vision UI Dashboard React components
-import MasterCard from "examples/Cards/MasterCard";
+import MasterCard from "controllers/Cards/MasterCard";
 // Vision UI Dashboard React example components
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
+import DashboardLayout from "controllers/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "controllers/Navbars/DashboardNavbar";
+import Footer from "controllers/Footer";
 
 // Billing page components
 import PaymentMethod from "layouts/reports/components/PaymentMethod";

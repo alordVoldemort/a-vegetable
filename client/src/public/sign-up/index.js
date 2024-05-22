@@ -19,7 +19,7 @@ import VuiTypography from "components/VuiTypography";
 import VuiInput from "components/VuiInput";
 import VuiButton from "components/VuiButton";
 import VuiSwitch from "components/VuiSwitch";
-import GradientBorder from "examples/GradientBorder";
+import GradientBorder from "controllers/GradientBorder";
 
 // Vision UI Dashboard assets
 import radialGradient from "assets/theme/functions/radialGradient";

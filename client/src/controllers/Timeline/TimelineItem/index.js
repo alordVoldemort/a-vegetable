@@ -12,10 +12,10 @@ import VuiTypography from "components/VuiTypography";
 import VuiBadge from "components/VuiBadge";
 
 // Timeline context
-import { useTimeline } from "examples/Timeline/context";
+import { useTimeline } from "controllers/Timeline/context";
 
 // Custom styles for the TimelineItem
-import { timelineItem } from "examples/Timeline/TimelineItem/styles";
+import { timelineItem } from "controllers/Timeline/TimelineItem/styles";
 
 function TimelineItem({ color, icon, title, dateTime, description, badges, lastItem }) {
   const isDark = useTimeline();

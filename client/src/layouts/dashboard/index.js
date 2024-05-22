@@ -11,10 +11,10 @@ import VuiTypography from "components/VuiTypography";
 import VuiProgress from "components/VuiProgress";
 
 // Vision UI Dashboard React example components
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
-import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
+import DashboardLayout from "controllers/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "controllers/Navbars/DashboardNavbar";
+import Footer from "controllers/Footer";
+import MiniStatisticsCard from "controllers/Cards/StatisticsCards/MiniStatisticsCard";
 import linearGradient from "assets/theme/functions/linearGradient";
 
 // Vision UI Dashboard React base styles
@@ -37,8 +37,8 @@ import { IoDocumentText } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 
 // Data
-import LineChart from "examples/Charts/LineCharts/LineChart";
-import BarChart from "examples/Charts/BarCharts/BarChart";
+import LineChart from "controllers/Charts/LineCharts/LineChart";
+import BarChart from "controllers/Charts/BarCharts/BarChart";
 import { lineChartDataDashboard } from "layouts/dashboard/data/lineChartData";
 import { lineChartOptionsDashboard } from "layouts/dashboard/data/lineChartOptions";
 import { barChartDataDashboard } from "layouts/dashboard/data/barChartData";
@@ -103,7 +103,7 @@ function Dashboard() {
         </VuiBox>
         <VuiBox mb={3}>
           <Grid container spacing={3}>
-            <Grid item xs={12} lg={6} xl={7}>
+            {/* <Grid item xs={12} lg={6} xl={7}>
               <Card>
                 <VuiBox sx={{ height: "100%" }}>
                   <VuiTypography variant="lg" color="white" fontWeight="bold" mb="5px">
@@ -125,8 +125,8 @@ function Dashboard() {
                   </VuiBox>
                 </VuiBox>
               </Card>
-            </Grid>
-            <Grid item xs={12} lg={6} xl={5}>
+            </Grid> */}
+            {/* <Grid item xs={12} lg={6} xl={5}>
               <Card>
                 <VuiBox>
                   <VuiBox
@@ -257,7 +257,7 @@ function Dashboard() {
                   </Grid>
                 </VuiBox>
               </Card>
-            </Grid>
+            </Grid> */}
           </Grid>
         </VuiBox>
         <Grid container spacing={3} direction="row" justifyContent="center" alignItems="stretch">

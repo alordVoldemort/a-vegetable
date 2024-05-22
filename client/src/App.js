@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Sidenav from "examples/Sidenav";
+import Sidenav from "controllers/Sidenav";
 import theme from "assets/theme";
 import routes from "routes";
 import { useVisionUIController, setMiniSidenav } from "context";

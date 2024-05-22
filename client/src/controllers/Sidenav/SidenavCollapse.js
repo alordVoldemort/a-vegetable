@@ -19,7 +19,7 @@ import {
   collapseIconBox,
   collapseIcon,
   collapseText,
-} from "examples/Sidenav/styles/sidenavCollapse";
+} from "controllers/Sidenav/styles/sidenavCollapse";
 
 // Vision UI Dashboard React context
 import { useVisionUIController } from "context";

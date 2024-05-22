@@ -14,7 +14,7 @@ import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
 
 // Vision UI Dashboard Materail-UI example components
-import Table from "examples/Tables/Table";
+import Table from "controllers/Tables/Table";
 
 // Data
 import data from "layouts/dashboard/components/Projects/data";

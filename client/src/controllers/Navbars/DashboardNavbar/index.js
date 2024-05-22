@@ -21,8 +21,8 @@ import VuiTypography from "components/VuiTypography";
 import VuiInput from "components/VuiInput";
 
 // Vision UI Dashboard React example components
-import Breadcrumbs from "examples/Breadcrumbs";
-import NotificationItem from "examples/Items/NotificationItem";
+import Breadcrumbs from "controllers/Breadcrumbs";
+import NotificationItem from "controllers/Items/NotificationItem";
 
 // Custom styles for DashboardNavbar
 import {
@@ -31,7 +31,7 @@ import {
   navbarRow,
   navbarIconButton,
   navbarMobileMenu,
-} from "examples/Navbars/DashboardNavbar/styles";
+} from "controllers/Navbars/DashboardNavbar/styles";
 
 // Vision UI Dashboard React context
 import {
