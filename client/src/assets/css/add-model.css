@@ -1,0 +1,13 @@
+input {
+    background-color: transparent !important;
+  }
+fieldset {
+    background-color: transparent !important;
+  }
+  form>div>div {
+    background-color: transparent !important;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
