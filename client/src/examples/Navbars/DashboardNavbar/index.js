@@ -1,6 +1,6 @@
 
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; 
 
 // react-router components
 import { useLocation, Link } from "react-router-dom";
@@ -129,25 +129,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light })}
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
-        <VuiBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-          <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
-        </VuiBox>
         {isMini ? null : (
           <VuiBox sx={(theme) => navbarRow(theme, { isMini })}>
             <VuiBox pr={1}>
-              <VuiInput
-                placeholder="Type here..."
-                icon={{ component: "search", direction: "left" }}
-                sx={({ breakpoints }) => ({
-                  [breakpoints.down("sm")]: {
-                    maxWidth: "80px",
-                  },
-                  [breakpoints.only("sm")]: {
-                    maxWidth: "80px",
-                  },
-                  backgroundColor: "info.main !important",
-                })}
-              />
             </VuiBox>
             <VuiBox color={light ? "white" : "inherit"}>
             <IconButton
@@ -179,6 +163,14 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   </VuiTypography>
                 </IconButton>
               </Link> 
+              <IconButton
+                size="small"
+                color="inherit"
+                sx={navbarMobileMenu}
+                onClick={handleMiniSidenav}
+              >
+                <Icon className={"text-white"}>{miniSidenav ? "menu" : "menu_open"}</Icon>
+              </IconButton>
               {renderMenu()}
             </VuiBox>
           </VuiBox>

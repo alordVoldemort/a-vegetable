@@ -25,10 +25,10 @@ const CarInformations = () => {
 			})}>
 			<VuiBox display='flex' flexDirection='column'>
 				<VuiTypography variant='lg' color='white' fontWeight='bold' mb='6px'>
-					Car Informations
+				Report Informations
 				</VuiTypography>
 				<VuiTypography variant='button' color='text' fontWeight='regular' mb='30px'>
-					Hello, Mark Johnson! Your Car is ready.
+					Hello, Abhi! Your Report is ready.
 				</VuiTypography>
 				<Stack
 					spacing='24px'

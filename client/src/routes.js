@@ -1,17 +1,15 @@
 // Vision UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Billing from "layouts/billing";
-import RTL from "layouts/rtl";
+import Tables from "layouts/history";
+import Billing from "layouts/reports";
 import Profile from "layouts/profile";
-import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
+import SignIn from "public/sign-in";
+import SignUp from "public/sign-up";
 
 // Vision UI Dashboard React icons
 import { IoRocketSharp } from "react-icons/io5";
 import { IoIosDocument } from "react-icons/io";
 import { BsFillPersonFill } from "react-icons/bs";
-import { IoBuild } from "react-icons/io5";
 import { BsCreditCardFill } from "react-icons/bs";
 import { IoStatsChart } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
@@ -28,7 +26,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Trips",
+    name: "History",
     key: "tables",
     route: "/tables",
     icon: <IoStatsChart size="15px" color="inherit" />,
@@ -37,7 +35,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Billing",
+    name: "Report",
     key: "billing",
     route: "/billing",
     icon: <BsCreditCardFill size="15px" color="inherit" />,

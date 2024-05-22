@@ -1,52 +1,17 @@
-
-
 import { useState, useEffect, useMemo } from "react";
-
-// react-router components
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
-
-// @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon";
-
-// Vision UI Dashboard React components
-import VuiBox from "components/VuiBox";
-
-// Vision UI Dashboard React example components
 import Sidenav from "examples/Sidenav";
-
-// Vision UI Dashboard React themes
 import theme from "assets/theme";
-import themeRTL from "assets/theme/theme-rtl";
-
-// RTL plugins
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-
-// Vision UI Dashboard React routes
 import routes from "routes";
-
-// Vision UI Dashboard React contexts
-import { useVisionUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import { useVisionUIController, setMiniSidenav } from "context";
 
 export default function App() {
   const [controller, dispatch] = useVisionUIController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
-  const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-
-  // Cache for the rtl
-  useMemo(() => {
-    const cacheRtl = createCache({
-      key: "rtl",
-      stylisPlugins: [rtlPlugin],
-    });
-
-    setRtlCache(cacheRtl);
-  }, []);
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -63,9 +28,6 @@ export default function App() {
       setOnMouseEnter(false);
     }
   };
-
-  // Change the openConfigurator state
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
   // Setting the dir attribute for the body element
   useEffect(() => {
@@ -109,7 +71,7 @@ export default function App() {
       )}
       <Switch>
         {getRoutes(routes)}
-        <Redirect from="*" to="/login" />
+        <Redirect from="*" to="/sign-in" />
       </Switch>
     </ThemeProvider>
   );
