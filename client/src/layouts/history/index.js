@@ -16,20 +16,28 @@ import Table from "controllers/Tables/Table";
 // Data
 import authorsTableData from "layouts/history/data/authorsTableData";
 import projectsTableData from "layouts/history/data/projectsTableData";
-import CreateEntry from 'layouts/history/models/createEntery';
+import CreateEntry from 'models/createEntery';
 import CustomEntry from "layouts/history/models/CustomEntry";
 import AddUserPopup from 'layouts/history/models/AddUsers'; // Import AddUoutsserPopup component
 
 
 function Tables() {
-  const { columns, rows } = authorsTableData;
+  // const { columns, rows } = authorsTableData;
+  // console.log(authorsTableData, 'authorsTableData')
   const { columns: prCols, rows: prRows } = projectsTableData;
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
   const [isCustomPopupOpen, setIsCustomPopupOpen] = useState(false);
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [entries, setEntries] = useState([]);
-  
+
+  const columns = [
+    { name: "vegitableName", align: "center" },
+    { name: "fromCity", align: "center" },
+    { name: "toCity", align: "center" },
+    { name: "clientName", align: "left" },
+    { name: "driverName", align: "left" },
+  ]  
   const handleOpenCreatePopup = () => {
     setIsCreatePopupOpen(true);
   };
@@ -62,7 +70,7 @@ function Tables() {
   };
 
   const handleCustomEntry = (formData) => {
-    setEntries([...entries, formData]);
+    // setEntries([...entries, formData]);
     handleCloseCustomPopup();
     console.log('Form Data (Custom Entry):', formData);
   };
@@ -110,10 +118,7 @@ function Tables() {
           >
             <Table 
               columns={columns} 
-              rows={rows.concat(entries.map(entry => ({
-                ...entry,
-                actions: <Button onClick={() => alert(JSON.stringify(entry, null, 2))}>View</Button>,
-              })))} 
+              rows={entries}
             />
           </VuiBox>
         </Card>
@@ -149,7 +154,7 @@ function Tables() {
             },
           }}
         >
-          <Table columns={prCols} rows={prRows} />
+          {/* <Table columns={prCols} rows={prRows} /> */}
         </VuiBox>
       </Card>
       <VuiBox py={3} mb={1}>
@@ -184,14 +189,14 @@ function Tables() {
             },
           }}
         >
-          <Table columns={prCols} rows={prRows} />
+          {/* <Table columns={prCols} rows={prRows} /> */}
         </VuiBox>
       </Card>
 
       <Footer />
-      <CreateEntry isOpen={isCreatePopupOpen} onClose={handleCloseCreatePopup} onSubmit={handleCreateEntry} />  
+
       <CustomEntry isOpen={isCustomPopupOpen} onClose={handleCloseCustomPopup} onSubmit={handleCustomEntry} />  
-      <AddUserPopup isOpen={isAddPopupOpen}   onClose={handleCloseAddUsers}    onSubmit={handleAddUser} />  
+      <AddUserPopup isOpen={isAddPopupOpen} onClose={handleCloseAddUsers} onSubmit={handleAddUser} />  
  
     </DashboardLayout>
   );

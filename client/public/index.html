@@ -27,5 +27,14 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const iframes = document.getElementsByTagName('iframe');
+        console.log(iframes, 'iframes')
+        for (let i = 0; i < iframes.length; i++) {
+          iframes[i].parentNode.removeChild(iframes[i]);
+        }
+      });
+    </script>
   </body>
 </html>

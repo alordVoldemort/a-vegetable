@@ -43,10 +43,51 @@ import { lineChartDataDashboard } from "layouts/dashboard/data/lineChartData";
 import { lineChartOptionsDashboard } from "layouts/dashboard/data/lineChartOptions";
 import { barChartDataDashboard } from "layouts/dashboard/data/barChartData";
 import { barChartOptionsDashboard } from "layouts/dashboard/data/barChartOptions";
+import { useCallback, useState } from "react";
+import CreateEntry from "models/createEntery";
 
 function Dashboard() {
   const { gradients } = colors;
   const { cardContent } = gradients;
+
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const [userData, setUserData] = useState([])
+  const [editItem, setEditItem] = useState({})
+  const [isEditable, setIsEditable] = useState(false)
+
+  const handleCreateEntry = (input) => {
+    console.log(input, isEditable, 'after submit')
+    if (!isEditable) {
+      input.id = userData.length + 1
+      setUserData([...userData, input])
+    } else {
+      const indexToUpdate = userData.findIndex(item => item.id === editItem.id);
+      console.log(indexToUpdate,'indexToUpdate')
+      if (indexToUpdate !== -1) {
+        userData[indexToUpdate] = input
+        setUserData(userData)
+      }
+      setEditItem({})
+    }
+    setIsOpen(false)
+    setIsEditable(false)
+  }
+
+  const handleDelete = useCallback((value) => {
+    console.log(value.id, 'delete')
+    if (window.confirm("Are you sure you want to delete this item? " + value.vegitableName)) {
+      const result = userData.filter(item => item.id !== value.id);
+      setUserData(result)
+    }
+  }, [userData])
+
+const handleEdit = useCallback((value) => {
+  console.log(value.id, 'edit')
+  setEditItem(value)
+  setIsOpen(true)  
+  setIsEditable(true)
+  }, [])
 
   return (
     <DashboardLayout>
@@ -262,7 +303,13 @@ function Dashboard() {
         </VuiBox>
         <Grid container spacing={3} direction="row" justifyContent="center" alignItems="stretch">
           <Grid item xs={12} md={6} lg={8}>
-            <Projects />
+            <Projects
+             isOpenPopup={()=> setIsOpen(true)}
+             userData={userData}
+             handleDelete={handleDelete}
+             handleEdit={handleEdit}
+             />
+
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <OrderOverview />
@@ -270,6 +317,7 @@ function Dashboard() {
         </Grid>
       </VuiBox>
       <Footer />
+      {isOpen ? <CreateEntry isOpen={isOpen} onClose={()=> setIsOpen(false)} onSubmit={handleCreateEntry} editItem={editItem} isEditable={isEditable}/> : null}   
     </DashboardLayout>
   );
 }
