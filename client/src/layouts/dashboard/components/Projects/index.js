@@ -31,6 +31,8 @@ import avatar2 from "assets/images/avatar2.png";
 import avatar3 from "assets/images/avatar3.png";
 import avatar4 from "assets/images/avatar4.png";
 import VuiButton from "components/VuiButton";
+import MyTable from "models/myTable";
+import { Button } from "@mui/material";
 
 function Projects(props) {
   const { isOpenPopup, userData, handleDelete, handleEdit } = props
@@ -227,7 +229,7 @@ function Projects(props) {
           </VuiBox>
         </VuiBox>
         <VuiBox color="text" px={2}>
-          <button onClick={isOpenPopup}> Add New </button>
+        <Button variant="contained" color="primary" style={{ margin: '1px', padding:'0px 14px', borderRadius: '5px' }} onClick={isOpenPopup}>Add Entry</Button>
           <Icon sx={{ cursor: "pointer", fontWeight: "bold" }} fontSize="small" onClick={openMenu}>
             more_vert
           </Icon>
@@ -249,6 +251,7 @@ function Projects(props) {
         }}
       >
         <Table columns={columns} rows={rows} />
+        {/* <MyTable columns={columns} rows={rows}/> */}
       </VuiBox>
     </Card>
     
