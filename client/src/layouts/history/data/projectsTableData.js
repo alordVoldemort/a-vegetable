@@ -15,17 +15,10 @@ import Atlassian from "controllers/Icons/Atlassian";
 import Slack from "controllers/Icons/Slack";
 import Spotify from "controllers/Icons/Spotify";
 import Jira from "controllers/Icons/Jira";
-import Invision from "controllers/Icons/Invision";
-import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
-import logoInvesion from "assets/images/small-logos/logo-invision.svg";
-import logoJira from "assets/images/small-logos/logo-jira.svg";
-import logoSlack from "assets/images/small-logos/logo-slack.svg";
-import logoWebDev from "assets/images/small-logos/logo-webdev.svg";
-import logoXD from "assets/images/small-logos/logo-xd.svg";
 
 function Completion({ value, color }) {
   return (
-    <VuiBox display="flex" flexDirection="column" alignItems="flex-start">
+     <VuiBox display="flex" flexDirection="column" alignItems="flex-start">
       <VuiTypography variant="button" color="white" fontWeight="medium" mb="4px">
         {value}%&nbsp;
       </VuiTypography>
@@ -44,38 +37,55 @@ const action = (
 
 export default {
   columns: [
-    { name: "project", align: "left" },
-    { name: "budget", align: "left" },
-    { name: "status", align: "left" },
-    { name: "completion", align: "center" },
+    { name: "Name", align: "left" },
+    { name: "Email", align: "left" },
+    { name: "Phone", align: "left" },
+    { name: "Photo", align: "center" },
+    { name: "Password", align: "center" },
     { name: "action", align: "center" },
   ],
 
   rows: [
     {
-      project: (
+      Name: (
         <VuiBox display="flex" alignItems="center">
           <AdobeXD size="20px" />
           <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
-            Chakra Vision UI Version
+            Aniket Sangale
           </VuiTypography>
         </VuiBox>
       ),
-      budget: (
+      Email: (
         <VuiTypography variant="button" color="white" fontWeight="medium">
-          $14,000
+          aniketsangale23@gmail.com
         </VuiTypography>
       ),
-      status: (
+      Phone: (
         <VuiTypography variant="button" color="white" fontWeight="medium">
-          Working
+          9172924542
+        </VuiTypography>
+      ),
+      photo: (
+        <VuiTypography variant="button" color="white" fontWeight="medium">
+          
+        </VuiTypography>
+      ),
+      Password: (
+        <VuiTypography variant="button" color="white" fontWeight="medium">
+           Aniket@4542
         </VuiTypography>
       ),
       completion: <Completion value={60} color="info" />,
-      action,
-    },
+      action: <Icon
+      sx={{ cursor: "pointer", fontWeight: "bold", color: "green" }}
+      fontSize="small"
+      onClick={() => handleEdit(row)} // Ensure `row` is defined or passed correctly
+    >
+      update
+    </Icon>
+  },
     {
-      project: (
+      Name: (
         <VuiBox display="flex" alignItems="center">
           <Atlassian size="20px" />
           <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
@@ -119,7 +129,7 @@ export default {
       action,
     },
     {
-      project: (
+      Name: (
         <VuiBox display="flex" alignItems="center">
           <Spotify size="20px" />
           <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
