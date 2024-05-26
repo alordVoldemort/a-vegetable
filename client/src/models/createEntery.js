@@ -19,6 +19,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [clientName, setClientName] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const selectRef = useRef  (null);
+  const cities = ['City1', 'City2', 'City3', 'nashik']; // Array of city options
 
 
 
@@ -112,27 +113,23 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               palette.gradients.borderLight.angle
             )}
             
-            onClick={handleClick} 
           >
-              <div ref={selectRef}>
             <Select
-              value={fromCity}
-              onChange={(e) => setFromCity(e.target.value)}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={({ typography: { size } }) => ({
-                fontSize: size.sm,
-                color: 'white'
-              })}
-              onClick={handleClick}
-              fullWidth
+                value={fromCity}
+                onChange={(e) => setFromCity(e.target.value)}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+                sx={({ typography: { size } }) => ({
+                    fontSize: size.sm,
+                    color: 'white'
+                })}
+                fullWidth
             >
-              <MenuItem value="" disabled>Select City</MenuItem>
-              <MenuItem value="City1">City1</MenuItem>
-              <MenuItem value="City2">City2</MenuItem>
-              <MenuItem value="City3">City3</MenuItem>
+                <MenuItem value="" disabled>Select City....</MenuItem>
+                {cities.map(city => (
+                    <MenuItem key={city} value={city}>{city}</MenuItem>
+                ))}
             </Select>
-            </div>
           </GradientBorder>
         </VuiBox>
         <VuiBox mb={2}>
