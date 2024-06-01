@@ -10,6 +10,9 @@ import store from './store';
 import App from './App';
 // Vision UI Dashboard React Context Provider
 import { VisionUIControllerProvider } from "context";
+import { QueryClient, QueryClientProvider } from 'react-query';
+const queryClient = new QueryClient();
+
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -18,11 +21,13 @@ const root = createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <VisionUIControllerProvider>
           <App />
         </VisionUIControllerProvider>
       </BrowserRouter>
+      </QueryClientProvider>
       {/* <ToastContainer /> */}
     </Provider>
   </React.StrictMode>,

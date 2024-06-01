@@ -133,7 +133,7 @@ function  Projects(props) {
       const keys = Object.keys(dataArray[0]);
       const columns = keys.map(key => ({ name: key, align: "left" }));
       columns.push(
-        { name: 'status', align: "left" },
+        // { name: 'status', align: "left" },
         { name: 'action', align: "left" }
       )
       return columns;

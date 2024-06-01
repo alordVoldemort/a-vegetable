@@ -1,17 +1,17 @@
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const FETCH_REQUEST = 'FETCH_REQUEST';
+export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const FETCH_FAILURE = 'FETCH_FAILURE';
 
-export const loginRequest = () => ({
-  type: LOGIN_REQUEST
+export const apiRequest = () => ({
+  type: FETCH_REQUEST
 });
 
-export const loginSuccess = (userData) => ({
-  type: LOGIN_SUCCESS,
-  payload: userData
+export const apiSuccess = (apiResponce) => ({
+  type: FETCH_SUCCESS,
+  payload: apiResponce
 });
 
-export const loginFailure = (error) => ({
-  type: LOGIN_FAILURE,
+export const apiFailure = (error) => ({
+  type: FETCH_FAILURE,
   payload: error
 });

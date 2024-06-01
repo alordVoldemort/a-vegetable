@@ -17,6 +17,18 @@ export default function App() {
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
 
+  useEffect(() => {
+    const handleIframeRemoval = () => {
+      const iframes = document.querySelectorAll('iframe');
+      iframes.forEach((iframe) => {
+        iframe.parentNode.removeChild(iframe);
+      });
+    };
+    window.addEventListener('load', handleIframeRemoval);
+    return () => {
+      window.removeEventListener('load', handleIframeRemoval);
+    };
+  }, []);
 
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {

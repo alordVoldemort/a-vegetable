@@ -36,28 +36,52 @@ import { FaShoppingCart } from "react-icons/fa";
 
 // Data
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CreateEntry from "models/createEntery";
+import { updateEntry, createEntry } from "service/api";
+import { useDispatch } from 'react-redux';
+import { getAllEntries } from "service/api";
+
 
 function Dashboard() {
   const { gradients } = colors;
   const { cardContent } = gradients;
+  const dispatch = useDispatch();
 
-  
+
   const [isOpen, setIsOpen] = useState(false);
-  const [userData, setUserData] = useState([])
+  const [userData, setUserData] = useState([]) 
   const [editItem, setEditItem] = useState({})
   const [isEditable, setIsEditable] = useState(false)
 
-  const handleCreateEntry = (input) => {
+
+  useEffect(() => {
+    dispatch(getAllEntries())
+      .then((data) => {
+        if (data.code === 200) {
+          setUserData(data.result);
+        }
+      })
+      .catch((error) => {
+        console.log("test..")
+      });
+  }, []);
+
+  console.log(userData, 'userData')
+
+  const handleCreateEntry = async (input) => {
     console.log(input, isEditable, 'after submit')
     if (!isEditable) {
+      const createResponse = await dispatch(createEntry(input));
+      console.log(createResponse, 'createResponse')
       input.id = userData.length + 1
       setUserData([...userData, input])
     } else {
       const indexToUpdate = userData.findIndex(item => item.id === editItem.id);
-      console.log(indexToUpdate,'indexToUpdate')
+      console.log(indexToUpdate, 'indexToUpdate')
       if (indexToUpdate !== -1) {
+        const upadteResponse = await dispatch(updateEntry(indexToUpdate, updatedRecord));
+        console.log(upadteResponse, 'upadteResponse')
         userData[indexToUpdate] = input
         setUserData(userData)
       }
@@ -75,11 +99,11 @@ function Dashboard() {
     }
   }, [userData])
 
-const handleEdit = useCallback((value) => {
-  console.log(value.id, 'edit')
-  setEditItem(value)
-  setIsOpen(true)  
-  setIsEditable(true)
+  const handleEdit = useCallback((value) => {
+    console.log(value.id, 'edit')
+    setEditItem(value)
+    setIsOpen(true)
+    setIsEditable(true)
   }, [])
 
   return (
@@ -295,22 +319,28 @@ const handleEdit = useCallback((value) => {
           </Grid>
         </VuiBox>
         <Grid container spacing={3} direction="row" justifyContent="center" alignItems="stretch">
-          <Grid item xs={12} md={6} lg={8}>
+          <Grid item xs={12} md={12} lg={12}>
             <Projects
-             isOpenPopup={()=> setIsOpen(true)}
-             userData={userData}
-             handleDelete={handleDelete}
-             handleEdit={handleEdit}
-             />
+              isOpenPopup={() => setIsOpen(true)}
+              userData={userData}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
 
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <OrderOverview />
-          </Grid>
+          </Grid> */}
         </Grid>
       </VuiBox>
       <Footer />
-      {isOpen ? <CreateEntry isOpen={isOpen} onClose={()=> setIsOpen(false)} onSubmit={handleCreateEntry} editItem={editItem} isEditable={isEditable}/> : null}   
+      {isOpen ? <CreateEntry 
+      isOpen={isOpen} 
+      onClose={() => setIsOpen(false)} 
+      onSubmit={handleCreateEntry} 
+      editItem={editItem} 
+      isEditable={isEditable} 
+      /> : null}
     </DashboardLayout>
   );
 }

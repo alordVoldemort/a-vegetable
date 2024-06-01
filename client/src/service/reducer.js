@@ -1,29 +1,29 @@
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from './action';
+import { FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE } from './action';
 
 const initialState = {
  auth:{
   loading: false,
-  user: null,
+  data: null,
   error: null
  } 
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case FETCH_REQUEST:
       return {
         ...state,
         loading: true
       };
-    case LOGIN_SUCCESS:
+    case FETCH_SUCCESS:
       return {
         ...state,
         loading: false,
         user: action.payload,
         error: null
       };
-    case LOGIN_FAILURE:
+    case FETCH_FAILURE:
       return {
         ...state,
         loading: false,

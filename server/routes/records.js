@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
       } else {
-        res.json(result);
+        res.status(200).json({code:200, result});
       }
     });
   });
@@ -26,7 +26,15 @@ router.get('/', (req, res) => {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
       } else {
-        res.status(201).json({ message: 'Record inserted successfully', id: result.insertId });
+        const sql = 'SELECT * FROM records';
+        conn.query(sql, (err, result) => {
+          if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+          } else {
+            res.status(200).json({code:200, message: 'Record inserted successfully', id: result.insertId, result});
+          }
+        });
       }
     });
   });

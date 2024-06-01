@@ -10,6 +10,7 @@ import borders from "assets/theme/base/borders";
 import 'assets/css/add-model.css';
 import VuiTypography from 'components/VuiTypography';
 import VuiInput from 'components/VuiInput';
+import { useFetch } from 'service/api';
 
 const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [vegitableName, setVegitableName] = useState('');
@@ -20,13 +21,12 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [totalAmount, setTotalAmount] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const selectRef = useRef  (null);
-  const cities = ['City1', 'City2', 'City3', 'nashik']; // Array of city options
-  const tocities = ['City1', 'City2', 'City3', 'nashik','pune'];
-  const drivername =['Vishal','chotya','Pratik','om'];
-  const clients =['Aniket','Vishal k','Prati k'];
 
+  const { data: driversData, isLoading: isDriversLoading, isError: isDriversError } = useFetch('drivers');
+  const { data: citiesData, isLoading: isCitiesLoading, isError: isCitiesError } = useFetch('city');
+  const { data: clientsData, isLoading: isClientsLoading, isError: isClientsError } = useFetch('clients');
 
-
+ 
   useEffect(()=>{
   if(Object.keys(editItem).length > 0 && isEditable){
       setVegitableName(editItem.vegitableName)
@@ -42,14 +42,27 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      vegitableName,
-      fromCity,
-      toCity,
-      driverName,
-      clientName,
-      // vegitableWeight,
-      // weightUnit,
-      // imageFile,
+      // vegitableName,
+      // fromCity,
+      // toCity,
+      // driverName,
+      // clientName,
+      // // vegitableWeight,
+      // // weightUnit,
+      // // imageFile,
+
+      "name": vegitableName,
+      "clientId": clientName,
+      "driverId": driverName,         
+      "cityFrom": fromCity,
+      "cityTo": toCity,
+
+      "totalAmt": 100,
+      "advance": 50,
+      "paymentType": 1, //phone pe gpay ntfc, others //dro   
+      "weight": 11, //vegitableWeight
+      "note": "",
+      "status": 1
     };
     onSubmit(formData);
     onClose();
@@ -135,8 +148,8 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                 fullWidth
             >
                 <MenuItem value="" disabled>Select City</MenuItem>
-                {cities.map(city => (
-                    <MenuItem key={city} value={city}>{city}</MenuItem>
+                {citiesData && citiesData.map(city => (
+                    <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
                 ))}
             </Select>
           </GradientBorder>
@@ -169,8 +182,8 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               
             >
                  <MenuItem value="" disabled>Select To City</MenuItem>
-                {tocities.map(city => (
-                    <MenuItem key={city} value={city}>{city}</MenuItem>
+                {citiesData && citiesData.map(city => (
+                    <MenuItem key={city.id} value={city.id}>{city.name}</MenuItem>
                 ))}
             </Select>
           </GradientBorder>
@@ -204,8 +217,8 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               })}
             >   
              <MenuItem value="" disabled>Select Driver Name</MenuItem>
-            {drivername.map(driver => (
-                <MenuItem key={driver} value={driver}>{driver}</MenuItem>
+            {driversData && driversData.map(driver => (
+                <MenuItem key={driver.name} value={driver.id}>{driver.name}</MenuItem>
             ))}
             </Select>
           </GradientBorder>
@@ -238,8 +251,8 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               })}
             >
                <MenuItem value="" disabled>Select Client</MenuItem>
-            {clients.map(client => (
-                <MenuItem key={client} value={client}>{client}</MenuItem>
+            {clientsData && clientsData.map(client => (
+                <MenuItem key={client.name} value={client.id}>{client.name}</MenuItem>
             ))}
             </Select>
           </GradientBorder>
