@@ -8,13 +8,11 @@ import Icon from "@mui/material/Icon";
 import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
 import VuiProgress from "components/VuiProgress";
+import VuiButton from "components/VuiButton";
 
 // Images
 import AdobeXD from "controllers/Icons/AdobeXD";
-import Atlassian from "controllers/Icons/Atlassian";
-import Slack from "controllers/Icons/Slack";
-import Spotify from "controllers/Icons/Spotify";
-import Jira from "controllers/Icons/Jira";
+
 
 function Completion({ value, color }) {
   return (
@@ -37,140 +35,44 @@ const action = (
 
 export default {
   columns: [
-    { name: "Name", align: "left" },
-    { name: "Email", align: "left" },
-    { name: "Phone", align: "left" },
-    { name: "Photo", align: "center" },
-    { name: "Password", align: "center" },
+    { name: "CityName", align: "left" },
+    { name: "Taluka", align: "left" },
+    { name: "Dist", align: "left" },
     { name: "action", align: "center" },
   ],
 
   rows: [
     {
-      Name: (
+      CityName: (
         <VuiBox display="flex" alignItems="center">
           <AdobeXD size="20px" />
           <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
-            Aniket Sangale
+            Chas
           </VuiTypography>
         </VuiBox>
       ),
-      Email: (
+      Taluka: (
         <VuiTypography variant="button" color="white" fontWeight="medium">
-          aniketsangale23@gmail.com
+          Sinner
         </VuiTypography>
       ),
-      Phone: (
+      Dist: (
         <VuiTypography variant="button" color="white" fontWeight="medium">
-          9172924542
-        </VuiTypography>
-      ),
-      photo: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          
-        </VuiTypography>
-      ),
-      Password: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-           Aniket@4542
+          Nashik
         </VuiTypography>
       ),
       completion: <Completion value={60} color="info" />,
-      action: <Icon
-      sx={{ cursor: "pointer", fontWeight: "bold", color: "green" }}
-      fontSize="small"
-      onClick={() => handleEdit(row)} // Ensure `row` is defined or passed correctly
-    >
-      update
-    </Icon>
+
+      action:  
+      <VuiBox width="8rem" textAlign="left" sx={{display: 'flex', justifyContent:"space-between"}}>
+      <VuiButton variant="text" color="error" >
+        <Icon sx={{ mr: "4px" }} >delete</Icon>&nbsp;DELETE
+      </VuiButton>
+    <VuiButton variant="text" color="text" >
+      <Icon sx={{ mr: "4px" }}>edit</Icon>&nbsp;EDIT
+    </VuiButton>
+    </VuiBox>
   },
-    {
-      Name: (
-        <VuiBox display="flex" alignItems="center">
-          <Atlassian size="20px" />
-          <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
-            Add Progress Track
-          </VuiTypography>
-        </VuiBox>
-      ),
-      budget: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          $3,000
-        </VuiTypography>
-      ),
-      status: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          Done
-        </VuiTypography>
-      ),
-      completion: <Completion value={100} color="info" />,
-      action,
-    },
-    {
-      project: (
-        <VuiBox display="flex" alignItems="center">
-          <Slack size="20px" />
-          <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
-            Fix Platform Errors
-          </VuiTypography>
-        </VuiBox>
-      ),
-      budget: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          Not set
-        </VuiTypography>
-      ),
-      status: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          Canceled
-        </VuiTypography>
-      ),
-      completion: <Completion value={30} color="info" />,
-      action,
-    },
-    {
-      Name: (
-        <VuiBox display="flex" alignItems="center">
-          <Spotify size="20px" />
-          <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
-            Launch our Mobile App
-          </VuiTypography>
-        </VuiBox>
-      ),
-      budget: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          $32,000
-        </VuiTypography>
-      ),
-      status: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          Canceled
-        </VuiTypography>
-      ),
-      completion: <Completion value={0} color="info" />,
-      action,
-    },
-    {
-      project: (
-        <VuiBox display="flex" alignItems="center">
-          <Jira size="20px" />
-          <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
-            Add the New Pricing Page
-          </VuiTypography>
-        </VuiBox>
-      ),
-      budget: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          $2,300
-        </VuiTypography>
-      ),
-      status: (
-        <VuiTypography variant="button" color="white" fontWeight="medium">
-          Done
-        </VuiTypography>
-      ),
-      completion: <Completion value={100} color="info" />,
-      action,
-    },
-  ],
-};
+   
+  ]}
+

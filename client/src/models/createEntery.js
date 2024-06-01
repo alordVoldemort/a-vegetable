@@ -17,9 +17,13 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [toCity, setToCity] = useState('');
   const [driverName, setDriverName] = useState('');
   const [clientName, setClientName] = useState('');
+  const [totalAmount, setTotalAmount] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const selectRef = useRef  (null);
   const cities = ['City1', 'City2', 'City3', 'nashik']; // Array of city options
+  const tocities = ['City1', 'City2', 'City3', 'nashik','pune'];
+  const drivername =['Vishal','chotya','Pratik','om'];
+  const clients =['Aniket','Vishal k','Prati k'];
 
 
 
@@ -27,6 +31,11 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   if(Object.keys(editItem).length > 0 && isEditable){
       setVegitableName(editItem.vegitableName)
       setFromCity(editItem.fromCity)
+      setToCity(editItem.toCity)
+      setDriverName(editItem.driverName)
+      setClientName(editItem.clientName)
+      setTotalAmount(editItem.totalAmount)
+
       console.log(editItem,'editItem', isEditable)
   }
   },[editItem])
@@ -125,7 +134,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                 })}
                 fullWidth
             >
-                <MenuItem value="" disabled>Select City....</MenuItem>
+                <MenuItem value="" disabled>Select City</MenuItem>
                 {cities.map(city => (
                     <MenuItem key={city} value={city}>{city}</MenuItem>
                 ))}
@@ -135,7 +144,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         <VuiBox mb={2}>
           <VuiBox mb={1} ml={0.5}>
             <Typography component="label" variant="button" color="white" fontWeight="medium">
-              To CITY
+              To CITY     
             </Typography>
           </VuiBox>
           <GradientBorder
@@ -157,11 +166,12 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                 fontSize: size.sm,
                 color: 'white'
               })}
+              
             >
-              <MenuItem value="" disabled>Select City</MenuItem>
-              <MenuItem value="City1">City1</MenuItem>
-              <MenuItem value="City2">City2</MenuItem>
-              <MenuItem value="City3">City3</MenuItem>
+                 <MenuItem value="" disabled>Select To City</MenuItem>
+                {tocities.map(city => (
+                    <MenuItem key={city} value={city}>{city}</MenuItem>
+                ))}
             </Select>
           </GradientBorder>
         </VuiBox>
@@ -192,11 +202,11 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                 fontSize: size.sm,
                 color: 'white'
               })}
-            >
-              <MenuItem value="" disabled>Select Driver</MenuItem>
-              <MenuItem value="Vishal">Vishal</MenuItem>
-              <MenuItem value="Chotya">Chotys</MenuItem>
-              <MenuItem value="Pratik">Pratik</MenuItem>
+            >   
+             <MenuItem value="" disabled>Select Driver Name</MenuItem>
+            {drivername.map(driver => (
+                <MenuItem key={driver} value={driver}>{driver}</MenuItem>
+            ))}
             </Select>
           </GradientBorder>
         </VuiBox>
@@ -227,34 +237,35 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                 color: 'white'
               })}
             >
-              <MenuItem value="" disabled>Select Client</MenuItem>
-              <MenuItem value="Vishal">Vishal</MenuItem>
-              <MenuItem value="Chotya">Chotys</MenuItem>
-              <MenuItem value="Pratik">Pratik</MenuItem>
+               <MenuItem value="" disabled>Select Client</MenuItem>
+            {clients.map(client => (
+                <MenuItem key={client} value={client}>{client}</MenuItem>
+            ))}
             </Select>
           </GradientBorder>
         </VuiBox>
 
-
-        <VuiBox className="number-input-container">
-
-      <Typography component="label" variant="button" color="white" fontWeight="medium">
-            Total Amount
-            </Typography>
+ <VuiBox mb={2}>
+        <VuiBox mb={1} ml={0.5}>
+            <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
+              Total Amount
+            </VuiTypography>
+          </VuiBox>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage={radialGradient(
+              palette.gradients.borderLight.main,
+              palette.gradients.borderLight.state,
+              palette.gradients.borderLight.angle
+            )}
+          >
+            <VuiInput type="int" placeholder="Total Amount" fontWeight="500" value={totalAmount} onChange={(e)=> setTotalAmount(e.target.value)}/>
+          </GradientBorder>
+        </VuiBox>
      
-      <VuiBox className="input-wrapper">
-        <TextField
-          type="number"
-          id="totalAmount"
-          variant="outlined"
-          placeholder="Enter total amount"
-          InputProps={{
-            className: 'number-input',
-          }}
-          fullWidth
-        />
-      </VuiBox>
-    </VuiBox>
+     
         <Box mt={2} display="flex" justifyContent="space-between">
           <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
             {!isEditable ? 'Add Entry' : 'Update'}

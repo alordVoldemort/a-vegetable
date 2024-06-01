@@ -15,10 +15,8 @@ import DashboardLayout from "controllers/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "controllers/Navbars/DashboardNavbar";
 import Footer from "controllers/Footer";
 import MiniStatisticsCard from "controllers/Cards/StatisticsCards/MiniStatisticsCard";
-import linearGradient from "assets/theme/functions/linearGradient";
 
 // Vision UI Dashboard React base styles
-import typography from "assets/theme/base/typography";
 import colors from "assets/theme/base/colors";
 
 // Dashboard layout components
@@ -37,12 +35,7 @@ import { IoDocumentText } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 
 // Data
-import LineChart from "controllers/Charts/LineCharts/LineChart";
-import BarChart from "controllers/Charts/BarCharts/BarChart";
-import { lineChartDataDashboard } from "layouts/dashboard/data/lineChartData";
-import { lineChartOptionsDashboard } from "layouts/dashboard/data/lineChartOptions";
-import { barChartDataDashboard } from "layouts/dashboard/data/barChartData";
-import { barChartOptionsDashboard } from "layouts/dashboard/data/barChartOptions";
+
 import { useCallback, useState } from "react";
 import CreateEntry from "models/createEntery";
 

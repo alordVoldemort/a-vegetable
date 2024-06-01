@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Card, Select, MenuItem, Typography, IconButton, Icon } from '@mui/material';
+import { Box, Button, Card, Typography, IconButton, Icon } from '@mui/material';
 import VuiBox from "components/VuiBox";
 import '../../../assets/css/CustomEntry.css';
+import VuiTypography from 'components/VuiTypography';
+import GradientBorder from 'controllers/GradientBorder';
+import VuiInput from 'components/VuiInput'; // Ensure you have the correct path for VuiInput
+import borders from 'assets/theme/base/borders';
 
-const CustomEntry = ({ isOpen, onClose, onSubmit }) => {
-  const [city, setCity] = useState('');
-  const [client, setClient] = useState('');
-  const [driver, setDriver] = useState('');
-
+const CustomEntry = ({ isOpen, onClose, onSubmit,editItem,isEditable }) => {
+  const [cityName, setCityName] = useState('');
+  const [talukaName, setTalukaName] = useState('');
+  const [distName, setDistName] = useState('');
+  useEffect(()=>{
+    if(Object.keys(editItem).length > 0 && isEditable){
+       setCityName(editItem.setCityName)
+        setTalukaName(editItem.setTalukaName)
+        setDistName(editItem.setDistName)
   
-  const handleSubmit = (e) => {
+        console.log(editItem,'editItem', isEditable)
+    }
+    },[editItem])
+  const   handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      city,
-      client,
-      driver,
+      cityName,
+      talukaName,
+      distName,
     };
     onSubmit(formData); // Send the form data to the parent component
     onClose(); // Close the CustomEntry form
   };
+  
 
   return isOpen && (
     <Box
@@ -35,72 +47,100 @@ const CustomEntry = ({ isOpen, onClose, onSubmit }) => {
         alignItems: 'center',
       }}
     >
-      <Card sx={{ height: 430, overflowY: "auto", margin: 4, padding: 4, width: '400px', backgroundColor: '#fff' }}>
+      <Card sx={{ height: 'auto', overflowY: "auto", margin: 4, padding: 4, width: '400px', backgroundColor: '#fff' }}>
         <IconButton
           size="small"
           color="inherit"
           aria-haspopup="true"
-          sx={{ color: 'red', marginLeft: 40, cursor: 'pointer',marginBottom:4}}
+          sx={{ color: 'red', marginLeft: 40, cursor: 'pointer', marginBottom: 4 }}
           variant="contained"
           onClick={onClose}
         >
           <Icon>close</Icon>
         </IconButton>
+    
+        {/* City input */}
         <VuiBox mb={3}>
+          <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
+            City Name
+          </VuiTypography>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage="linear-gradient(180deg, rgba(255,255,255,0.2), rgba(0,0,0,0.2))"
+          >
+            <VuiInput
+              type="text"
+              placeholder="Enter City"
+              fontWeight="500"
+              value={cityName}
+              onChange={(e) => setCityName(e.target.value)}
+            />
+          </GradientBorder>
+        </VuiBox>
+        
+      
+        <VuiBox mb={3}>
+          <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
+             Taluka
+          </VuiTypography>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage="linear-gradient(180deg, rgba(255,255,255,0.2), rgba(0,0,0,0.2))"
+          >
+            <VuiInput
+              type="text"
+              placeholder="Enter Taluka Name"
+              fontWeight="500"
+              value={talukaName}
+              onChange={(e) => setTalukaName(e.target.value)}
+            />
+          </GradientBorder>
+        </VuiBox>
 
-          {/* City input */}
-          <Select
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            displayEmpty
-            inputProps={{ 'aria-label': 'City' }}
-          >
-            <MenuItem value="">Select City</MenuItem>
-            <MenuItem value="City1">City1</MenuItem>
-            <MenuItem value="City2">City2</MenuItem>
-            <MenuItem value="City3">City3</MenuItem>
-          </Select>
-        </VuiBox>
         <VuiBox mb={3}>
-          <Select
-            value={city}
-            onChange={(e) => setClient(e.target.value)}
-            displayEmpty
-            inputProps={{ 'aria-label': 'City' }}
+          <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
+             Dist
+          </VuiTypography>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage="linear-gradient(180deg, rgba(255,255,255,0.2), rgba(0,0,0,0.2))"
           >
-            <MenuItem value="">Select Client</MenuItem>
-            <MenuItem value="City1">Aniket</MenuItem>
-            <MenuItem value="City2">Aniket</MenuItem>
-            <MenuItem value="City3">Aniket</MenuItem>
-          </Select>
+            <VuiInput
+              type="text"
+              placeholder="Enter Dist Name"
+              fontWeight="500"
+              value={distName}
+              onChange={(e) => setDistName(e.target.value)}
+            />
+          </GradientBorder>
         </VuiBox>
-        <VuiBox mb={3}>
-          <Select
-            value={city}
-            onChange={(e) => setDriver(e.target.value)}
-            displayEmpty
-            inputProps={{ 'aria-label': 'City' }}
-          >
-            <MenuItem value="">Select Driver</MenuItem>
-            <MenuItem value="City1">Chotya</MenuItem>
-            <MenuItem value="City2">Chotya</MenuItem>
-            <MenuItem value="City3">Chotya</MenuItem>
-          </Select>
-        </VuiBox>
-        <Box mt={3} display="flex" justifyContent="space-between">
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Create
+
+        <Box mt={2} display="flex" justifyContent="space-between">
+          <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
+            {!isEditable ? 'Add Entry' : 'Update'}
+          </Button>
+          <Button variant="contained" color="primary"  onClick={onClose}>
+            Cancel
           </Button>
         </Box>
       </Card>
     </Box>
-  ); 
+  );
+
 };
 
 CustomEntry.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
+  editItem: PropTypes.object,
+  isEditable: PropTypes.bool,
 };
 
 export default CustomEntry;

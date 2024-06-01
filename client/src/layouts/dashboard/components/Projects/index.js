@@ -34,7 +34,7 @@ import VuiButton from "components/VuiButton";
 import MyTable from "models/myTable";
 import { Button } from "@mui/material";
 
-function Projects(props) {
+function  Projects(props) {
   const { isOpenPopup, userData, handleDelete, handleEdit } = props
   const [menu, setMenu] = useState(null);
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
@@ -47,7 +47,7 @@ function Projects(props) {
       anchorOrigin={{
         vertical: "top",
         horizontal: "left",
-      }}
+      }}  
       transformOrigin={{
         vertical: "top",
         horizontal: "right",

@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, Card, IconButton, Icon, TextField } from '@mui/material';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import '../../../assets/css/AddUser.css';
 
-const AddUserPopup = ({ isOpenAdd, onClose, onSubmit,isEditable ,editItem}) => {
+const AddDriver = ({ isOpenDriver, onClose, onSubmit,isEditable ,editItem}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [altPhone, setAltPhone] = useState('');
-  const [password, setPassword] = useState('');
 
   useEffect(()=>{
     if(Object.keys(editItem).length > 0 && isEditable){
@@ -51,7 +48,7 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit,isEditable ,editItem}) => {
     onClose();
   };
 
-  return isOpenAdd && (
+  return isOpenDriver && (
     <Box
       sx={{
         position: 'fixed',
@@ -135,8 +132,8 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit,isEditable ,editItem}) => {
   );
 };
 
-AddUserPopup.propTypes = {
-  isOpenAdd: PropTypes.bool,
+AddDriver.propTypes = {
+  isOpenDriver: PropTypes.bool,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   editItem: PropTypes.object,
@@ -144,4 +141,4 @@ AddUserPopup.propTypes = {
 
 };
 
-export default AddUserPopup;
+export default AddDriver;
