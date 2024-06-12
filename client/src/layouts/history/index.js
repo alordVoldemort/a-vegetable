@@ -18,6 +18,11 @@ import { updateEntry } from 'service/api';
 import { createCityEntry } from 'service/api';
 import { deleteCityEntry } from 'service/api';
 import { updateCityEntry } from 'service/api';
+import { createClientEntry } from 'service/api';
+import { updateClientEntry } from 'service/api';
+import { deleteClientEntry } from 'service/api';
+import { createDriverEntry } from 'service/api';
+
 
 function Tables() {
 
@@ -25,24 +30,33 @@ function Tables() {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [isOpenDriver, setIsOpenDriver] = useState(false);
   const [entries, setCityEntries] = useState([]);//setCityEntries
-  const [users, setUsers] = useState([]);
-  const [driver, setDriver] = useState([]);
+  const [clients, setClientEntry] = useState([]);   //setclientEntery
+  const [drivers, setDriverEntry] = useState([]);
   const [editItem, setEditItem] = useState({});
   const [isEditableCity, setIsEditableCity] = useState(false);
+  const [isEditableClient,setEditableClient] = useState(false);
+  const [isEditableDriver,setEditableDriver] = useState(false)
   const [editCityItem, setEditCityItem] = useState({})
+  const [editClientItem,setEditClientItem] = useState ({});
   const dispatch = useDispatch();
 
 
 
-  // const { data: driversData, isLoading: isDriversLoading, isError: isDriversError } = useFetch('drivers');
+  const { data: driversData, isLoading: isDriversLoading, isError: isDriversError } = useFetch('drivers');
   const { data: citiesData, isLoading: isCitiesLoading, isError: isCitiesError } = useFetch('city');
-  // const { data: clientsData, isLoading: isClientsLoading, isError: isClientsError } = useFetch('clients');
+  const { data: clientsData, isLoading: isClientsLoading, isError: isClientsError } = useFetch('clients');
 
   useEffect(() => {
     if (citiesData && citiesData.length > 0) {
       setCityEntries(citiesData)
     }
-  }, [citiesData])
+    if (clientsData && clientsData.length > 0) {
+      setClientEntry(clientsData)
+    }
+    if (driversData && driversData.length >0) {
+      setDriverEntry(driversData)
+    }
+  }, [citiesData, clientsData,driversData]) 
 
 
   const handleCustomEntry = async (formData) => {
@@ -86,55 +100,67 @@ function Tables() {
 
 
 
-
   ///Client Methods
 
-  const handleAddUser = (formData) => {
-    // if (isEditable) {
-    //   setUsers(users.map(item => item.id === formData.id ? formData : item));
-    // } else {
-    //   setUsers([...users, formData]);
-    // }
-    // setIsOpenAdd(false);
-    // setIsEditable(false);
-    // setEditItem({});
-  };
-
-  const handleEditAdd = useCallback((value) => {
-    // setEditItem(value);
-    // setIsOpenAdd(true);
-    // setIsEditable(true);
-  }, []);
-
-
-  const handleDeleteAdd = useCallback((value) => {
-    if (window.confirm("Are you sure you want to delete this item? " + value.name)) {
-      const result = users.filter(item => item.id !== value.id);
-      setUsers(result);
+  const handelClientUser = async (formData) => {
+    if (!isEditableClient) {
+      const clientResponse = await dispatch(createClientEntry(formData));
+      setClientEntry([...clients, formData]);
+    } else {
+      const indexToUpdate = clients.findIndex(item => item.id === editClientItem.id);
+      if (indexToUpdate !== -1) {
+        const updateResponse = await dispatch(updateClientEntry(editClientItem.id, formData));
+        clients[indexToUpdate] = formData;
+        setClientEntry(...clients);
+      }
     }
-  }, [users]);
 
-
-
+    setIsOpenAdd(false);
+    setEditableClient(false);
+    setEditClientItem({});
+  };
+  
+  const handleClientEdit = useCallback((value) => {
+    console.log(value,'err...')
+    setEditClientItem(value);
+    setIsOpenAdd(true);
+    setEditableClient(true);
+  }, []);
+  
+  const handleClientDelete = useCallback(async (value) => {
+    if (window.confirm("Are you sure you want to delete this item? " + value.name)) {
+      const result = clients.filter(item => item.id !== value.id);
+      const deleteResponse = await dispatch(deleteClientEntry(value.id));
+      setClientEntry(result);
+    }
+  }, [clients, dispatch]);          
 
 
   ///Client Driver
-  const handleAddDriver = (formData) => {
-    // if (isEditable) {
-    //   setDriver(driver.map(item => item.id === formData.id ? formData : item));
-    // } else {
-    //   setDriver([...driver, formData]);
-    // }
-    // setIsOpenDriver(false);
-    // setIsEditable(false);
-    // setEditItem({});
+
+  const handleAddDriver = async (formData) => {
+    if (!isEditableDriver) {
+      const DriverResponse = await dispatch(createDriverEntry(formData));
+      setDriverEntry([...drivers,formData])
+    } else {
+      const indexToUpdate = drivers.findIndex(item => item.id === editDriverItem.id);
+      if (indexToUpdate !== -1) {
+        const updateResponse = await dispatch(updateDriverEntry(editDriverItem.id, formData));
+        drivers[indexToUpdate] = formData;
+        setDriverEntry(...drivers)
+
+    }
+  }
+    setIsOpenDriver(false);
+    setEditableDriver(false);
+    setEditDriverItem({});
   };
 
 
   const handleEditDriver = useCallback((value) => {
-    // setEditItem(value);
-    // setIsOpenDriver(true);
-    // setIsEditable(true);
+    setEditItem(value);
+    setIsOpenDriver(true);
+    setEditableDriver(true);
   }, []);
 
   const handleDeleteDriver = useCallback((value) => {
@@ -142,7 +168,7 @@ function Tables() {
       const result = driver.filter(item => item.id !== value.id);
       setDriver(result);
     }
-  }, [driver]);
+  }, [drivers]);
 
 
   return (
@@ -221,7 +247,7 @@ function Tables() {
             },
           }}
         >
-          <AgTable tableData={users} handleDelete={handleDeleteAdd} handleEdit={handleEditAdd} />
+          <AgTable tableData={clients} handleDelete={handleClientDelete} handleEdit={handleClientEdit} />
         </VuiBox>
       </Card>
 
@@ -259,7 +285,7 @@ function Tables() {
             },
           }}
         >
-          <AgTable tableData={driver} handleDelete={handleDeleteDriver} handleEdit={handleEditDriver} />
+          <AgTable tableData={drivers} handleDelete={handleDeleteDriver} handleEdit={handleEditDriver} />
         </VuiBox>
       </Card>
 
@@ -279,9 +305,9 @@ function Tables() {
         <AddUserPopup
           isOpenAdd={isOpenAdd}
           onClose={() => setIsOpenAdd(false)}
-          onSubmit={handleAddUser}
-        // editItem={editItem}
-        // isEditable={isEditable}
+          onSubmit={handelClientUser}
+        editItem={editItem}
+        isEditable={isEditableClient}
         />
       )}
 
@@ -290,8 +316,8 @@ function Tables() {
           isOpenDriver={isOpenDriver}
           onClose={() => setIsOpenDriver(false)}
           onSubmit={handleAddDriver}
-        // editItem={editItem}
-        // isEditable={isEditable}
+        editItem={editItem}
+        isEditable={isEditableDriver}
         />
       )}
     </DashboardLayout>

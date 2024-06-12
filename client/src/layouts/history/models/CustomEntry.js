@@ -21,8 +21,6 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
       setCityName(editItem.name)
       setTalukaName(editItem.taluka)
       setDistName(editItem.dist)
-
-
     }
   }, [editItem])
   const handleSubmit = (e) => {

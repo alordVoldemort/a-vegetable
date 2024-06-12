@@ -136,6 +136,73 @@ export const deleteCityEntry = (id = null) => {
   };
 };
 
+//client 
+
+export const createClientEntry = (insertRecord) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.post(BASE_URL + `api/cust/clients`, insertRecord);
+      dispatch(apiSuccess(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error;
+    }
+  };
+};
+
+export const updateClientEntry = (id, insertRecord) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.put(BASE_URL + `api/cust/clients/` + id, insertRecord);
+      dispatch(apiSuccess(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error;
+    }
+  };
+};
+
+export const deleteClientEntry = (id = null) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.delete(BASE_URL + `api/cust/clients/` + id);
+      dispatch(apiSuccess(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error;
+    }
+  };
+};
+
+// Driver 
+
+export const createDriverEntry = (insertRecord) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.post(BASE_URL + `api/cust/drivers`, insertRecord);
+      dispatch(apiSuccess(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error;
+    }
+  };
+};
+
+
+
+
+
+
+
+
 
 
 // export function useFetch(type, useQueryOptions={}){

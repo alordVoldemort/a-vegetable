@@ -9,41 +9,28 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) =>
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [altPhone, setAltPhone] = useState('');
+  const [altPhone,  setAltPhone] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
     if (Object.keys(editItem).length > 0 && isEditable) {
-      setName(editItem.setName)
-      setEmail(editItem.setEmail)
-      setPhone(editItem.setPhone)
-      setAddress(editItem.setAddress)
-      setAltPhone(editItem.setAltPhone)
+      setName(editItem.name)
+      setEmail(editItem.email)
+      setPhone(editItem.phone)
+      setAddress(editItem.address)
+      setAltPhone(editItem.altPhone)
 
     }
   }, [editItem])
 
-
-
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPhoto(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      name,
-      email,
-      phone,
-      address,
-      altPhone,
+    "Name" : name,
+    "Phone" :phone,
+    "Email" :email,
+    "Address":address,
+    "AltPhone": altPhone,
 
     };
     onSubmit(formData);
