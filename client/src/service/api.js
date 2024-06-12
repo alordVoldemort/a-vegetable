@@ -20,7 +20,6 @@ export function useFetch(type, useQueryOptions = {}) {
   });
 }
 
-
 export const loginUser = (credentials) => {
   return async (dispatch) => {
     dispatch(apiRequest());
@@ -36,7 +35,7 @@ export const loginUser = (credentials) => {
 };
 
 
-
+//dashboard
 export const getAllEntries = () => {
   return async (dispatch) => {
     dispatch(apiRequest());
@@ -50,7 +49,6 @@ export const getAllEntries = () => {
     }
   };
 };
-
 
 export const createEntry = (insertRecord) => {
   return async (dispatch) => {
@@ -66,7 +64,6 @@ export const createEntry = (insertRecord) => {
   };
 };
 
-
 export const updateEntry = (insertRecord) => {
   return async (dispatch) => {
     dispatch(apiRequest());
@@ -80,7 +77,6 @@ export const updateEntry = (insertRecord) => {
     }
   };
 };
-
 
 export const deleteEntry = (id=null) => {
   return async (dispatch) => {
@@ -97,8 +93,48 @@ export const deleteEntry = (id=null) => {
 };
 
 
+// custom entery // city
+export const createCityEntry = (insertRecord) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.post(BASE_URL+`api/cust/city`, insertRecord);
+      dispatch(apiSuccess(response.data));
+      return response.data;  
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error; 
+    }
+  };
+};
 
+export const updateCityEntry = (id, insertRecord) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.put(BASE_URL+`api/cust/city/`+ id, insertRecord);
+      dispatch(apiSuccess(response.data));
+      return response.data;  
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error; 
+    }
+  };
+};
 
+export const deleteCityEntry = (id=null) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.delete(BASE_URL+`api/cust/city/`+ id);
+      dispatch(apiSuccess(response.data));
+      return response.data;  
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error; 
+    }
+  };
+};
 
 
 

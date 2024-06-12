@@ -142,6 +142,29 @@ const AgTable = ({ tableData, handleDelete, handleEdit }) => {
              
               </VuiBox>
             ),
+            [keys[5]]: (
+              <VuiBox width="8rem" textAlign="left">
+                  {avatars([
+                  [avatar1, "Ryan Tompson"]
+                ])}
+                <VuiTypography color="white" variant="button" fontWeight="bold">
+                {item[keys[5]]}
+                </VuiTypography>
+             
+              </VuiBox>
+            ),
+            [keys[6]]: (
+              <VuiBox width="8rem" textAlign="left">
+                  {avatars([
+                  [avatar1, "Ryan Tompson"]
+                ])}
+                <VuiTypography color="white" variant="button" fontWeight="bold">
+                {item[keys[6]]}
+                </VuiTypography>
+             
+              </VuiBox>
+            ),
+            
              status: (
               <VuiBox width="8rem" textAlign="left">
                 <VuiProgress value={60} color="info" label={false} sx={{ background: "#2D2E5F" }} />
@@ -165,7 +188,6 @@ const AgTable = ({ tableData, handleDelete, handleEdit }) => {
   
     const columns = tableData.length > 0 ?  extractColumns(tableData) : _columns
     const rows = tableData.length > 0 ?  extractRows() : _rows
-  console.log("columns, ", columns)
  
   return (
     <Table columns={columns} rows={rows} />

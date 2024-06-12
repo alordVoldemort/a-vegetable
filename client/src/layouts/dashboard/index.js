@@ -41,6 +41,7 @@ import CreateEntry from "models/createEntery";
 import { updateEntry, createEntry } from "service/api";
 import { useDispatch } from 'react-redux';
 import { getAllEntries } from "service/api";
+import { deleteEntry } from "service/api";
 
 
 function Dashboard() {
@@ -63,25 +64,20 @@ function Dashboard() {
         }
       })
       .catch((error) => {
-        console.log("test..")
+        console.log("err..")
       });
   }, []);
 
-  console.log(userData, 'userData')
 
   const handleCreateEntry = async (input) => {
-    console.log(input, isEditable, 'after submit')
     if (!isEditable) {
       const createResponse = await dispatch(createEntry(input));
-      console.log(createResponse, 'createResponse')
       input.id = userData.length + 1
       setUserData([...userData, input])
     } else {
       const indexToUpdate = userData.findIndex(item => item.id === editItem.id);
-      console.log(indexToUpdate, 'indexToUpdate')
       if (indexToUpdate !== -1) {
         const upadteResponse = await dispatch(updateEntry(indexToUpdate, updatedRecord));
-        console.log(upadteResponse, 'upadteResponse')
         userData[indexToUpdate] = input
         setUserData(userData)
       }
@@ -91,16 +87,15 @@ function Dashboard() {
     setIsEditable(false)
   }
 
-  const handleDelete = useCallback((value) => {
-    console.log(value.id, 'delete')
+  const handleDelete = useCallback( async (value) => {
     if (window.confirm("Are you sure you want to delete this item? " + value.vegitableName)) {
       const result = userData.filter(item => item.id !== value.id);
+      const deleteResponse = await dispatch(deleteEntry(value.id));
       setUserData(result)
     }
   }, [userData])
 
   const handleEdit = useCallback((value) => {
-    console.log(value.id, 'edit')
     setEditItem(value)
     setIsOpen(true)
     setIsEditable(true)
@@ -334,6 +329,7 @@ function Dashboard() {
         </Grid>
       </VuiBox>
       <Footer />
+
       {isOpen ? <CreateEntry 
       isOpen={isOpen} 
       onClose={() => setIsOpen(false)} 
@@ -341,6 +337,7 @@ function Dashboard() {
       editItem={editItem} 
       isEditable={isEditable} 
       /> : null}
+      
     </DashboardLayout>
   );
 }

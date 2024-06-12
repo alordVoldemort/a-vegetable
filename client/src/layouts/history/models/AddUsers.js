@@ -20,7 +20,6 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit,isEditable ,editItem}) => {
       setAddress(editItem.setAddress)
       setAltPhone(editItem.setAltPhone)
   
-        console.log(editItem,'editItem', isEditable)
     }
     },[editItem])
 

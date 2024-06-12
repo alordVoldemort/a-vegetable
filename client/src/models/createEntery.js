@@ -19,50 +19,52 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [driverName, setDriverName] = useState('');
   const [clientName, setClientName] = useState('');
   const [totalAmount, setTotalAmount] = useState('');
+  const [vegetableWeight,setVegetableWeight]= useState('')
+  const [advance,setAdvance] = useState('')
   const [imageFile, setImageFile] = useState(null);
-  const selectRef = useRef  (null);
+  const selectRef = useRef(null);
 
   const { data: driversData, isLoading: isDriversLoading, isError: isDriversError } = useFetch('drivers');
   const { data: citiesData, isLoading: isCitiesLoading, isError: isCitiesError } = useFetch('city');
   const { data: clientsData, isLoading: isClientsLoading, isError: isClientsError } = useFetch('clients');
 
- 
-  useEffect(()=>{
-  if(Object.keys(editItem).length > 0 && isEditable){
+
+  useEffect(() => {
+    if (Object.keys(editItem).length > 0 && isEditable) {
       setVegitableName(editItem.vegitableName)
       setFromCity(editItem.fromCity)
       setToCity(editItem.toCity)
       setDriverName(editItem.driverName)
       setClientName(editItem.clientName)
       setTotalAmount(editItem.totalAmount)
+      setVegetableWeight(editItem.vegetableWeight)
+      setAdvance(editItem.advance)
 
-      console.log(editItem,'editItem', isEditable)
-  }
-  },[editItem])
+    }
+  }, [editItem])
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      // vegitableName,
-      // fromCity,
-      // toCity,
-      // driverName,
-      // clientName,
+      // vegitableName, done 
+      // fromCity, done
+      // toCity, done 
+      // driverName,done
+      // clientName, done
       // // vegitableWeight,
       // // weightUnit,
       // // imageFile,
-
       "name": vegitableName,
       "clientId": clientName,
-      "driverId": driverName,         
+      "driverId": driverName,
       "cityFrom": fromCity,
       "cityTo": toCity,
-
-      "totalAmt": 100,
-      "advance": 50,
+      "weight":vegetableWeight,
+      "totalAmt": totalAmount,
+      "advance": advance,
       "paymentType": 1, //phone pe gpay ntfc, others //dro   
-      "weight": 11, //vegitableWeight
       "note": "",
       "status": 1
+
     };
     onSubmit(formData);
     onClose();
@@ -74,7 +76,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
       selectRef.current.click();
     }
   };
-
+  
   return isOpen && (
     <Box sx={{
       position: 'fixed',
@@ -100,7 +102,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         </IconButton>
 
         <VuiBox mb={2}>
-        <VuiBox mb={1} ml={0.5}>
+          <VuiBox mb={1} ml={0.5}>
             <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
               Vegitable Name
             </VuiTypography>
@@ -115,7 +117,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               palette.gradients.borderLight.angle
             )}
           >
-            <VuiInput type="email" placeholder="Your email..." fontWeight="500" value={vegitableName} onChange={(e)=> setVegitableName(e.target.value)}/>
+            <VuiInput type="email" placeholder="Your email" fontWeight="500" value={vegitableName} onChange={(e) => setVegitableName(e.target.value)} />
           </GradientBorder>
         </VuiBox>
 
@@ -134,30 +136,32 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               palette.gradients.borderLight.state,
               palette.gradients.borderLight.angle
             )}
-            
+
           >
             <Select
-                value={fromCity}
-                onChange={(e) => setFromCity(e.target.value)}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                sx={({ typography: { size } }) => ({
-                    fontSize: size.sm,
-                    color: 'white'
-                })}
-                fullWidth
+              value={fromCity}
+              onChange={(e) => setFromCity(e.target.value)}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              sx={({ typography: { size } }) => ({
+                fontSize: size.sm,
+                color: 'white'
+              })}
+              fullWidth
             >
-                <MenuItem value="" disabled>Select City</MenuItem>
-                {citiesData && citiesData.map(city => (
-                    <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
-                ))}
+              <MenuItem value="" disabled>Select City</MenuItem>
+              {citiesData && citiesData.map(city => (
+                <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
+              ))}
             </Select>
           </GradientBorder>
         </VuiBox>
+
+
         <VuiBox mb={2}>
           <VuiBox mb={1} ml={0.5}>
             <Typography component="label" variant="button" color="white" fontWeight="medium">
-              To CITY     
+              To CITY
             </Typography>
           </VuiBox>
           <GradientBorder
@@ -179,17 +183,17 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                 fontSize: size.sm,
                 color: 'white'
               })}
-              
+
             >
-                 <MenuItem value="" disabled>Select To City</MenuItem>
-                {citiesData && citiesData.map(city => (
-                    <MenuItem key={city.id} value={city.id}>{city.name}</MenuItem>
-                ))}
+              <MenuItem value="" disabled>Select To City</MenuItem>
+              {citiesData && citiesData.map(city => (
+                <MenuItem key={city.id} value={city.id}>{city.name}</MenuItem>
+              ))}
             </Select>
-          </GradientBorder>
+          </GradientBorder>                                                                                                                    
         </VuiBox>
 
-{/* Driver Name */}
+        {/* Driver Name */}
         <VuiBox mb={2}>
           <VuiBox mb={1} ml={0.5}>
             <Typography component="label" variant="button" color="white" fontWeight="medium">
@@ -215,11 +219,11 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                 fontSize: size.sm,
                 color: 'white'
               })}
-            >   
-             <MenuItem value="" disabled>Select Driver Name</MenuItem>
-            {driversData && driversData.map(driver => (
+            >
+              <MenuItem value="" disabled>Select Driver Name</MenuItem>
+              {driversData && driversData.map(driver => (
                 <MenuItem key={driver.name} value={driver.id}>{driver.name}</MenuItem>
-            ))}
+              ))}
             </Select>
           </GradientBorder>
         </VuiBox>
@@ -227,7 +231,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         <VuiBox mb={2}>
           <VuiBox mb={1} ml={0.5}>
             <Typography component="label" variant="button" color="white" fontWeight="medium">
-            Client Name
+              Client Name
             </Typography>
           </VuiBox>
           <GradientBorder
@@ -250,16 +254,16 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                 color: 'white'
               })}
             >
-               <MenuItem value="" disabled>Select Client</MenuItem>
-            {clientsData && clientsData.map(client => (
+              <MenuItem value="" disabled>Select Client</MenuItem>
+              {clientsData && clientsData.map(client => (
                 <MenuItem key={client.name} value={client.id}>{client.name}</MenuItem>
-            ))}
+              ))}
             </Select>
           </GradientBorder>
         </VuiBox>
 
- <VuiBox mb={2}>
-        <VuiBox mb={1} ml={0.5}>
+        <VuiBox mb={2}>
+          <VuiBox mb={1} ml={0.5}>
             <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
               Total Amount
             </VuiTypography>
@@ -274,16 +278,64 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               palette.gradients.borderLight.angle
             )}
           >
-            <VuiInput type="int" placeholder="Total Amount" fontWeight="500" value={totalAmount} onChange={(e)=> setTotalAmount(e.target.value)}/>
+            <VuiInput type="int" placeholder="Total Amount" fontWeight="500" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} />
           </GradientBorder>
         </VuiBox>
-     
-     
+
+
+        <VuiBox mb={1} ml={0.5}>
+          <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
+             Weight
+          </VuiTypography>
+        </VuiBox>
+        <GradientBorder
+          minWidth="100%"
+          padding="1px"
+          borderRadius={borders.borderRadius.lg}
+          backgroundImage={radialGradient(
+            palette.gradients.borderLight.main,
+            palette.gradients.borderLight.state,
+            palette.gradients.borderLight.angle
+          )}
+        >
+          <VuiInput
+            type="number"
+            placeholder="Vegetable weight..."
+            fontWeight="500"
+            value={vegetableWeight}
+            onChange={(e) => setVegetableWeight(e.target.value)}
+          />
+        </GradientBorder>
+
+        <VuiBox mb={2}>
+          <VuiBox mb={1} ml={0.5}>
+            <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
+            Advance 
+            </VuiTypography>
+          </VuiBox>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage={radialGradient(
+              palette.gradients.borderLight.main,
+              palette.gradients.borderLight.state,
+              palette.gradients.borderLight.angle
+            )}
+          >
+            <VuiInput type="int" placeholder="Total Amount"
+                      fontWeight="500" 
+                      value={advance} 
+                      onChange={(e) => 
+                      setAdvance(e.target.value)} />
+          </GradientBorder>
+        </VuiBox>
+
         <Box mt={2} display="flex" justifyContent="space-between">
           <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
             {!isEditable ? 'Add Entry' : 'Update'}
           </Button>
-          <Button variant="contained" color="primary"  onClick={onClose}>
+          <Button variant="contained" color="primary" onClick={onClose}>
             Cancel
           </Button>
         </Box>

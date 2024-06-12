@@ -53,7 +53,7 @@ export default {
       ),
       Taluka: (
         <VuiTypography variant="button" color="white" fontWeight="medium">
-          Sinner
+          Sinner 
         </VuiTypography>
       ),
       Dist: (

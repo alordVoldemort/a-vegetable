@@ -8,30 +8,34 @@ import GradientBorder from 'controllers/GradientBorder';
 import VuiInput from 'components/VuiInput'; // Ensure you have the correct path for VuiInput
 import borders from 'assets/theme/base/borders';
 
-const CustomEntry = ({ isOpen, onClose, onSubmit,editItem,isEditable }) => {
+
+
+const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [cityName, setCityName] = useState('');
   const [talukaName, setTalukaName] = useState('');
   const [distName, setDistName] = useState('');
-  useEffect(()=>{
-    if(Object.keys(editItem).length > 0 && isEditable){
-       setCityName(editItem.setCityName)
-        setTalukaName(editItem.setTalukaName)
-        setDistName(editItem.setDistName)
-  
-        console.log(editItem,'editItem', isEditable)
+
+
+  useEffect(() => {
+    if (Object.keys(editItem).length > 0 && isEditable) {
+      setCityName(editItem.name)
+      setTalukaName(editItem.taluka)
+      setDistName(editItem.dist)
+
+
     }
-    },[editItem])
-  const   handleSubmit = (e) => {
+  }, [editItem])
+  const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      cityName,
-      talukaName,
-      distName,
+    "name" : cityName,
+    "taluka": talukaName,
+    "dist" : distName,
     };
     onSubmit(formData); // Send the form data to the parent component
     onClose(); // Close the CustomEntry form
   };
-  
+
 
   return isOpen && (
     <Box
@@ -58,7 +62,7 @@ const CustomEntry = ({ isOpen, onClose, onSubmit,editItem,isEditable }) => {
         >
           <Icon>close</Icon>
         </IconButton>
-    
+
         {/* City input */}
         <VuiBox mb={3}>
           <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
@@ -79,11 +83,10 @@ const CustomEntry = ({ isOpen, onClose, onSubmit,editItem,isEditable }) => {
             />
           </GradientBorder>
         </VuiBox>
-        
-      
+
         <VuiBox mb={3}>
           <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-             Taluka
+            Taluka
           </VuiTypography>
           <GradientBorder
             minWidth="100%"
@@ -103,7 +106,7 @@ const CustomEntry = ({ isOpen, onClose, onSubmit,editItem,isEditable }) => {
 
         <VuiBox mb={3}>
           <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-             Dist
+            Dist
           </VuiTypography>
           <GradientBorder
             minWidth="100%"
@@ -125,7 +128,7 @@ const CustomEntry = ({ isOpen, onClose, onSubmit,editItem,isEditable }) => {
           <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
             {!isEditable ? 'Add Entry' : 'Update'}
           </Button>
-          <Button variant="contained" color="primary"  onClick={onClose}>
+          <Button variant="contained" color="primary" onClick={onClose}>
             Cancel
           </Button>
         </Box>
