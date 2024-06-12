@@ -11,6 +11,9 @@ import 'assets/css/add-model.css';
 import VuiTypography from 'components/VuiTypography';
 import VuiInput from 'components/VuiInput';
 import { useFetch } from 'service/api';
+import './model.module.css';
+import { makeStyles } from '@mui/styles';
+
 
 const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [vegitableName, setVegitableName] = useState('');
@@ -19,15 +22,14 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [driverName, setDriverName] = useState('');
   const [clientName, setClientName] = useState('');
   const [totalAmount, setTotalAmount] = useState('');
-  const [vegetableWeight,setVegetableWeight]= useState('')
-  const [advance,setAdvance] = useState('')
+  const [vegetableWeight, setVegetableWeight] = useState('')
+  const [advance, setAdvance] = useState('')
   const [imageFile, setImageFile] = useState(null);
   const selectRef = useRef(null);
 
   const { data: driversData, isLoading: isDriversLoading, isError: isDriversError } = useFetch('drivers');
   const { data: citiesData, isLoading: isCitiesLoading, isError: isCitiesError } = useFetch('city');
   const { data: clientsData, isLoading: isClientsLoading, isError: isClientsError } = useFetch('clients');
-
 
   useEffect(() => {
     if (Object.keys(editItem).length > 0 && isEditable) {
@@ -58,7 +60,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
       "driverId": driverName,
       "cityFrom": fromCity,
       "cityTo": toCity,
-      "weight":vegetableWeight,
+      "weight": vegetableWeight,
       "totalAmt": totalAmount,
       "advance": advance,
       "paymentType": 1, //phone pe gpay ntfc, others //dro   
@@ -76,9 +78,10 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
       selectRef.current.click();
     }
   };
-  
+  const classes = useStyles();
+
   return isOpen && (
-    <Box sx={{
+    <Box style={{}} sx={{
       position: 'fixed',
       top: 0,
       left: 0,
@@ -100,13 +103,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         >
           <Icon>close</Icon>
         </IconButton>
-
-        <VuiBox mb={2}>
-          <VuiBox mb={1} ml={0.5}>
-            <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-              Vegitable Name
-            </VuiTypography>
-          </VuiBox>
+        <VuiBox mb={2} mt={2}>
           <GradientBorder
             minWidth="100%"
             padding="1px"
@@ -117,26 +114,20 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               palette.gradients.borderLight.angle
             )}
           >
-            <VuiInput type="email" placeholder="Your email" fontWeight="500" value={vegitableName} onChange={(e) => setVegitableName(e.target.value)} />
+            <VuiInput type="text" sx={{ color: 'white !important' }} placeholder="Vegitable Name" fontWeight="500" value={vegitableName} onChange={(e) => setVegitableName(e.target.value)} />
           </GradientBorder>
         </VuiBox>
 
         <VuiBox mb={2}>
-          <VuiBox mb={1} ml={0.5}>
-            <Typography component="label" variant="button" color="white" fontWeight="medium">
-              From City
-            </Typography>
-          </VuiBox>
           <GradientBorder
             minWidth="100%"
-            borderRadius={borders.borderRadius.lg}
             padding="1px"
+            borderRadius={borders.borderRadius.lg}
             backgroundImage={radialGradient(
               palette.gradients.borderLight.main,
               palette.gradients.borderLight.state,
               palette.gradients.borderLight.angle
             )}
-
           >
             <Select
               value={fromCity}
@@ -144,12 +135,12 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
               sx={({ typography: { size } }) => ({
+                backgroundColor: '#0f1535 !important',
                 fontSize: size.sm,
-                color: 'white'
+                color: fromCity ? 'white !important' : ''
               })}
-              fullWidth
             >
-              <MenuItem value="" disabled>Select City</MenuItem>
+              <MenuItem value="" disabled >Select City</MenuItem>
               {citiesData && citiesData.map(city => (
                 <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
               ))}
@@ -159,11 +150,6 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
 
 
         <VuiBox mb={2}>
-          <VuiBox mb={1} ml={0.5}>
-            <Typography component="label" variant="button" color="white" fontWeight="medium">
-              To CITY
-            </Typography>
-          </VuiBox>
           <GradientBorder
             minWidth="100%"
             borderRadius={borders.borderRadius.lg}
@@ -180,26 +166,21 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
               sx={({ typography: { size } }) => ({
+                backgroundColor: '#0f1535 !important',
                 fontSize: size.sm,
-                color: 'white'
+                color: toCity ? 'white !important' : ''
               })}
-
             >
               <MenuItem value="" disabled>Select To City</MenuItem>
               {citiesData && citiesData.map(city => (
                 <MenuItem key={city.id} value={city.id}>{city.name}</MenuItem>
               ))}
             </Select>
-          </GradientBorder>                                                                                                                    
+          </GradientBorder>
         </VuiBox>
 
         {/* Driver Name */}
         <VuiBox mb={2}>
-          <VuiBox mb={1} ml={0.5}>
-            <Typography component="label" variant="button" color="white" fontWeight="medium">
-              Driver Name
-            </Typography>
-          </VuiBox>
           <GradientBorder
             minWidth="100%"
             borderRadius={borders.borderRadius.lg}
@@ -216,8 +197,9 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
               sx={({ typography: { size } }) => ({
+                backgroundColor: '#0f1535 !important',
                 fontSize: size.sm,
-                color: 'white'
+                color: driverName ? 'white !important' : ''
               })}
             >
               <MenuItem value="" disabled>Select Driver Name</MenuItem>
@@ -229,11 +211,6 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         </VuiBox>
 
         <VuiBox mb={2}>
-          <VuiBox mb={1} ml={0.5}>
-            <Typography component="label" variant="button" color="white" fontWeight="medium">
-              Client Name
-            </Typography>
-          </VuiBox>
           <GradientBorder
             minWidth="100%"
             borderRadius={borders.borderRadius.lg}
@@ -250,8 +227,9 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
               sx={({ typography: { size } }) => ({
+                backgroundColor: '#0f1535 !important',
                 fontSize: size.sm,
-                color: 'white'
+                color: clientName ? 'white !important' : ''
               })}
             >
               <MenuItem value="" disabled>Select Client</MenuItem>
@@ -263,11 +241,6 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         </VuiBox>
 
         <VuiBox mb={2}>
-          <VuiBox mb={1} ml={0.5}>
-            <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-              Total Amount
-            </VuiTypography>
-          </VuiBox>
           <GradientBorder
             minWidth="100%"
             padding="1px"
@@ -278,41 +251,17 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               palette.gradients.borderLight.angle
             )}
           >
-            <VuiInput type="int" placeholder="Total Amount" fontWeight="500" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} />
+            <VuiInput type="text"
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*', // Optional pattern to enforce numeric input
+              }}
+              sx={{ color: 'white !important' }} placeholder="Enter Total Amount" fontWeight="500" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} />
           </GradientBorder>
         </VuiBox>
 
 
-        <VuiBox mb={1} ml={0.5}>
-          <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-             Weight
-          </VuiTypography>
-        </VuiBox>
-        <GradientBorder
-          minWidth="100%"
-          padding="1px"
-          borderRadius={borders.borderRadius.lg}
-          backgroundImage={radialGradient(
-            palette.gradients.borderLight.main,
-            palette.gradients.borderLight.state,
-            palette.gradients.borderLight.angle
-          )}
-        >
-          <VuiInput
-            type="number"
-            placeholder="Vegetable weight..."
-            fontWeight="500"
-            value={vegetableWeight}
-            onChange={(e) => setVegetableWeight(e.target.value)}
-          />
-        </GradientBorder>
-
         <VuiBox mb={2}>
-          <VuiBox mb={1} ml={0.5}>
-            <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-            Advance 
-            </VuiTypography>
-          </VuiBox>
           <GradientBorder
             minWidth="100%"
             padding="1px"
@@ -323,11 +272,33 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               palette.gradients.borderLight.angle
             )}
           >
-            <VuiInput type="int" placeholder="Total Amount"
-                      fontWeight="500" 
-                      value={advance} 
-                      onChange={(e) => 
-                      setAdvance(e.target.value)} />
+            <VuiInput
+              type="number"
+              sx={{ color: 'white !important' }}
+              placeholder="Vegetable weight..."
+              fontWeight="500"
+              value={vegetableWeight}
+              onChange={(e) => setVegetableWeight(e.target.value)}
+            />
+          </GradientBorder>
+        </VuiBox>
+
+        <VuiBox mb={2}>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage={radialGradient(
+              palette.gradients.borderLight.main,
+              palette.gradients.borderLight.state,
+              palette.gradients.borderLight.angle
+            )}
+          >
+            <VuiInput type="int" placeholder="Total Amount" sx={{ color: 'white !important' }}
+              fontWeight="500"
+              value={advance}
+              onChange={(e) =>
+                setAdvance(e.target.value)} />
           </GradientBorder>
         </VuiBox>
 
@@ -351,5 +322,17 @@ CreateEntry.propTypes = {
   editItem: PropTypes.object,
   isEditable: PropTypes.bool,
 };
+
+const useStyles = makeStyles((theme) => ({
+  selectRoot: {
+    backgroundColor: 'transparent', // Background color
+    color: 'black', // Text color
+  },
+  selectSelect: {
+    '&:focus': {
+      backgroundColor: 'transparent !important', // Selected color on focus
+    },
+  },
+}));
 
 export default CreateEntry;

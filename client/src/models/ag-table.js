@@ -104,14 +104,14 @@ const AgTable = ({ tableData, handleDelete, handleEdit }) => {
         {
           [keys[0]]: (
             <VuiBox display="flex" alignItems="center">
-              <AdobeXD size="20px" />
+              {/* <AdobeXD size="20px" /> */}
               <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
                 {item[keys[0]]}
               </VuiTypography>
             </VuiBox>
           ),
           [keys[1]]: (
-            <VuiBox display="flex" py={1}>
+            <VuiBox display="flex" color="white" py={1}>
               {item[keys[1]]}
             </VuiBox>
           ),
@@ -122,9 +122,9 @@ const AgTable = ({ tableData, handleDelete, handleEdit }) => {
           ),
           [keys[3]]: (
             <VuiBox width="8rem" textAlign="left">
-              {avatars([
+              {/* {avatars([
                 [avatar1, "Ryan Tompson"]
-              ])}
+              ])} */}
               <VuiTypography color="white" variant="button" fontWeight="bold">
                 {item[keys[3]]}
               </VuiTypography>
@@ -143,7 +143,7 @@ const AgTable = ({ tableData, handleDelete, handleEdit }) => {
             </VuiBox>
           ),
           [keys[5]]: (
-            <VuiBox width="8rem" textAlign="left">
+            <VuiBox width="8rem" color="white" textAlign="left">
               {avatars([
                 [avatar1, "Ryan Tompson"]
               ])}
@@ -154,10 +154,10 @@ const AgTable = ({ tableData, handleDelete, handleEdit }) => {
             </VuiBox>
           ),
           [keys[6]]: (
-            <VuiBox width="8rem" textAlign="left">
-              {avatars([
+            <VuiBox width="8rem" color="white" textAlign="left">
+              {/* {avatars([
                 [avatar1, "Ryan Tompson"]
-              ])}
+              ])} */}
               <VuiTypography color="white" variant="button" fontWeight="bold">
                 {item[keys[6]]}
               </VuiTypography>
@@ -171,11 +171,11 @@ const AgTable = ({ tableData, handleDelete, handleEdit }) => {
             </VuiBox>
           ),
           action: (
-            <VuiBox width="8rem" textAlign="left" sx={{ display: 'flex', justifyContent: "space-between" }}>
+            <VuiBox textAlign="left" sx={{ display: 'flex', justifyContent: "space-between" }}>
               <VuiButton variant="text" color="error" onClick={() => handleDelete(item)}>
                 <Icon sx={{ mr: "4px" }} >delete</Icon>&nbsp;DELETE
               </VuiButton>
-              <VuiButton variant="text" color="text" onClick={() => handleEdit(item)}>
+              <VuiButton variant="text" color="white" onClick={() => handleEdit(item)}>
                 <Icon sx={{ mr: "4px" }}>edit</Icon>&nbsp;EDIT
               </VuiButton>
             </VuiBox>

@@ -49,12 +49,12 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         alignItems: 'center',
       }}
     >
-      <Card sx={{ height: 'auto', overflowY: "auto", margin: 4, padding: 4, width: '400px', backgroundColor: '#fff' }}>
+      <Card sx={{ height: 'auto', overflowY: "auto",  width: '400px', backgroundColor: '#fff' }}>
         <IconButton
           size="small"
           color="inherit"
           aria-haspopup="true"
-          sx={{ color: 'red', marginLeft: 40, cursor: 'pointer', marginBottom: 4 }}
+          sx={{ color: 'red', position:'absolute', right:2, top:1, cursor: 'pointer' }}
           variant="contained"
           onClick={onClose}
         >
@@ -62,10 +62,7 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         </IconButton>
 
         {/* City input */}
-        <VuiBox mb={3}>
-          <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-            City Name
-          </VuiTypography>
+        <VuiBox mb={3} mt={3}>         
           <GradientBorder
             minWidth="100%"
             padding="1px"
@@ -74,18 +71,16 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
           >
             <VuiInput
               type="text"
-              placeholder="Enter City"
+              placeholder="Enter City Name"
               fontWeight="500"
               value={cityName}
+              sx={{ color: 'white !important'}}
               onChange={(e) => setCityName(e.target.value)}
             />
           </GradientBorder>
         </VuiBox>
 
         <VuiBox mb={3}>
-          <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-            Taluka
-          </VuiTypography>
           <GradientBorder
             minWidth="100%"
             padding="1px"
@@ -97,15 +92,13 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               placeholder="Enter Taluka Name"
               fontWeight="500"
               value={talukaName}
+              sx={{ color: 'white !important'}}
               onChange={(e) => setTalukaName(e.target.value)}
             />
           </GradientBorder>
         </VuiBox>
 
-        <VuiBox mb={3}>
-          <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-            Dist
-          </VuiTypography>
+        <VuiBox mb={3}>         
           <GradientBorder
             minWidth="100%"
             padding="1px"
@@ -116,17 +109,18 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
               type="text"
               placeholder="Enter Dist Name"
               fontWeight="500"
+              sx={{ color: 'white !important'}}
               value={distName}
               onChange={(e) => setDistName(e.target.value)}
             />
           </GradientBorder>
         </VuiBox>
 
-        <Box mt={2} display="flex" justifyContent="space-between">
-          <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
+        <Box display="flex" justifyContent="space-between">
+          <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}  sx={{ color: 'white !important', borderRadius: 1}}>
             {!isEditable ? 'Add Entry' : 'Update'}
           </Button>
-          <Button variant="contained" color="primary" onClick={onClose}>
+          <Button variant="contained" color="primary" onClick={onClose}  sx={{ color: 'white !important', borderRadius: 1}}>
             Cancel
           </Button>
         </Box>

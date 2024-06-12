@@ -1,0 +1,17 @@
+& .MuiSelect-selectfocus {
+  background-color: 'transparent',
+}
+& .MuiSelect-select {
+  color: 'blue'
+}
+& .MuiMenuItem-root .Mui-selected {
+    color: 'blue';
+    background-color: 'transparent'
+  }
+  &.Mui-selectedhover {
+    background-color: 'lightgray'
+  }
+
+& .MuiMenuItem-root.Mui-disabled {
+  color :'gray'
+}

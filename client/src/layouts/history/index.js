@@ -174,120 +174,121 @@ function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-
-      <VuiBox mb={3}>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ color: 'white !important', cursor: 'pointer' }}
-          onClick={() => {
-            setIsOpen(true);
-            setEditItem({});
-            setIsEditableCity(false);
-          }}
-        >
-          Add City
-        </Button>
-      </VuiBox>
-      <Card>
-        <VuiBox display="block" justifyContent="space-between" alignItems="center">
-          <VuiTypography variant="lg" color="white">
+      <VuiBox py={1} pr={2} mb={1}>
+        <VuiBox display="flex" justifyContent="space-between" alignItems="center">
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ color: 'white !important', cursor: 'pointer', margin: 1, width:200 }}
+            onClick={() => {
+              setIsOpen(true);
+              setEditItem({});
+              setIsEditableCity(false);
+            }}
+          >
             Add City
-          </VuiTypography>
+          </Button>
         </VuiBox>
-        <VuiBox
-          sx={{
-            "& th": {
-              borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-                `${borderWidth[1]} solid ${grey[700]}`,
-            },
-            "& .MuiTableRow-root:not(:last-child)": {
-              "& td": {
+        <Card>
+          <VuiBox display="block" justifyContent="space-between" alignItems="center">
+            <VuiTypography variant="lg" color="white">
+              Add City
+            </VuiTypography>
+          </VuiBox>
+          <VuiBox
+            sx={{
+              "& th": {
                 borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
                   `${borderWidth[1]} solid ${grey[700]}`,
               },
-            },
-          }}
-        >
-          <AgTable tableData={entries} handleDelete={handleCityDelete} handleEdit={handelCityEdit} />
-        </VuiBox>
-      </Card>
+              "& .MuiTableRow-root:not(:last-child)": {
+                "& td": {
+                  borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
+                    `${borderWidth[1]} solid ${grey[700]}`,
+                },
+              },
+            }}
+          >
+            <AgTable tableData={entries} handleDelete={handleCityDelete} handleEdit={handelCityEdit} />
+          </VuiBox>
+        </Card>
 
-      <VuiBox mb={3} my={4}>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ color: 'white !important', cursor: 'pointer' }}
-          onClick={() => {
-            setIsOpenAdd(true);
-            setEditItem({});
-            // setIsEditable(false);
-          }}
-        >
-          Add Client
-        </Button>
-      </VuiBox>
-      <Card>
-        <VuiBox display="block" justifyContent="space-between" alignItems="center">
-          <VuiTypography variant="lg" color="white">
+        <VuiBox py={1} pr={2} mb={0}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ color: 'white !important', cursor: 'pointer',  margin: 1, width:200}}
+            onClick={() => {
+              setIsOpenAdd(true);
+              setEditItem({});
+              // setIsEditable(false);
+            }}
+          >
             Add Client
-          </VuiTypography>
+          </Button>
         </VuiBox>
-        <VuiBox
-          sx={{
-            "& th": {
-              borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-                `${borderWidth[1]} solid ${grey[700]}`,
-            },
-            "& .MuiTableRow-root:not(:last-child)": {
-              "& td": {
+        <Card>
+          <VuiBox display="block" justifyContent="space-between" alignItems="center">
+            <VuiTypography variant="lg" color="white">
+              Add Client
+            </VuiTypography>
+          </VuiBox>
+          <VuiBox
+            sx={{
+              "& th": {
                 borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
                   `${borderWidth[1]} solid ${grey[700]}`,
               },
-            },
-          }}
-        >
-          <AgTable tableData={clients} handleDelete={handleClientDelete} handleEdit={handleClientEdit} />
-        </VuiBox>
-      </Card>
+              "& .MuiTableRow-root:not(:last-child)": {
+                "& td": {
+                  borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
+                    `${borderWidth[1]} solid ${grey[700]}`,
+                },
+              },
+            }}
+          >
+<AgTable tableData={clients} handleDelete={handleClientDelete} handleEdit={handleClientEdit} />
+          </VuiBox>
+        </Card>
 
-      <VuiBox mb={3} my={4}>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ color: 'white !important', cursor: 'pointer' }}
-          onClick={() => {
-            setIsOpenDriver(true);
-            setEditItem({});
-            // setIsEditable(false);
-          }}
-        >
-          Add Driver
-        </Button>
-      </VuiBox>
-      <Card>
-        <VuiBox display="block" justifyContent="space-between" alignItems="center">
-          <VuiTypography variant="lg" color="white">
+        <VuiBox py={1} pr={2} mb={0}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ color: 'white !important', cursor: 'pointer',  margin: 1, width:200 }}
+            onClick={() => {
+              setIsOpenDriver(true);
+              setEditItem({});
+              // setIsEditable(false);
+            }}
+          >
             Add Driver
-          </VuiTypography>
+          </Button>
         </VuiBox>
-        <VuiBox
-          sx={{
-            "& th": {
-              borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-                `${borderWidth[1]} solid ${grey[700]}`,
-            },
-            "& .MuiTableRow-root:not(:last-child)": {
-              "& td": {
+        <Card>  
+          <VuiBox display="block" justifyContent="space-between" alignItems="center">
+            <VuiTypography variant="lg" color="white">
+              Add Driver
+            </VuiTypography>
+          </VuiBox>
+          <VuiBox
+            sx={{
+              "& th": {
                 borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
                   `${borderWidth[1]} solid ${grey[700]}`,
               },
-            },
-          }}
-        >
-          <AgTable tableData={drivers} handleDelete={handleDeleteDriver} handleEdit={handleEditDriver} />
-        </VuiBox>
-      </Card>
+              "& .MuiTableRow-root:not(:last-child)": {
+                "& td": {
+                  borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
+                    `${borderWidth[1]} solid ${grey[700]}`,
+                },
+              },
+            }}
+          >
+            <AgTable tableData={driver} handleDelete={handleDeleteDriver} handleEdit={handleEditDriver} />
+          </VuiBox>
+        </Card>
+      </VuiBox>
 
       <Footer />
 
