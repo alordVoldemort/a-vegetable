@@ -59,7 +59,7 @@ function Tables() {
           setCityEntries([...entries]);
         }
       }
-  
+
       setIsOpen(false);
       setIsEditableCity(false);
       setEditCityItem({});
@@ -67,235 +67,235 @@ function Tables() {
       console.error('Error handling custom entry:', error);
     }
   };
-  
-
-const handelCityEdit = useCallback((value) => {
-  console.log(value, "err...")
-  setEditCityItem(value);// api + logic
-  setIsOpen(true);
-  setIsEditableCity(true);
-}, []);
-
-const handleCityDelete = useCallback(async (value) => {
-  if (window.confirm("Are you sure you want to delete this item? " + value.cityName)) {
-    const result = entries.filter(item => item.id !== value.id);
-    const deleteResponse = await dispatch(deleteCityEntry(value.id));
-    setCityEntries(result);
-  }
-}, [entries]);
 
 
+  const handelCityEdit = useCallback((value) => {
+    console.log(value, "err...")
+    setEditCityItem(value);// api + logic
+    setIsOpen(true);
+    setIsEditableCity(true);
+  }, []);
 
-
-///Client Methods
-
-const handleAddUser = (formData) => {
-  // if (isEditable) {
-  //   setUsers(users.map(item => item.id === formData.id ? formData : item));
-  // } else {
-  //   setUsers([...users, formData]);
-  // }
-  // setIsOpenAdd(false);
-  // setIsEditable(false);
-  // setEditItem({});
-};
-
-const handleEditAdd = useCallback((value) => {
-  // setEditItem(value);
-  // setIsOpenAdd(true);
-  // setIsEditable(true);
-}, []);
-
-
-const handleDeleteAdd = useCallback((value) => {
-  if (window.confirm("Are you sure you want to delete this item? " + value.name)) {
-    const result = users.filter(item => item.id !== value.id);
-    setUsers(result);
-  }
-}, [users]);
+  const handleCityDelete = useCallback(async (value) => {
+    if (window.confirm("Are you sure you want to delete this item? " + value.cityName)) {
+      const result = entries.filter(item => item.id !== value.id);
+      const deleteResponse = await dispatch(deleteCityEntry(value.id));
+      setCityEntries(result);
+    }
+  }, [entries]);
 
 
 
 
+  ///Client Methods
 
-///Client Driver
-const handleAddDriver = (formData) => {
-  // if (isEditable) {
-  //   setDriver(driver.map(item => item.id === formData.id ? formData : item));
-  // } else {
-  //   setDriver([...driver, formData]);
-  // }
-  // setIsOpenDriver(false);
-  // setIsEditable(false);
-  // setEditItem({});
-};
+  const handleAddUser = (formData) => {
+    // if (isEditable) {
+    //   setUsers(users.map(item => item.id === formData.id ? formData : item));
+    // } else {
+    //   setUsers([...users, formData]);
+    // }
+    // setIsOpenAdd(false);
+    // setIsEditable(false);
+    // setEditItem({});
+  };
 
-
-const handleEditDriver = useCallback((value) => {
-  // setEditItem(value);
-  // setIsOpenDriver(true);
-  // setIsEditable(true);
-}, []);
-
-const handleDeleteDriver = useCallback((value) => {
-  if (window.confirm("Are you sure you want to delete this item? " + value.name)) {
-    const result = driver.filter(item => item.id !== value.id);
-    setDriver(result);
-  }
-}, [driver]);
+  const handleEditAdd = useCallback((value) => {
+    // setEditItem(value);
+    // setIsOpenAdd(true);
+    // setIsEditable(true);
+  }, []);
 
 
-return (
-  <DashboardLayout>
-    <DashboardNavbar />
+  const handleDeleteAdd = useCallback((value) => {
+    if (window.confirm("Are you sure you want to delete this item? " + value.name)) {
+      const result = users.filter(item => item.id !== value.id);
+      setUsers(result);
+    }
+  }, [users]);
 
-    <VuiBox mb={3}>
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{ color: 'white !important', cursor: 'pointer' }}
-        onClick={() => {
-          setIsOpen(true);
-          setEditItem({});
-          setIsEditableCity(false);
-        }}
-      >
-        Add City
-      </Button>
-    </VuiBox>
-    <Card>
-      <VuiBox display="block" justifyContent="space-between" alignItems="center">
-        <VuiTypography variant="lg" color="white">
+
+
+
+
+  ///Client Driver
+  const handleAddDriver = (formData) => {
+    // if (isEditable) {
+    //   setDriver(driver.map(item => item.id === formData.id ? formData : item));
+    // } else {
+    //   setDriver([...driver, formData]);
+    // }
+    // setIsOpenDriver(false);
+    // setIsEditable(false);
+    // setEditItem({});
+  };
+
+
+  const handleEditDriver = useCallback((value) => {
+    // setEditItem(value);
+    // setIsOpenDriver(true);
+    // setIsEditable(true);
+  }, []);
+
+  const handleDeleteDriver = useCallback((value) => {
+    if (window.confirm("Are you sure you want to delete this item? " + value.name)) {
+      const result = driver.filter(item => item.id !== value.id);
+      setDriver(result);
+    }
+  }, [driver]);
+
+
+  return (
+    <DashboardLayout>
+      <DashboardNavbar />
+
+      <VuiBox mb={3}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ color: 'white !important', cursor: 'pointer' }}
+          onClick={() => {
+            setIsOpen(true);
+            setEditItem({});
+            setIsEditableCity(false);
+          }}
+        >
           Add City
-        </VuiTypography>
+        </Button>
       </VuiBox>
-      <VuiBox
-        sx={{
-          "& th": {
-            borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-              `${borderWidth[1]} solid ${grey[700]}`,
-          },
-          "& .MuiTableRow-root:not(:last-child)": {
-            "& td": {
+      <Card>
+        <VuiBox display="block" justifyContent="space-between" alignItems="center">
+          <VuiTypography variant="lg" color="white">
+            Add City
+          </VuiTypography>
+        </VuiBox>
+        <VuiBox
+          sx={{
+            "& th": {
               borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
                 `${borderWidth[1]} solid ${grey[700]}`,
             },
-          },
-        }}
-      >
-        <AgTable tableData={entries} handleDelete={handleCityDelete} handleEdit={handelCityEdit} />
-      </VuiBox>
-    </Card>
+            "& .MuiTableRow-root:not(:last-child)": {
+              "& td": {
+                borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
+                  `${borderWidth[1]} solid ${grey[700]}`,
+              },
+            },
+          }}
+        >
+          <AgTable tableData={entries} handleDelete={handleCityDelete} handleEdit={handelCityEdit} />
+        </VuiBox>
+      </Card>
 
-    <VuiBox mb={3} my={4}>
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{ color: 'white !important', cursor: 'pointer' }}
-        onClick={() => {
-          setIsOpenAdd(true);
-          setEditItem({});
-          // setIsEditable(false);
-        }}
-      >
-        Add Client
-      </Button>
-    </VuiBox>
-    <Card>
-      <VuiBox display="block" justifyContent="space-between" alignItems="center">
-        <VuiTypography variant="lg" color="white">
+      <VuiBox mb={3} my={4}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ color: 'white !important', cursor: 'pointer' }}
+          onClick={() => {
+            setIsOpenAdd(true);
+            setEditItem({});
+            // setIsEditable(false);
+          }}
+        >
           Add Client
-        </VuiTypography>
+        </Button>
       </VuiBox>
-      <VuiBox
-        sx={{
-          "& th": {
-            borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-              `${borderWidth[1]} solid ${grey[700]}`,
-          },
-          "& .MuiTableRow-root:not(:last-child)": {
-            "& td": {
+      <Card>
+        <VuiBox display="block" justifyContent="space-between" alignItems="center">
+          <VuiTypography variant="lg" color="white">
+            Add Client
+          </VuiTypography>
+        </VuiBox>
+        <VuiBox
+          sx={{
+            "& th": {
               borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
                 `${borderWidth[1]} solid ${grey[700]}`,
             },
-          },
-        }}
-      >
-        <AgTable tableData={users} handleDelete={handleDeleteAdd} handleEdit={handleEditAdd} />
-      </VuiBox>
-    </Card>
+            "& .MuiTableRow-root:not(:last-child)": {
+              "& td": {
+                borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
+                  `${borderWidth[1]} solid ${grey[700]}`,
+              },
+            },
+          }}
+        >
+          <AgTable tableData={users} handleDelete={handleDeleteAdd} handleEdit={handleEditAdd} />
+        </VuiBox>
+      </Card>
 
-    <VuiBox mb={3} my={4}>
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{ color: 'white !important', cursor: 'pointer' }}
-        onClick={() => {
-          setIsOpenDriver(true);
-          setEditItem({});
-          // setIsEditable(false);
-        }}
-      >
-        Add Driver
-      </Button>
-    </VuiBox>
-    <Card>
-      <VuiBox display="block" justifyContent="space-between" alignItems="center">
-        <VuiTypography variant="lg" color="white">
+      <VuiBox mb={3} my={4}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ color: 'white !important', cursor: 'pointer' }}
+          onClick={() => {
+            setIsOpenDriver(true);
+            setEditItem({});
+            // setIsEditable(false);
+          }}
+        >
           Add Driver
-        </VuiTypography>
+        </Button>
       </VuiBox>
-      <VuiBox
-        sx={{
-          "& th": {
-            borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-              `${borderWidth[1]} solid ${grey[700]}`,
-          },
-          "& .MuiTableRow-root:not(:last-child)": {
-            "& td": {
+      <Card>
+        <VuiBox display="block" justifyContent="space-between" alignItems="center">
+          <VuiTypography variant="lg" color="white">
+            Add Driver
+          </VuiTypography>
+        </VuiBox>
+        <VuiBox
+          sx={{
+            "& th": {
               borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
                 `${borderWidth[1]} solid ${grey[700]}`,
             },
-          },
-        }}
-      >
-        <AgTable tableData={driver} handleDelete={handleDeleteDriver} handleEdit={handleEditDriver} />
-      </VuiBox>
-    </Card>
+            "& .MuiTableRow-root:not(:last-child)": {
+              "& td": {
+                borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
+                  `${borderWidth[1]} solid ${grey[700]}`,
+              },
+            },
+          }}
+        >
+          <AgTable tableData={driver} handleDelete={handleDeleteDriver} handleEdit={handleEditDriver} />
+        </VuiBox>
+      </Card>
 
-    <Footer />
+      <Footer />
 
-    {isOpen && (
-      <CustomEntry
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onSubmit={handleCustomEntry}
-        editItem={editCityItem}
-        isEditable={isEditableCity}
-      />
-    )}
+      {isOpen && (
+        <CustomEntry
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          onSubmit={handleCustomEntry}
+          editItem={editCityItem}
+          isEditable={isEditableCity}
+        />
+      )}
 
-    {isOpenAdd && (
-      <AddUserPopup
-        isOpenAdd={isOpenAdd}
-        onClose={() => setIsOpenAdd(false)}
-        onSubmit={handleAddUser}
-      // editItem={editItem}
-      // isEditable={isEditable}
-      />
-    )}
+      {isOpenAdd && (
+        <AddUserPopup
+          isOpenAdd={isOpenAdd}
+          onClose={() => setIsOpenAdd(false)}
+          onSubmit={handleAddUser}
+        // editItem={editItem}
+        // isEditable={isEditable}
+        />
+      )}
 
-    {isOpenDriver && (
-      <AddDriver
-        isOpenDriver={isOpenDriver}
-        onClose={() => setIsOpenDriver(false)}
-        onSubmit={handleAddDriver}
-      // editItem={editItem}
-      // isEditable={isEditable}
-      />
-    )}
-  </DashboardLayout>
-);
+      {isOpenDriver && (
+        <AddDriver
+          isOpenDriver={isOpenDriver}
+          onClose={() => setIsOpenDriver(false)}
+          onSubmit={handleAddDriver}
+        // editItem={editItem}
+        // isEditable={isEditable}
+        />
+      )}
+    </DashboardLayout>
+  );
 }
 
 export default Tables;

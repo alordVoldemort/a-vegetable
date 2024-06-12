@@ -2,23 +2,23 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, Card, IconButton, Icon, TextField } from '@mui/material';
 
-const AddDriver = ({ isOpenDriver, onClose, onSubmit,isEditable ,editItem}) => {
+const AddDriver = ({ isOpenDriver, onClose, onSubmit, isEditable, editItem }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [altPhone, setAltPhone] = useState('');
 
-  useEffect(()=>{
-    if(Object.keys(editItem).length > 0 && isEditable){
+  useEffect(() => {
+    if (Object.keys(editItem).length > 0 && isEditable) {
       setName(editItem.setName)
       setEmail(editItem.setEmail)
       setPhone(editItem.setPhone)
       setAddress(editItem.setAddress)
       setAltPhone(editItem.setAltPhone)
-  
+
     }
-    },[editItem])
+  }, [editItem])
 
 
 
@@ -41,7 +41,7 @@ const AddDriver = ({ isOpenDriver, onClose, onSubmit,isEditable ,editItem}) => {
       phone,
       address,
       altPhone,
-      
+
     };
     onSubmit(formData);
     onClose();
@@ -75,15 +75,15 @@ const AddDriver = ({ isOpenDriver, onClose, onSubmit,isEditable ,editItem}) => {
         <form onSubmit={handleSubmit}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '1rem' }}>
             <h1 className='title'>Name</h1>
-            <TextField 
+            <TextField
               variant="outlined"
               value={name}
               onChange={(e) => setName(e.target.value)}
               InputLabelProps={{ shrink: true }}
               InputProps={{ placeholder: 'Enter your name' }}
             />
-             <h1 className='title'>Phone</h1>
-            <TextField 
+            <h1 className='title'>Phone</h1>
+            <TextField
               variant="outlined"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -106,26 +106,26 @@ const AddDriver = ({ isOpenDriver, onClose, onSubmit,isEditable ,editItem}) => {
               InputLabelProps={{ shrink: true }}
               InputProps={{ placeholder: 'Enter your Address' }}
             />
-             <h1 className='title'>Alt Phone</h1>
-            <TextField 
+            <h1 className='title'>Alt Phone</h1>
+            <TextField
               variant="outlined"
               value={altPhone}
               onChange={(e) => setAltPhone(e.target.value)}
               InputLabelProps={{ shrink: true }}
               InputProps={{ placeholder: 'Enter your Alt Number' }}
             />
-                <Box mt={2} display="flex" justifyContent="space-between">
-          <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
-            {!isEditable ? 'Add Entry' : 'Update'}
-          </Button>
-          <Button variant="contained" color="primary"  onClick={onClose}>
-            Cancel
-          </Button>
-        </Box>
+            <Box mt={2} display="flex" justifyContent="space-between">
+              <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
+                {!isEditable ? 'Add Entry' : 'Update'}
+              </Button>
+              <Button variant="contained" color="primary" onClick={onClose}>
+                Cancel
+              </Button>
             </Box>
-        
-            </form>
-          
+          </Box>
+
+        </form>
+
       </Card>
     </Box>
   );

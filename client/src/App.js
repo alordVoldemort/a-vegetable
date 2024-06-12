@@ -58,7 +58,6 @@ export default function App() {
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
       if (route.collapse) {
-        console.log(route, 'routes')
         return getRoutes(route.collapse);
       }
 

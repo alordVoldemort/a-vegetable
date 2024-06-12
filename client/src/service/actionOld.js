@@ -18,10 +18,10 @@ export function fetchUserDetailsOnLogin({ userName, password }) {
     },
   });
   return dispatch => {
-    return ajax.post(`/api/login`, { userName, password }) 
+    return ajax.post(`/api/login`, { userName, password })
       .then(res => {
         console.log(res, 'err...');
-        dispatch(receivedResponse(reqId)); 
+        dispatch(receivedResponse(reqId));
         return res
         // return dispatch(fetchLoginDetailsSuccess(res.data));
       })

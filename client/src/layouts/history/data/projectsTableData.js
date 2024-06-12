@@ -16,7 +16,7 @@ import AdobeXD from "controllers/Icons/AdobeXD";
 
 function Completion({ value, color }) {
   return (
-     <VuiBox display="flex" flexDirection="column" alignItems="flex-start">
+    <VuiBox display="flex" flexDirection="column" alignItems="flex-start">
       <VuiTypography variant="button" color="white" fontWeight="medium" mb="4px">
         {value}%&nbsp;
       </VuiTypography>
@@ -53,7 +53,7 @@ export default {
       ),
       Taluka: (
         <VuiTypography variant="button" color="white" fontWeight="medium">
-          Sinner 
+          Sinner
         </VuiTypography>
       ),
       Dist: (
@@ -63,16 +63,17 @@ export default {
       ),
       completion: <Completion value={60} color="info" />,
 
-      action:  
-      <VuiBox width="8rem" textAlign="left" sx={{display: 'flex', justifyContent:"space-between"}}>
-      <VuiButton variant="text" color="error" >
-        <Icon sx={{ mr: "4px" }} >delete</Icon>&nbsp;DELETE
-      </VuiButton>
-    <VuiButton variant="text" color="text" >
-      <Icon sx={{ mr: "4px" }}>edit</Icon>&nbsp;EDIT
-    </VuiButton>
-    </VuiBox>
-  },
-   
-  ]}
+      action:
+        <VuiBox width="8rem" textAlign="left" sx={{ display: 'flex', justifyContent: "space-between" }}>
+          <VuiButton variant="text" color="error" >
+            <Icon sx={{ mr: "4px" }} >delete</Icon>&nbsp;DELETE
+          </VuiButton>
+          <VuiButton variant="text" color="text" >
+            <Icon sx={{ mr: "4px" }}>edit</Icon>&nbsp;EDIT
+          </VuiButton>
+        </VuiBox>
+    },
+
+  ]
+}
 

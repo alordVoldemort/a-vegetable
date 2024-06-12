@@ -28,9 +28,9 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-    "name" : cityName,
-    "taluka": talukaName,
-    "dist" : distName,
+      "name": cityName,
+      "taluka": talukaName,
+      "dist": distName,
     };
     onSubmit(formData); // Send the form data to the parent component
     onClose(); // Close the CustomEntry form

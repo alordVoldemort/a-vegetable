@@ -51,7 +51,7 @@ function Dashboard() {
 
 
   const [isOpen, setIsOpen] = useState(false);
-  const [userData, setUserData] = useState([]) 
+  const [userData, setUserData] = useState([])
   const [editItem, setEditItem] = useState({})
   const [isEditable, setIsEditable] = useState(false)
 
@@ -67,9 +67,7 @@ function Dashboard() {
         console.log("err..")
       });
   }, []);
-
-
-  const handleCreateEntry = async (input) => {
+    const handleCreateEntry = async (input) => {
     if (!isEditable) {
       const createResponse = await dispatch(createEntry(input));
       input.id = userData.length + 1
@@ -87,7 +85,7 @@ function Dashboard() {
     setIsEditable(false)
   }
 
-  const handleDelete = useCallback( async (value) => {
+  const handleDelete = useCallback(async (value) => {
     if (window.confirm("Are you sure you want to delete this item? " + value.vegitableName)) {
       const result = userData.filter(item => item.id !== value.id);
       const deleteResponse = await dispatch(deleteEntry(value.id));
@@ -330,14 +328,14 @@ function Dashboard() {
       </VuiBox>
       <Footer />
 
-      {isOpen ? <CreateEntry 
-      isOpen={isOpen} 
-      onClose={() => setIsOpen(false)} 
-      onSubmit={handleCreateEntry} 
-      editItem={editItem} 
-      isEditable={isEditable} 
+      {isOpen ? <CreateEntry
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onSubmit={handleCreateEntry}
+        editItem={editItem}
+        isEditable={isEditable}
       /> : null}
-      
+
     </DashboardLayout>
   );
 }
