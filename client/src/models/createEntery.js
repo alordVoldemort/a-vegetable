@@ -33,15 +33,14 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
 
   useEffect(() => {
     if (Object.keys(editItem).length > 0 && isEditable) {
-      setVegitableName(editItem.vegitableName)
-      setFromCity(editItem.fromCity)
-      setToCity(editItem.toCity)
-      setDriverName(editItem.driverName)
-      setClientName(editItem.clientName)
-      setTotalAmount(editItem.totalAmount)
-      setVegetableWeight(editItem.vegetableWeight)
+      setVegitableName(editItem.name)
+      setFromCity(editItem.cityFrom)
+      setToCity(editItem.cityTo)
+      setDriverName(editItem.driverId)
+      setClientName(editItem.clientId)
+      setTotalAmount(editItem.totalAmt)
+      setVegetableWeight(editItem.weight)
       setAdvance(editItem.advance)
-
     }
   }, [editItem])
   const handleSubmit = (e) => {

@@ -139,6 +139,14 @@ function  Projects(props) {
       return columns;
     };
 
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}-${month}-${year}`;
+    };
+
    const extractRows = () =>{
     var _rows = []
      userData.map((item, index) => {
@@ -147,28 +155,24 @@ function  Projects(props) {
          {
            [keys[0]]: (
              <VuiBox display="flex" alignItems="center">
-               <AdobeXD size="20px" />
                <VuiTypography pl="16px" color="white" variant="button" fontWeight="medium">
                  {item[keys[0]]}
                </VuiTypography>
              </VuiBox>
            ),
            [keys[1]]: (
-             <VuiBox display="flex" py={1}>            
+             <VuiBox display="flex" py={1} color="white" fontWeight="medium">            
                 {item[keys[1]]}
              </VuiBox>
            ),
            [keys[2]]: (
-             <VuiTypography variant="button" color="white" fontWeight="bold">
+             <VuiTypography variant="button" color="white" fontWeight="medium">
               {item[keys[2]]}
              </VuiTypography>
            ),
            [keys[3]]: (
              <VuiBox width="8rem" textAlign="left">
-                 {avatars([
-                 [avatar1, "Ryan Tompson"]
-               ])}
-               <VuiTypography color="white" variant="button" fontWeight="bold">
+               <VuiTypography color="white" variant="button" fontWeight="medium">
                {item[keys[3]]}
                </VuiTypography>
             
@@ -176,11 +180,56 @@ function  Projects(props) {
            ),
            [keys[4]]: (
             <VuiBox width="8rem" textAlign="left">
-                {avatars([
-                [avatar1, "Ryan Tompson"]
-              ])}
-              <VuiTypography color="white" variant="button" fontWeight="bold">
+              <VuiTypography color="white" variant="button" fontWeight="medium">
               {item[keys[4]]}
+              </VuiTypography>
+           
+            </VuiBox>
+          ),
+          [keys[5]]: (
+            <VuiBox width="8rem" textAlign="left">
+              <VuiTypography color="white" variant="button" fontWeight="medium">
+              {item[keys[5]]}
+              </VuiTypography>
+           
+            </VuiBox>
+          ),
+          [keys[6]]: (
+            <VuiBox width="8rem" textAlign="left">
+              <VuiTypography color="white" variant="button" fontWeight="medium">
+              {item[keys[6]]}
+              </VuiTypography>
+           
+            </VuiBox>
+          ),
+          [keys[7]]: (
+            <VuiBox width="8rem" textAlign="left">
+              <VuiTypography color="white" variant="button" fontWeight="medium">
+              {item[keys[7]]}
+              </VuiTypography>
+           
+            </VuiBox>
+          ),
+          [keys[8]]: (
+            <VuiBox width="8rem" textAlign="left">
+              <VuiTypography color="white" variant="button" fontWeight="medium">
+              {item[keys[8]]}
+              </VuiTypography>
+           
+            </VuiBox>
+          ),
+          [keys[9]]: (
+            <VuiBox width="8rem" textAlign="left">
+              <VuiTypography color="white" variant="button" fontWeight="medium">
+              {item[keys[9]]}
+              </VuiTypography>
+           
+            </VuiBox>
+          ),
+          [keys[10]]: (
+            <VuiBox width="8rem" textAlign="left">
+              <VuiTypography color="white" variant="button" fontWeight="medium">
+              {item[keys[10]]}
               </VuiTypography>
            
             </VuiBox>
@@ -190,8 +239,24 @@ function  Projects(props) {
               <VuiProgress value={60} color="info" label={false} sx={{ background: "#2D2E5F" }} />
             </VuiBox>
           ), 
+          [keys[12]]: (
+            <VuiBox width="8rem" textAlign="left">
+              <VuiTypography color="white" variant="button" fontWeight="small">
+              {formatDate(item[keys[12]])}
+              </VuiTypography>
+           
+            </VuiBox>
+          ),
+          [keys[13]]: (
+            <VuiBox width="8rem" textAlign="left">
+              <VuiTypography color="white" variant="button" fontWeight="small">
+              {formatDate(item[keys[13]])}
+              </VuiTypography>
+           
+            </VuiBox>
+          ),
           action: (
-            <VuiBox width="8rem" textAlign="left" sx={{display: 'flex', justifyContent:"space-between"}}>
+            <VuiBox  textAlign="left" sx={{display: 'flex', justifyContent:"space-between"}}>
               <VuiButton variant="text" color="error" onClick={()=>handleDelete(item)}>
                 <Icon sx={{ mr: "4px" }} >delete</Icon>&nbsp;DELETE
               </VuiButton>
@@ -224,7 +289,7 @@ function  Projects(props) {
           <VuiBox display="flex" alignItems="center" lineHeight={0}>
             <BsCheckCircleFill color="green" size="15px" />
             <VuiTypography variant="button" fontWeight="regular" color="text" ml="5px">
-              &nbsp;<strong>30 done</strong> this month
+              &nbsp;<strong>{userData.length} done</strong> this month
             </VuiTypography>
           </VuiBox>
         </VuiBox>
