@@ -17,7 +17,7 @@ import { SiDropbox } from "react-icons/si";
 
 // Vision UI Dashboard React example components
 import TimelineItem from "controllers/Timeline/TimelineItem";
-import AdobeXD from "controllers/Icons/AdobeXD";
+// import AdobeXD from "controllers/Icons/AdobeXD";
 
 // Vision UI Dashboard theme imports
 import palette from "assets/theme/base/colors";
@@ -68,7 +68,7 @@ function OrdersOverview() {
           title="New card added for order #4395133"
           dateTime="18 DEC 4:54 AM"
         />
-        <TimelineItem icon={<AdobeXD size="20px" />} title="New order #9583120" dateTime="17 DEC" />
+        {/* <TimelineItem icon={<AdobeXD size="20px" />} title="New order #9583120" dateTime="17 DEC" /> */}
       </VuiBox>
     </Card>
   );

@@ -50,6 +50,21 @@ export const getAllEntries = () => {
   };
 };
 
+export const getAllEntriesBySerach = (client=null, driver=null, city=null, text=null) => {
+  console.log(client, driver, city, text, 'asasa')
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.post(BASE_URL + `api/recordsBySerach`, {client, driver, city, text});
+      dispatch(apiSuccess(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error;
+    }
+  };
+};
+
 export const createEntry = (insertRecord) => {
   return async (dispatch) => {
     dispatch(apiRequest());
@@ -69,6 +84,20 @@ export const updateEntry = (insertRecord) => {
     dispatch(apiRequest());
     try {
       const response = await axios.put(BASE_URL + `api/records/` + id, insertRecord);
+      dispatch(apiSuccess(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error;
+    }
+  };
+};
+
+export const updateStatus = (id, status) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.put(BASE_URL + `api/records/` + id, {status});
       dispatch(apiSuccess(response.data));
       return response.data;
     } catch (error) {

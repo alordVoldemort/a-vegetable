@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Card, IconButton, Icon, Typography, Select, MenuItem, TextField } from '@mui/material';
+import { Box, Button, Card, IconButton, Icon, Typography, Select, MenuItem, TextField, Grid } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
 import VuiBox from "components/VuiBox";
 import GradientBorder from "controllers/GradientBorder";
@@ -91,7 +91,10 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
       justifyContent: 'center',
       alignItems: 'center',
     }}>
-      <Card sx={{ height: 'auto', overflowY: "auto", margin: 3, padding: 2, width: '400px', backgroundColor: '#fff' }}>
+      <Card sx={{ height: 'auto', overflowY: "auto", margin: 3, padding: 4, width: '400px', backgroundColor: '#fff' }}>
+        <VuiTypography component="label" variant="button" color="white" fontWeight="large">
+          CREATE NEW ENTRY
+        </VuiTypography>
         <IconButton
           size="small"
           color="inherit"
@@ -103,48 +106,66 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
           <Icon>close</Icon>
         </IconButton>
         <VuiBox mb={2} mt={2}>
-          <GradientBorder
-            minWidth="100%"
-            padding="1px"
-            borderRadius={borders.borderRadius.lg}
-            backgroundImage={radialGradient(
-              palette.gradients.borderLight.main,
-              palette.gradients.borderLight.state,
-              palette.gradients.borderLight.angle
-            )}
-          >
-            <VuiInput type="text" sx={{ color: 'white !important' }} placeholder="Vegitable Name" fontWeight="500" value={vegitableName} onChange={(e) => setVegitableName(e.target.value)} />
-          </GradientBorder>
+          <Grid xs={12} lg={12} xl={12} container>
+            <Grid item xs={4} lg={4} xl={4}>
+              <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                Vegitable Name
+              </VuiTypography>
+            </Grid>
+            <Grid item xs={8} lg={8} xl={8}>
+              <GradientBorder
+                minWidth="100%"
+                padding="1px"
+                borderRadius={borders.borderRadius.lg}
+                backgroundImage={radialGradient(
+                  palette.gradients.borderLight.main,
+                  palette.gradients.borderLight.state,
+                  palette.gradients.borderLight.angle
+                )}
+              >
+                <VuiInput type="text" sx={{ color: 'white !important' }} placeholder="Vegitable Name" fontWeight="500" value={vegitableName} onChange={(e) => setVegitableName(e.target.value)} />
+              </GradientBorder>
+            </Grid>
+          </Grid>
         </VuiBox>
 
         <VuiBox mb={2}>
-          <GradientBorder
-            minWidth="100%"
-            padding="1px"
-            borderRadius={borders.borderRadius.lg}
-            backgroundImage={radialGradient(
-              palette.gradients.borderLight.main,
-              palette.gradients.borderLight.state,
-              palette.gradients.borderLight.angle
-            )}
-          >
-            <Select
-              value={fromCity}
-              onChange={(e) => setFromCity(e.target.value)}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={({ typography: { size } }) => ({
-                backgroundColor: '#0f1535 !important',
-                fontSize: size.sm,
-                color: fromCity ? 'white !important' : ''
-              })}
-            >
-              <MenuItem value="" disabled >Select City</MenuItem>
-              {citiesData && citiesData.map(city => (
-                <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
-              ))}
-            </Select>
-          </GradientBorder>
+          <Grid xs={12} lg={12} xl={12} container>
+            <Grid item xs={4} lg={4} xl={4}>
+              <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                Select City
+              </VuiTypography>
+            </Grid>
+            <Grid item xs={8} lg={8} xl={8}>
+              <GradientBorder
+                minWidth="100%"
+                padding="1px"
+                borderRadius={borders.borderRadius.lg}
+                backgroundImage={radialGradient(
+                  palette.gradients.borderLight.main,
+                  palette.gradients.borderLight.state,
+                  palette.gradients.borderLight.angle
+                )}
+              >
+                <Select
+                  value={fromCity}
+                  onChange={(e) => setFromCity(e.target.value)}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
+                  sx={({ typography: { size } }) => ({
+                    backgroundColor: '#0f1535 !important',
+                    fontSize: size.sm,
+                    color: fromCity ? 'white !important' : ''
+                  })}
+                >
+                  <MenuItem value="" disabled >Select City</MenuItem>
+                  {citiesData && citiesData.map(city => (
+                    <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
+                  ))}
+                </Select>
+              </GradientBorder>
+            </Grid>
+          </Grid>
         </VuiBox>
 
 
