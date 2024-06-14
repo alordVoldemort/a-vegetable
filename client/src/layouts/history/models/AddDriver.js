@@ -7,31 +7,22 @@ const AddDriver = ({ isOpenDriver, onClose, onSubmit, isEditable, editItem }) =>
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [altPhone, setAltPhone] = useState('');
+  const [altNumber, setaltNumber] = useState('');
+  const[carNumber,setCarNumber] = useState('');
+
 
   useEffect(() => {
     if (Object.keys(editItem).length > 0 && isEditable) {
-      setName(editItem.setName)
-      setEmail(editItem.setEmail)
-      setPhone(editItem.setPhone)
-      setAddress(editItem.setAddress)
-      setAltPhone(editItem.setAltPhone)
+      setName(editItem.name)
+      setEmail(editItem.email)
+      setPhone(editItem.phone)
+      setAddress(editItem.address)
+      setaltNumber(editItem.altNumber)
+      setCarNumber(editItem.carNumber)
+
 
     }
   }, [editItem])
-
-
-
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPhoto(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +31,10 @@ const AddDriver = ({ isOpenDriver, onClose, onSubmit, isEditable, editItem }) =>
       email,
       phone,
       address,
-      altPhone,
+      carNumber,
+     altNumber,
+    
+
 
     };
     onSubmit(formData);
@@ -109,10 +103,18 @@ const AddDriver = ({ isOpenDriver, onClose, onSubmit, isEditable, editItem }) =>
             <h1 className='title'>Alt Phone</h1>
             <TextField
               variant="outlined"
-              value={altPhone}
-              onChange={(e) => setAltPhone(e.target.value)}
+              value={altNumber}
+              onChange={(e) => setaltNumber(e.target.value)}
               InputLabelProps={{ shrink: true }}
               InputProps={{ placeholder: 'Enter your Alt Number' }}
+            />
+             <h1 className='title'>Car Number</h1>
+            <TextField
+              variant="outlined"
+              value={carNumber}
+              onChange={(e) => setCarNumber(e.target.value)}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{ placeholder: 'Enter your Car Number' }}
             />
             <Box mt={2} display="flex" justifyContent="space-between">
               <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>

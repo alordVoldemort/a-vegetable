@@ -196,8 +196,33 @@ export const createDriverEntry = (insertRecord) => {
   };
 };
 
+export const updateDriverEntry = (id, insertRecord) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.put(BASE_URL + `api/cust/drivers/` + id, insertRecord);
+      dispatch(apiSuccess(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error;
+    }
+  };
+};
 
-
+export const deleteDriverEntry = (id = null) => {
+  return async (dispatch) => {
+    dispatch(apiRequest());
+    try {
+      const response = await axios.delete(BASE_URL + `api/cust/drivers/` + id);
+      dispatch(apiSuccess(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(apiFailure(error.message));
+      throw error;
+    }
+  };
+};
 
 
 

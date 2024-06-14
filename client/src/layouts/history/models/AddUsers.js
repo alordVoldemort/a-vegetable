@@ -10,6 +10,7 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) =>
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [altPhone,  setAltPhone] = useState('');
+  const[carNumber,setCarNumber] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
@@ -104,6 +105,7 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) =>
               InputLabelProps={{ shrink: true }}
               InputProps={{ placeholder: 'Enter your Alt Number' }}
             />
+             
             <Box mt={2} display="flex" justifyContent="space-between">
               <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
                 {!isEditable ? 'Add Entry' : 'Update'}
