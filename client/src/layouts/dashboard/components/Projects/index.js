@@ -32,7 +32,7 @@ import avatar3 from "assets/images/avatar3.png";
 import avatar4 from "assets/images/avatar4.png";
 import VuiButton from "components/VuiButton";
 import MyTable from "models/myTable";
-import { Button, Grid, Select } from "@mui/material";
+import { Box, Button, Grid, IconButton, Select } from "@mui/material";
 import radialGradient from "assets/theme/functions/radialGradient";
 import palette from "assets/theme/base/colors";
 import borders from "assets/theme/base/borders";
@@ -42,6 +42,7 @@ import { useFetch } from "service/api";
 import { getAllEntriesBySerach } from "service/api";
 import { useDispatch } from "react-redux";
 import { updateStatus } from "service/api";
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const avatars = (members) =>
@@ -122,6 +123,9 @@ function Projects(props) {
   const [clientName, setClientName] = useState('');
   const [rows, setRows] = useState(_rows);
   const [columns, setColumns] = useState(_columns);
+  const [totalResAmount, setTotalResAmount] = useState(0);
+  const [totalPending, setTotalPending] = useState(0);
+  const [totalAdv, setTotalAdv] = useState(0);
   // const [_userData, setUserData] = useState([])
   const { data: driversData, isLoading: isDriversLoading, isError: isDriversError } = useFetch('drivers');
   const { data: citiesData, isLoading: isCitiesLoading, isError: isCitiesError } = useFetch('city');
@@ -171,8 +175,23 @@ function Projects(props) {
   };
 
   const extractRows = (inputs) => {
-    var _rows = []
+    let _rows = []
+    let _totalResAmount = 0
+    let _totalPending = 0
+    let _totalAdv = 0
     inputs.map((item, index) => {
+      console.log(item)
+
+      if (item.status == 0) {
+        _totalResAmount += item.totalAmt
+      }
+      if (item.status == 2 || item.status == 1) {
+        _totalPending += (item.totalAmt - item.advance)
+      }
+      if (item.status != 0) {
+        _totalAdv += item.advance
+      }
+
       const keys = Object.keys(item)
       _rows.push(
         {
@@ -313,6 +332,9 @@ function Projects(props) {
       )
     })
     setRows(_rows)
+    setTotalResAmount(_totalResAmount)
+    setTotalPending(_totalPending)
+    setTotalAdv(_totalAdv)
     return _rows
   }
 
@@ -331,22 +353,23 @@ function Projects(props) {
       });
   }
 
- const handleUpdateStatus = async (id, status) => {
-  if (window.confirm(`Are you sure you want to make trip status as ${status == 0 ? '"completed"' : '"pending"'} ?`)) {
-    const index = userData.findIndex(item => item.id !== id);
-    userData[index].status = status
-    dispatch(updateStatus(id, status))
-    .then((data) => {
-      if (data.code === 200) {
-        extractColumns(data.result)
-        extractRows(data.result)
-      }
-    })
-    .catch((error) => {
-      console.log("err..")
-    });
-  }
-  
+  const handleUpdateStatus = async (id, status) => {
+    if (window.confirm(`Are you sure you want to make trip status as ${status == 0 ? '"completed"' : '"pending"'} ?`)) {
+      const index = userData.findIndex(item => item.id !== id);
+      userData[index].status = status
+      dispatch(updateStatus(id, status))
+        .then((data) => {
+          if (data.code === 200) {
+            console.log(data.result, 'data.result')
+            extractColumns(data.result)
+            extractRows(data.result)
+          }
+        })
+        .catch((error) => {
+          console.log("err..")
+        });
+    }
+
   }
   useEffect(() => {
     if (userData.length > 0) {
@@ -356,6 +379,156 @@ function Projects(props) {
   }, [userData])
 
 
+  const searchRender = (
+
+    <Grid container justifyContent="flex" spacing={2}>
+      <VuiBox mb="4px" mt={2} ml={2} display="flex">
+        <VuiTypography color="white" variant="sm" mb="6px" gutterBottom >
+          Active Trips
+        </VuiTypography>
+      </VuiBox>
+      {/* Client Select */} 
+      <Grid container justifyContent="space-between" spacing={1}>
+        <Grid item xs={0} md={2}></Grid>
+
+        <Grid item xs={3} sm={12} md={2} style={{position:'relative'}}>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage={radialGradient(
+              palette.gradients.borderLight.main,
+              palette.gradients.borderLight.state,
+              palette.gradients.borderLight.angle
+            )}
+          >
+            <Select
+              value={clientName}
+              onChange={(e) => setClientName(e.target.value)}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              sx={({ typography: { size } }) => ({
+                position: 'relative',
+                backgroundColor: '#0f1535 !important',
+                fontSize: size.sm,
+                color: 'white !important'
+              })}
+              endIcon={<ClearIcon />}
+            >
+              <MenuItem value="">Select Client</MenuItem>
+              {clientsData && clientsData.map(city => (
+                <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
+              ))}
+            </Select>
+            {clientName && (
+              <IconButton
+                onClick={()=> setClientName('')}
+                sx={{
+                  position: 'absolute',
+                  top: '55%',
+                  right: '0px',
+                  transform: 'translateY(-50%)',
+                  color: 'red',
+                }}
+                aria-label="clear selection"
+              >
+                <ClearIcon />
+              </IconButton>
+            )}
+          </GradientBorder>
+        </Grid>
+
+        {/* Driver Select */}
+        <Grid item xs={4} sm={12} md={2}>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage={radialGradient(
+              palette.gradients.borderLight.main,
+              palette.gradients.borderLight.state,
+              palette.gradients.borderLight.angle
+            )}
+          >
+            <Select
+              value={driverName}
+              onChange={(e) => setDriverName(e.target.value)}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              sx={({ typography: { size } }) => ({
+                backgroundColor: '#0f1535 !important',
+                fontSize: size.sm,
+                color:'white !important'
+              })}
+            >
+              <MenuItem value="" disabled>Select Driver</MenuItem>
+              {driversData && driversData.map(city => (
+                <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
+              ))}
+            </Select>
+          </GradientBorder>
+        </Grid>
+
+        {/* City Select */}
+        <Grid item xs={4} sm={12} md={2}>
+          <GradientBorder
+            minWidth="100%"
+            padding="1px"
+            borderRadius={borders.borderRadius.lg}
+            backgroundImage={radialGradient(
+              palette.gradients.borderLight.main,
+              palette.gradients.borderLight.state,
+              palette.gradients.borderLight.angle
+            )}
+          >
+            <Select
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              sx={({ typography: { size } }) => ({
+                backgroundColor: '#0f1535 !important',
+                fontSize: size.sm,
+                color: 'white !important'
+              })}
+            >
+              <MenuItem value="" disabled>Select City</MenuItem>
+              {citiesData && citiesData.map(city => (
+                <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
+              ))}
+            </Select>
+          </GradientBorder>
+        </Grid>
+
+        {/* Search Button */}
+        <Grid item xs={6} sm={6} md={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ margin: '1px', padding: '0px 10px', borderRadius: '5px', width: '100%' }}
+            onClick={handleSearch}
+          >
+            Search
+          </Button>
+        </Grid>
+
+        {/* Add New Entry Button */}
+        <Grid item xs={6} sm={6} md={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ margin: '1px', padding: '0px 14px', borderRadius: '5px', width: '100%' }}
+            onClick={isOpenPopup}
+          >
+            Add New Entry
+          </Button>
+
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+
+
   return (
     <Card
       sx={{
@@ -363,120 +536,13 @@ function Projects(props) {
       }}
     >
       <VuiBox display="flex" mb="32px">
-        <VuiBox mb="auto">
-          <VuiTypography color="white" variant="lg" mb="6px" gutterBottom>
-            Active Trips
-          </VuiTypography>
 
-          <VuiBox display="flex" alignItems="center" lineHeight={0}>
-            <BsCheckCircleFill color="green" size="15px" />
-            <VuiTypography variant="button" fontWeight="regular" color="text" ml="5px">
-              &nbsp;<strong>{userData.length} done</strong> this month
-            </VuiTypography>
-          </VuiBox>
-        </VuiBox>
-        <VuiBox display="flex" position="absolute" right='0px'>
-          <VuiBox display="flex">
-            <VuiBox mb="4" mr="5px" >
-              <GradientBorder
-                minWidth="100%"
-                padding="1px"
-                borderRadius={borders.borderRadius.lg}
-                backgroundImage={radialGradient(
-                  palette.gradients.borderLight.main,
-                  palette.gradients.borderLight.state,
-                  palette.gradients.borderLight.angle
-                )}
-              >
-                <Select
-                  value={clientName}
-                  onChange={(e) => setClientName(e.target.value)}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  sx={({ typography: { size } }) => ({
-                    backgroundColor: '#0f1535 !important',
-                    fontSize: size.sm,
-                    color: clientName ? 'white !important' : ''
-                  })}
-                >
-                  <MenuItem value="" disabled >Select Client</MenuItem>
-                  {clientsData && clientsData.map(city => (
-                    <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
-                  ))}
-                </Select>
-              </GradientBorder>
-            </VuiBox>
-            <VuiBox mb="4" mr="5px">
-              <GradientBorder
-                minWidth="100%"
-                padding="1px"
-                borderRadius={borders.borderRadius.lg}
-                backgroundImage={radialGradient(
-                  palette.gradients.borderLight.main,
-                  palette.gradients.borderLight.state,
-                  palette.gradients.borderLight.angle
-                )}
-              >
-                <Select
-                  value={driverName}
-                  onChange={(e) => setDriverName(e.target.value)}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  sx={({ typography: { size } }) => ({
-                    backgroundColor: '#0f1535 !important',
-                    fontSize: size.sm,
-                    color: driverName ? 'white !important' : ''
-                  })}
-                >
-                  <MenuItem value="" disabled >Select Driver</MenuItem>
-                  {driversData && driversData.map(city => (
-                    <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
-                  ))}
-                </Select>
-              </GradientBorder>
-            </VuiBox>
-            <VuiBox mb="4" mr="5px">
-              <GradientBorder
-                minWidth="100%"
-                padding="1px"
-                borderRadius={borders.borderRadius.lg}
-                backgroundImage={radialGradient(
-                  palette.gradients.borderLight.main,
-                  palette.gradients.borderLight.state,
-                  palette.gradients.borderLight.angle
-                )}
-              >
-                <Select
-                  value={selectedCity}
-                  onChange={(e) => setSelectedCity(e.target.value)}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  sx={({ typography: { size } }) => ({
-                    backgroundColor: '#0f1535 !important',
-                    fontSize: size.sm,
-                    color: selectedCity ? 'white !important' : ''
-                  })}
-                >
-                  <MenuItem value="" disabled >Select City</MenuItem>
-                  {citiesData && citiesData.map(city => (
-                    <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
-                  ))}
-                </Select>
-              </GradientBorder>
-            </VuiBox>
-            <VuiBox px={1}>
-              <Button variant="contained" color="primary" style={{ margin: '1px', padding: '0px 10px', borderRadius: '5px', width: 150 }} onClick={handleSearch}>Search</Button>
-            </VuiBox>
-          </VuiBox>
-          <VuiBox color="text" px={2}>
-            <Button variant="contained" color="primary" style={{ margin: '1px', padding: '0px 14px', borderRadius: '5px' }} onClick={isOpenPopup}>Add New Entry</Button>
-            <Icon sx={{ cursor: "pointer", fontWeight: "bold" }} fontSize="small" onClick={openMenu}>
-              more_vert
-            </Icon>
-          </VuiBox>
-        </VuiBox>
+        {searchRender}
+
         {renderMenu}
       </VuiBox>
+
+
       <VuiBox
         sx={{
           "& th": {
@@ -492,24 +558,49 @@ function Projects(props) {
         }}
       >
         <Table columns={columns} rows={rows} />
-        {/* <MyTable columns={columns} rows={rows}/> */}
-        <Grid container spacing={3} display='flex' direction="row" justifyContent="right" alignItems="stretch">
-          <Grid item xs={6} md={6} lg={6}></Grid>
-          <Grid item xs={3} md={3} lg={3}>
-            <VuiTypography mr={3} variant="button" color="white" fontWeight="medium" gutterBottom>
-              Total Received :
-            </VuiTypography>
-            <VuiTypography variant="caption" color="text">
-              ₹2,500
-            </VuiTypography>
-          </Grid>
-          <Grid item xs={3} md={3} lg={3}>
-            <VuiTypography mr={3} variant="button" color="white" fontWeight="medium" gutterBottom>
-              Total Pending :
-            </VuiTypography>
-            <VuiTypography variant="caption" color="text">
-              ₹1,500
-            </VuiTypography>
+
+
+
+
+        <Grid container spacing={3} justifyContent="flex">
+          <Grid item xs={1} sm={1} md={6}></Grid>
+          <Grid item xs={11} sm={11} md={6} container>
+            <Grid item xs={12} sm={12} md={12} container>
+              <Grid item xs={6} sm={6} md={6}>
+                <VuiTypography variant="button" color="white" fontWeight="medium" gutterBottom>
+                  Total Received
+                </VuiTypography>
+              </Grid>
+              <Grid item xs={6} sm={6} md={6}>
+                <VuiTypography variant="caption" color="text">
+                 : ₹ {totalResAmount}.00
+                </VuiTypography>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} container>
+              <Grid item xs={6} sm={6} md={6}>
+                <VuiTypography variant="button" color="white" fontWeight="medium" gutterBottom>
+                  Pending
+                </VuiTypography>
+              </Grid>
+              <Grid item xs={6} sm={6} md={6} container>
+                <VuiTypography variant="caption" color="text">
+                 : ₹ {totalPending}.00
+                </VuiTypography>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} container>
+              <Grid item xs={6} sm={6} md={6}>
+                <VuiTypography variant="button" color="white" fontWeight="medium" gutterBottom>
+                  From Pending Advance Received
+                </VuiTypography>
+              </Grid>
+              <Grid item xs={6} sm={6} md={6}>
+                <VuiTypography variant="caption" color="text">
+                : ₹ {totalAdv}.00
+                </VuiTypography>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </VuiBox>

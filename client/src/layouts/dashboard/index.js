@@ -73,13 +73,10 @@ function Dashboard() {
       input.id = userData.length + 1
       setUserData([...userData, input])
     } else {
-      const indexToUpdate = userData.findIndex(item => item.id === editItem.id);
-      if (indexToUpdate !== -1) {
-        const upadteResponse = await dispatch(updateEntry(indexToUpdate, updatedRecord));
-        userData[indexToUpdate] = input
-        setUserData(userData)
-      }
-      setEditItem({})
+        const upadteResponse = await dispatch(updateEntry(editItem.id, input));
+        if(upadteResponse.code == 200)
+        setUserData(upadteResponse.result)
+     setEditItem({})
     }
     setIsOpen(false)
     setIsEditable(false)

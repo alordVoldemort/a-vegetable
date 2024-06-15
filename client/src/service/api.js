@@ -55,7 +55,7 @@ export const getAllEntriesBySerach = (client=null, driver=null, city=null, text=
   return async (dispatch) => {
     dispatch(apiRequest());
     try {
-      const response = await axios.post(BASE_URL + `api/recordsBySerach`, {client, driver, city, text});
+      const response = await axios.post(BASE_URL + `api/records/search`, {client, driver, city, text});
       dispatch(apiSuccess(response.data));
       return response.data;
     } catch (error) {
@@ -79,11 +79,11 @@ export const createEntry = (insertRecord) => {
   };
 };
 
-export const updateEntry = (insertRecord) => {
+export const updateEntry = (id, updatedRecord) => {
   return async (dispatch) => {
     dispatch(apiRequest());
     try {
-      const response = await axios.put(BASE_URL + `api/records/` + id, insertRecord);
+      const response = await axios.put(BASE_URL + `api/records/` + id, updatedRecord);
       dispatch(apiSuccess(response.data));
       return response.data;
     } catch (error) {
