@@ -112,6 +112,7 @@ const _rows = [
     ),
   },
 ]
+
 function Projects(props) {
   const dispatch = useDispatch();
   const { isOpenPopup, userData, handleDelete, handleEdit } = props
@@ -383,125 +384,57 @@ function Projects(props) {
 
     <Grid container justifyContent="flex" spacing={2}>
       <VuiBox mb="4px" mt={2} ml={2} display="flex">
-        <VuiTypography color="white" variant="sm" mb="6px" gutterBottom >
+        <VuiTypography color="white" variant="sm" mb="6px" gutterBottom>
           Active Trips
         </VuiTypography>
       </VuiBox>
-      {/* Client Select */} 
+      {/* Client Select */}
       <Grid container justifyContent="space-between" spacing={1}>
         <Grid item xs={0} md={2}></Grid>
 
-        <Grid item xs={3} sm={12} md={2} style={{position:'relative'}}>
-          <GradientBorder
-            minWidth="100%"
-            padding="1px"
-            borderRadius={borders.borderRadius.lg}
-            backgroundImage={radialGradient(
-              palette.gradients.borderLight.main,
-              palette.gradients.borderLight.state,
-              palette.gradients.borderLight.angle
-            )}
+        {/* Client Select */}
+        <Grid item xs={3} sm={12} md={2} style={{ position: 'relative' }}>
+          <SelectWithClearIcon
+            value={clientName}
+            onChange={(e) => setClientName(e ? e.target.value : '')}
+            placeholder="Select Client"
           >
-            <Select
-              value={clientName}
-              onChange={(e) => setClientName(e.target.value)}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={({ typography: { size } }) => ({
-                position: 'relative',
-                backgroundColor: '#0f1535 !important',
-                fontSize: size.sm,
-                color: 'white !important'
-              })}
-              endIcon={<ClearIcon />}
-            >
-              <MenuItem value="">Select Client</MenuItem>
-              {clientsData && clientsData.map(city => (
-                <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
-              ))}
-            </Select>
-            {clientName && (
-              <IconButton
-                onClick={()=> setClientName('')}
-                sx={{
-                  position: 'absolute',
-                  top: '55%',
-                  right: '0px',
-                  transform: 'translateY(-50%)',
-                  color: 'red',
-                }}
-                aria-label="clear selection"
-              >
-                <ClearIcon />
-              </IconButton>
-            )}
-          </GradientBorder>
+            {clientsData && clientsData.map((city) => (
+              <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
+            ))}
+          </SelectWithClearIcon>
         </Grid>
 
         {/* Driver Select */}
-        <Grid item xs={4} sm={12} md={2}>
-          <GradientBorder
-            minWidth="100%"
-            padding="1px"
-            borderRadius={borders.borderRadius.lg}
-            backgroundImage={radialGradient(
-              palette.gradients.borderLight.main,
-              palette.gradients.borderLight.state,
-              palette.gradients.borderLight.angle
-            )}
+        <Grid item xs={4} sm={12} md={2} style={{ position: 'relative' }}>
+          <SelectWithClearIcon
+            value={driverName}
+            onChange={(e) => setDriverName(e ? e.target.value : '')}
+            placeholder="Select Driver"
+            disabled={!clientName}
           >
-            <Select
-              value={driverName}
-              onChange={(e) => setDriverName(e.target.value)}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={({ typography: { size } }) => ({
-                backgroundColor: '#0f1535 !important',
-                fontSize: size.sm,
-                color:'white !important'
-              })}
-            >
-              <MenuItem value="" disabled>Select Driver</MenuItem>
-              {driversData && driversData.map(city => (
-                <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
-              ))}
-            </Select>
-          </GradientBorder>
+            {driversData && driversData.map((city) => (
+              <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
+            ))}
+          </SelectWithClearIcon>
         </Grid>
 
         {/* City Select */}
-        <Grid item xs={4} sm={12} md={2}>
-          <GradientBorder
-            minWidth="100%"
-            padding="1px"
-            borderRadius={borders.borderRadius.lg}
-            backgroundImage={radialGradient(
-              palette.gradients.borderLight.main,
-              palette.gradients.borderLight.state,
-              palette.gradients.borderLight.angle
-            )}
+        <Grid item xs={4} sm={12} md={2} style={{ position: 'relative' }}>
+          <SelectWithClearIcon
+            value={selectedCity}
+            onChange={(e) => setSelectedCity(e ? e.target.value : '')}
+            placeholder="Select City"
+            disabled={!driverName}
           >
-            <Select
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={({ typography: { size } }) => ({
-                backgroundColor: '#0f1535 !important',
-                fontSize: size.sm,
-                color: 'white !important'
-              })}
-            >
-              <MenuItem value="" disabled>Select City</MenuItem>
-              {citiesData && citiesData.map(city => (
-                <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
-              ))}
-            </Select>
-          </GradientBorder>
+            {citiesData && citiesData.map((city) => (
+              <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
+            ))}
+          </SelectWithClearIcon>
         </Grid>
 
         {/* Search Button */}
-        <Grid item xs={6} sm={6} md={2}>
+        <Grid item xs={6} sm={6} md={2} >
           <Button
             variant="contained"
             color="primary"
@@ -522,27 +455,18 @@ function Projects(props) {
           >
             Add New Entry
           </Button>
-
         </Grid>
       </Grid>
     </Grid>
+
   );
 
 
   return (
-    <Card
-      sx={{
-        height: "100% !important",
-      }}
-    >
+    <Card sx={{ height: "100% !important", }}    >
       <VuiBox display="flex" mb="32px">
-
         {searchRender}
-
-        {renderMenu}
       </VuiBox>
-
-
       <VuiBox
         sx={{
           "& th": {
@@ -559,9 +483,6 @@ function Projects(props) {
       >
         <Table columns={columns} rows={rows} />
 
-
-
-
         <Grid container spacing={3} justifyContent="flex">
           <Grid item xs={1} sm={1} md={6}></Grid>
           <Grid item xs={11} sm={11} md={6} container>
@@ -573,7 +494,7 @@ function Projects(props) {
               </Grid>
               <Grid item xs={6} sm={6} md={6}>
                 <VuiTypography variant="caption" color="text">
-                 : ₹ {totalResAmount}.00
+                : {'\u00A0'} ₹ {totalResAmount}.00
                 </VuiTypography>
               </Grid>
             </Grid>
@@ -583,9 +504,9 @@ function Projects(props) {
                   Pending
                 </VuiTypography>
               </Grid>
-              <Grid item xs={6} sm={6} md={6} container>
+              <Grid item xs={6} sm={6} md={6}>
                 <VuiTypography variant="caption" color="text">
-                 : ₹ {totalPending}.00
+                  : {'\u00A0'} ₹ {totalPending}.00
                 </VuiTypography>
               </Grid>
             </Grid>
@@ -597,7 +518,7 @@ function Projects(props) {
               </Grid>
               <Grid item xs={6} sm={6} md={6}>
                 <VuiTypography variant="caption" color="text">
-                : ₹ {totalAdv}.00
+                : {'\u00A0'} ₹ {totalAdv}.00
                 </VuiTypography>
               </Grid>
             </Grid>
@@ -618,3 +539,57 @@ Projects.propTypes = {
 
 
 export default Projects;
+
+
+export const SelectWithClearIcon = ({ value, onChange, placeholder, children, disabled }) => {
+  const handleClear = () => {
+    onChange('');
+  };
+
+  return (
+    <GradientBorder
+      minWidth="100%"
+      padding="1px"
+      borderRadius={borders.borderRadius.lg}
+      backgroundImage={radialGradient(
+        palette.gradients.borderLight.main,
+        palette.gradients.borderLight.state,
+        palette.gradients.borderLight.angle
+      )}
+    >
+      <Select
+        value={value}
+        onChange={onChange}
+        displayEmpty
+        inputProps={{ 'aria-label': 'Without label' }}
+        // disabled={disabled}
+        sx={({ typography: { size } }) => ({
+          backgroundColor: '#0f1535 !important',
+          fontSize: size.sm,
+          color: 'white !important'
+        })}
+      >
+        <MenuItem value="">
+          {placeholder}
+        </MenuItem>
+        {children}
+      </Select>
+      {value && (
+        <IconButton
+          onClick={handleClear}
+          sx={{
+            position: 'absolute',
+            top: '55%',
+            right: '0px',
+            transform: 'translateY(-50%)',
+            color: 'red',
+            fontSize: 'medium' 
+          }}
+          aria-label="clear selection"
+        >
+          <ClearIcon/>
+        </IconButton>
+      )}
+    </GradientBorder>
+  );
+};

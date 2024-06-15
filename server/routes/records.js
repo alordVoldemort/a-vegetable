@@ -87,7 +87,7 @@ router.post('/search', (req, res) => {
     queryParams.push(driver);
   }
 
-  if (city !== undefined && city !== null) {
+  if (city !== undefined && city !== null && city !== "") {
     query += ' AND cityTo = ?';
     queryParams.push(city);
   }
@@ -96,13 +96,74 @@ router.post('/search', (req, res) => {
     query += ' AND name LIKE ?';
     queryParams.push(`%${text}%`);
   }
+
+  if (queryParams.length === 0) {
+    query = 'SELECT * FROM records';
+  }
   conn.query(query, queryParams, (error, results) => {
     if (error) {
       console.error('Error executing query:', error);
       return res.status(500).json({ error: 'Internal server error' });
     }
-    // res.status(200).json(results);
     res.status(200).json({ code: 200, message: 'Record search successfully', result: results });
   });
 });
-//search 
+
+
+
+// Helper function to execute SQL queries with promises
+function queryPromise(conn, sql) {
+  return new Promise((resolve, reject) => {
+    conn.query(sql, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
+router.get('/stats', async (req, res) => {
+  try {
+    // Execute all queries concurrently using Promise.all
+    const [
+      totalResult,
+      status0Result,
+      status1Result,
+      sumTotalAmtResult,
+      sumPendingResult,
+      totalDriversResult,
+      totalClientsResult,
+      totalCitiesResult
+    ] = await Promise.all([
+      queryPromise(conn, 'SELECT COUNT(*) AS totalCount FROM records'),
+      queryPromise(conn, 'SELECT COUNT(*) AS status0Count FROM records WHERE status = 0'),
+      queryPromise(conn, 'SELECT COUNT(*) AS status1Count FROM records WHERE status = 1'),
+      queryPromise(conn, 'SELECT SUM(totalAmt) AS totalAmtSum FROM records'),
+      queryPromise(conn, 'SELECT SUM(totalAmt - advance) AS pendingSum FROM records'),
+      queryPromise(conn, 'SELECT COUNT(*) AS totalCount FROM drivers'),
+      queryPromise(conn, 'SELECT COUNT(*) AS totalCount FROM clients'),
+      queryPromise(conn, 'SELECT COUNT(*) AS totalCount FROM cities')
+    ]);
+
+    // Construct response object
+    const stats = {
+      records: {
+        totalCount: totalResult[0].totalCount,
+        complitedRide: status0Result[0].status0Count,
+        pendingRide: status1Result[0].status1Count,
+        totalAmtSum: sumTotalAmtResult[0].totalAmtSum || 0,
+        pendingSum: sumPendingResult[0].pendingSum || 0,
+        driversTotalCount: totalDriversResult[0].totalCount,
+        clientsTotalCount: totalClientsResult[0].totalCount,
+        citiesTotalCount: totalCitiesResult[0].totalCount
+      }
+    };
+    res.status(200).json({ code: 200, message: 'Records fetched successfully', result: stats });
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+

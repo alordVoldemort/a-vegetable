@@ -256,7 +256,20 @@ export const deleteDriverEntry = (id = null) => {
 
 
 
-
+export function useFetchDashboard(useQueryOptions = {}) {
+  return useQuery({
+    queryKey: ['useFetchDashboard'],
+    queryFn: () => {
+      return axios.get(BASE_URL + 'api/records/stats')
+        .then(res => res.data)
+        .catch(err => {
+          console.error('Error fetching data:', err);
+          throw err;
+        });
+    },
+    ...useQueryOptions
+  });
+}
 
 
 // export function useFetch(type, useQueryOptions={}){
