@@ -42,6 +42,7 @@ import { updateEntry, createEntry } from "service/api";
 import { useDispatch } from 'react-redux';
 import { getAllEntries } from "service/api";
 import { deleteEntry } from "service/api";
+import { useFetchDashboard } from "service/api";
 
 
 function Dashboard() {
@@ -54,6 +55,15 @@ function Dashboard() {
   const [userData, setUserData] = useState([])
   const [editItem, setEditItem] = useState({})
   const [isEditable, setIsEditable] = useState(false)
+  const [allCounts, setAllCounts] = useState({})
+  const { data, isLoading, isError } = useFetchDashboard();
+  console.log(allCounts,'allCounts....')
+
+  useEffect(() => {
+    if (data && data.result) {
+      setAllCounts(data.result)
+    }
+  }, [data]) 
 
 
   useEffect(() => {
@@ -105,23 +115,32 @@ function Dashboard() {
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
                 title={{ text: "total collection", fontWeight: "regular" }}
-                count="₹53,000"
+                count={allCounts?.totalAmtSum}
                 percentage={{ color: "success", text: "+55%" }}
                 icon={{ color: "info", component: <IoWallet size="22px" color="white" /> }}
               />
             </Grid>
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
+                title={{ text: "Pending Payment" }}
+                count={allCounts?.pendingSum}
+                // percentage={{ color: "error", text: "-2%" }}
+                icon={{ color: "info", component: <IoDocumentText size="22px" color="white" /> }}
+              />
+            </Grid>
+
+            
+            <Grid item xs={12} md={6} xl={3}>
+              <MiniStatisticsCard
                 title={{ text: "total trips" }}
-                count="20"
-                // percentage={{ color: "success", text: "+3%" }}
+                count={allCounts?.complitedRide}                // percentage={{ color: "success", text: "+3%" }}
                 icon={{ color: "info", component: <IoGlobe size="22px" color="white" /> }}
               />
             </Grid>
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
                 title={{ text: "total Clients" }}
-                count="10"
+                count={allCounts?.clientsTotalCount}
                 // percentage={{ color: "error", text: "-2%" }}
                 icon={{ color: "info", component: <IoDocumentText size="22px" color="white" /> }}
               />
@@ -129,11 +148,12 @@ function Dashboard() {
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
                 title={{ text: "total driver" }}
-                count="5"
+                count={allCounts?.driversTotalCount}
                 // percentage={{ color: "success", text: "+5%" }}
                 icon={{ color: "info", component: <FaShoppingCart size="20px" color="white" /> }}
               />
             </Grid>
+          
           </Grid>
         </VuiBox>
         <VuiBox mb={3}>

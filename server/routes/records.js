@@ -149,7 +149,7 @@ router.get('/stats', async (req, res) => {
 
     // Construct response object
     const stats = {
-      records: {
+      
         totalCount: totalResult[0].totalCount,
         complitedRide: status0Result[0].status0Count,
         pendingRide: status1Result[0].status1Count,
@@ -158,7 +158,7 @@ router.get('/stats', async (req, res) => {
         driversTotalCount: totalDriversResult[0].totalCount,
         clientsTotalCount: totalClientsResult[0].totalCount,
         citiesTotalCount: totalCitiesResult[0].totalCount
-      }
+      
     };
     res.status(200).json({ code: 200, message: 'Records fetched successfully', result: stats });
   } catch (err) {
