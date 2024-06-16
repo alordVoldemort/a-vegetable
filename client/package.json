@@ -44,16 +44,17 @@
 		"web-vitals": "1.0.1"
 	},
 	"devDependencies": {
+		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
 		"@testing-library/jest-dom": "5.11.4",
 		"@testing-library/react": "11.1.0",
 		"@testing-library/user-event": "12.1.10",
 		"@types/react-router-dom": "^5.3.3",
 		"eslint": "^7.11.0",
-		"react-scripts": "4.0.3"
+		"react-scripts": "4.0.0"
 	},
 	"scripts": {
 		"start": "react-scripts --openssl-legacy-provider start",
-		"build": "react-scripts build",
+		"build": "react-scripts  --openssl-legacy-provider build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
