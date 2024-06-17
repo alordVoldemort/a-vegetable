@@ -33,6 +33,7 @@ import { IoBuild } from "react-icons/io5";
 import { IoWallet } from "react-icons/io5";
 import { IoDocumentText } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
+import { BsCurrencyRupee } from "react-icons/bs";
 
 // Data
 
@@ -114,9 +115,9 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "total collection", fontWeight: "regular" }}
+                title={{ text: "{BsCurrencyRupee} total collection", fontWeight: "regular" }}
                 count={allCounts?.totalAmtSum}
-                percentage={{ color: "success", text: "+55%" }}
+                percentage={{ color: "success" }}
                 icon={{ color: "info", component: <IoWallet size="22px" color="white" /> }}
               />
             </Grid>
