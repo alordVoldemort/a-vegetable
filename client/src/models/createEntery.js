@@ -85,13 +85,13 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
       top: 0,
       left: 0,
       width: '100%',
-      height: '100%',
+      height: '100vh',
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
     }}>
-      <Card sx={{ height: 'auto', overflowY: "auto", margin: 3, padding: 4, width: '400px', backgroundColor: '#fff' }}>
+      <Card sx={{ maxHeight: '80vh', overflowY: "auto", margin: 3, padding: 4, width: '400px', backgroundColor: '#fff' }}>
         <VuiTypography component="label" variant="button" color="white" fontWeight="large">
           CREATE NEW ENTRY
         </VuiTypography>
@@ -168,7 +168,6 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
             </Grid>
           </Grid>
         </VuiBox>
-
 
         <VuiBox mb={2} mt={2}>
           <Grid xs={12} lg={12} xl={12} container>
@@ -287,7 +286,6 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
             </Grid>
           </Grid>
         </VuiBox>
-
         <VuiBox mb={2} mt={2}>
           <Grid xs={12} lg={12} xl={12} container>
             <Grid item xs={4} lg={4} xl={4}>
@@ -316,8 +314,6 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
             </Grid>
           </Grid>
         </VuiBox>
-
-
         <VuiBox mb={2} mt={2}>
           <Grid xs={12} lg={12} xl={12} container>
             <Grid item xs={4} lg={4} xl={4}>

@@ -19,11 +19,14 @@ import Invoices from "layouts/reports/components/Invoices";
 import BillingInformation from "layouts/reports/components/BillingInformation";
 import Transactions from "layouts/reports/components/Transactions";
 import CreditBalance from "./components/CreditBalance";
+import Header from "layouts/profile/components/Header";
+
 
 function Billing() {
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      <DashboardNavbar light />
+      {/* <Header/> */}
       <VuiBox mt={4}>
         <VuiBox mb={1.5}>
           <Grid container spacing={3}>

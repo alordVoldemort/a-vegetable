@@ -42,7 +42,7 @@ const MyTable = ({ columns, rows }) => {
     .map((row, index) => (
       <TableRow key={index} style={{ backgroundColor: 'transparent', color: 'white' }}>
         {Object.values(row).map((cell, index) => (
-          <TableCell style={{ backgroundColor: 'transparent', color: 'white' }} key={index}>{cell}</TableCell>
+          <TableCell style={{ backgroundColor: 'transparent', color: 'white'}} key={index}>{cell}</TableCell>
         ))}
       </TableRow>
     ));
@@ -60,7 +60,7 @@ const MyTable = ({ columns, rows }) => {
       <Button variant="contained" color="primary" style={{ marginBottom: '10px' }}>Export CSV
         {/* <CSVLink data={filteredRows} headers={columns} filename={"table_data.csv"}>Export CSV</CSVLink> */}
       </Button>
-      <TableContainer component={Paper} style={{ backgroundColor: 'transparent' }}>
+      <TableContainer component={Paper} style={{ backgroundColor: 'transparent'}}>
         <Table>
           <TableHead>
             <TableRow>{renderColumns}</TableRow>

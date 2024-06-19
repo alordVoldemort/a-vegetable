@@ -32,7 +32,7 @@ const AgTable = ({ tableData, handleDelete, handleEdit }) => {
             "&:not(:first-of-type)": {
               ml: -1.25,
             },
-
+            
             "&:hover, &:focus": {
               zIndex: "10",
             },

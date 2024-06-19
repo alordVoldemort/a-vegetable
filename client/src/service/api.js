@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { apiFailure, apiRequest, apiSuccess } from './action';
 
-const BASE_URL = 'https://a-vegetable-2.onrender.com/';
+const BASE_URL = 'https://a-vegetable-2.onrender.com';
 
 export function useFetch(type, useQueryOptions = {}) {
   return useQuery({
