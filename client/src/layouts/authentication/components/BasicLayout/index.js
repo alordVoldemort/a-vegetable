@@ -23,7 +23,7 @@ function BasicLayout({ title, description, image, children }) {
       <DefaultNavbar
         action={{
           type: "external",
-          route: "https://creative-tim.com/product/vision-ui-dashboard-react",
+          route: "",
           label: "Free Download",
         }}
         transparent
