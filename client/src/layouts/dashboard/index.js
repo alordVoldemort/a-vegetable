@@ -126,7 +126,7 @@ function Dashboard() {
               <MiniStatisticsCard
                 title={{ text: "Total Collection", fontWeight: "regular" }}
                 count={allCounts?.totalAmtSum}
-                percentage={{ color: "success", text: "₹" }}
+                // percentage={{ color: "success", text: "₹" }}
                 icon={{ color: "info", component: <IoWallet size="22px" color="white" /> }}
               />
             </Grid>
@@ -134,7 +134,7 @@ function Dashboard() {
               <MiniStatisticsCard
                 title={{ text: "Pending Payment" }}
                 count={allCounts?.pendingSum}
-                percentage={{ color: "error", text: "-2%" }}
+                // percentage={{ color: "error", text: "-2%" }}
                 icon={{ color: "info", component: <IoDocumentText size="22px" color="white" /> }}
               />
             </Grid>

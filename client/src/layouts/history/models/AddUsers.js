@@ -34,11 +34,12 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) =>
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      "Name": name,
-      "Phone": phone,
-      "Email": email,
-      "Address": address,
-      "AltPhone": altPhone,
+      "name": name,
+      "phone": phone,
+      "email": email,
+      "address": address,
+      "altPhone": altPhone,
+      "status": 1
 
     };
     onSubmit(formData);
