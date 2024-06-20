@@ -25,3 +25,5 @@ package-lock.json
 yarn.lock
 
 commit.sh
+/server/bin/db.js
+server/bin/db.js

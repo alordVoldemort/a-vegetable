@@ -1,19 +1,65 @@
-import { useState, useEffect, useMemo } from "react";
-import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Sidenav from "controllers/Sidenav";
 import theme from "assets/theme";
 import routes from "routes";
 import { useVisionUIController, setMiniSidenav } from "context";
+import SignIn from "public/sign-in";
+import Dashboard from "layouts/dashboard";
+import { useSelector } from "react-redux";
+import ProtectedRoutes from "Protectedroutes";
 
 export default function App() {
   const [controller, dispatch] = useVisionUIController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
-  const { pathname } = useLocation();
 
-  // Open sidenav when mouse enter on mini sidenav
+  // useEffect(() => {
+  //   const handleIframeRemoval = () => {
+  //     const iframes = document.querySelectorAll('iframe');
+  //     console.log(iframes, 'iframes')
+  //     iframes.forEach((iframe) => {
+  //       iframe.parentNode.removeChild(iframe);
+  //     });
+  //   };
+  //   handleIframeRemoval()
+  //   if (document.readyState === 'complete') {
+  //     handleIframeRemoval();
+  //   } else {
+  //     window.addEventListener('load', handleIframeRemoval);
+  //   }
+  //   return () => {
+  //     window.removeEventListener('load', handleIframeRemoval);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    // Create an observer instance
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        // Loop through added nodes
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeName === 'IFRAME' && node.style.zIndex === '2147483647') {
+            // Remove the iframe node if it matches the criteria
+            node.parentNode.removeChild(node);
+            console.log('Blocked an iframe from being added.');
+          }
+        });
+      });
+    });
+
+    // Start observing the document body for added child nodes
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Cleanup observer on component unmount
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
@@ -21,7 +67,6 @@ export default function App() {
     }
   };
 
-  // Close sidenav when mouse leave mini sidenav
   const handleOnMouseLeave = () => {
     if (onMouseEnter) {
       setMiniSidenav(dispatch, true);
@@ -29,16 +74,16 @@ export default function App() {
     }
   };
 
-  // Setting the dir attribute for the body element
   useEffect(() => {
     document.body.setAttribute("dir", direction);
   }, [direction]);
 
-  // Setting page scroll to 0 when changing the route
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-  }, [pathname]);
+  }, []);
+
+
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
@@ -47,27 +92,29 @@ export default function App() {
       }
 
       if (route.route) {
-        return <Route exact path={route.route} component={route.component} key={route.key} />;
+        return <Route
+          exact path={route.route}
+          render={(props) => <ProtectedRoutes Component={route.component} isPrivate={route.isPrivate} {...props} />}
+          key={route.key}
+        />
       }
 
       return null;
     });
 
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+
       {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand=""
-            brandName="AVegetables"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-        </>
+        <Sidenav
+          color={sidenavColor}
+          brand=""
+          brandName="AVegetables"
+          routes={routes}
+          onMouseEnter={handleOnMouseEnter}
+          onMouseLeave={handleOnMouseLeave}
+        />
       )}
       <Switch>
         {getRoutes(routes)}

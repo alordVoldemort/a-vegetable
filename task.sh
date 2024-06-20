@@ -35,4 +35,11 @@
    - entry 
    - pending 
    - advance  
-   - 
+
+
+1.1 : edit update delete 
+    make add city
+    make client
+    make driver 
+1.2 : all are use data from array  like :
+  const cities = ['City1', 'City2', 'City3', 'nashik']; // Array of city options

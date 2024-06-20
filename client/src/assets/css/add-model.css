@@ -1,0 +1,94 @@
+input {
+    background-color: transparent !important;
+  }
+fieldset {
+    background-color: transparent !important;
+  }
+  form>div>div {
+    background-color: transparent !important;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  .MuiTypography-root{
+    color:white !important;
+
+  }
+  ::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar handle on hover */
+}
+.MuiInputBase-input {
+  color:white;
+}
+.MuiSelect-select {
+  color: white;
+}
+.vishal > input  ::placeholder {
+  color: white !important;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a; /* Dark gray */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Light gray */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker gray on hover */
+}
+
+.css-1kjbm8s-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+  color: white !important;
+}
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-ij4zvc-MuiInputBase-root-MuiOutlinedInput-root{
+  width: 178% !important;
+  background-color: #071953  !important;
+  color: #f1f1f1 !important;
+
+}
+.css-o2lmg7-MuiInputBase-input-MuiOutlinedInput-input{
+  width: 130% !important;
+}
+.MuiInputBase-input.MuiOutlinedInput-input.css-o2lmg7-MuiInputBase-input-MuiOutlinedInput-input{
+  background-color: #071953 !important;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.number-input.css-b2zq7m-MuiInputBase-root-MuiOutlinedInput-root {
+  background-color: #071953 !important;
+}
+
+.input-wrapper{
+  color: white !important;
+}
+.MuiInputBase-input.MuiOutlinedInput-input.css-o2lmg7-MuiInputBase-input-MuiOutlinedInput-input{
+  color: white;
+}
+
+.css-vy2jai-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+  color: #ffffff !important;
+  background-color: #071953 !important;
+
+
+}
