@@ -479,9 +479,14 @@ function Projects(props) {
                 `${borderWidth[1]} solid ${grey[700]}`,
             },
           },
+          border: '2px solid grey',
         }}
       >
+
+
         <Table columns={columns} rows={rows} />
+    </VuiBox>
+    <VuiBox>
 
         <Grid container spacing={3} justifyContent="flex">
           <Grid item xs={1} sm={1} md={6}></Grid>

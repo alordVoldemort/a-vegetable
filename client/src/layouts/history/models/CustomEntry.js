@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Card, Typography, IconButton, Icon } from '@mui/material';
+import { Box, Button, Card, Typography, IconButton, Icon ,Grid  } from '@mui/material';
 import VuiBox from "components/VuiBox";
 import '../../../assets/css/CustomEntry.css';
 import VuiTypography from 'components/VuiTypography';
 import GradientBorder from 'controllers/GradientBorder';
 import VuiInput from 'components/VuiInput'; // Ensure you have the correct path for VuiInput
 import borders from 'assets/theme/base/borders';
+import palette from "assets/theme/base/colors";
+import radialGradient from "assets/theme/functions/radialGradient";
+import { setTransparentSidenav } from 'context';
+import { useVisionUIController } from 'context';
+import { setFixedNavbar } from 'context';
+
 
 
 
@@ -14,7 +20,7 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [cityName, setCityName] = useState('');
   const [talukaName, setTalukaName] = useState('');
   const [distName, setDistName] = useState('');
-
+ 
 
   useEffect(() => {
     if (Object.keys(editItem).length > 0 && isEditable) {
@@ -50,6 +56,9 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
       }}
     >
       <Card sx={{ height: 'auto', overflowY: "auto",  width: '400px', backgroundColor: '#fff' }}>
+      <VuiTypography component="label" variant="button" color="white" fontWeight="large">
+          CREATE CITY ENTRY
+        </VuiTypography>
         <IconButton
           size="small"
           color="inherit"
@@ -62,59 +71,77 @@ const CustomEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
         </IconButton>
 
         {/* City input */}
-        <VuiBox mb={3} mt={3}>         
-          <GradientBorder
-            minWidth="100%"
-            padding="1px"
-            borderRadius={borders.borderRadius.lg}
-            backgroundImage="linear-gradient(180deg, rgba(255,255,255,0.2), rgba(0,0,0,0.2))"
-          >
-            <VuiInput
-              type="text"
-              placeholder="Enter City Name"
-              fontWeight="500"
-              value={cityName}
-              sx={{ color: 'white !important'}}
-              onChange={(e) => setCityName(e.target.value)}
-            />
-          </GradientBorder>
-        </VuiBox>
+        <VuiBox mb={2} mt={2}>
+              <Grid xs={12} lg={12} xl={12} container>
+                <Grid item xs={4} lg={4} xl={4}>
+                  <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                   City Name
+                  </VuiTypography>
+                </Grid>
+                <Grid item xs={8} lg={8} xl={8}>
+                  <GradientBorder
+                    minWidth="100%"
+                    padding="1px"
+                    borderRadius={borders.borderRadius.lg}
+                    backgroundImage={radialGradient(
+                      palette.gradients.borderLight.main,
+                      palette.gradients.borderLight.state,
+                      palette.gradients.borderLight.angle
+                    )}
+                  >
+                    <VuiInput type="text" sx={{ color: 'white !important' }} placeholder=" Name" fontWeight="500" value={cityName} onChange={(e) => setCityName(e.target.value)} />
+                  </GradientBorder>
+                </Grid>
+              </Grid>
+            </VuiBox>
 
-        <VuiBox mb={3}>
-          <GradientBorder
-            minWidth="100%"
-            padding="1px"
-            borderRadius={borders.borderRadius.lg}
-            backgroundImage="linear-gradient(180deg, rgba(255,255,255,0.2), rgba(0,0,0,0.2))"
-          >
-            <VuiInput
-              type="text"
-              placeholder="Enter Taluka Name"
-              fontWeight="500"
-              value={talukaName}
-              sx={{ color: 'white !important'}}
-              onChange={(e) => setTalukaName(e.target.value)}
-            />
-          </GradientBorder>
-        </VuiBox>
+            <VuiBox mb={2} mt={2}>
+              <Grid xs={12} lg={12} xl={12} container>
+                <Grid item xs={4} lg={4} xl={4}>
+                  <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                   Taluka Name
+                  </VuiTypography>
+                </Grid>
+                <Grid item xs={8} lg={8} xl={8}>
+                  <GradientBorder
+                    minWidth="100%"
+                    padding="1px"
+                    borderRadius={borders.borderRadius.lg}
+                    backgroundImage={radialGradient(
+                      palette.gradients.borderLight.main,
+                      palette.gradients.borderLight.state,
+                      palette.gradients.borderLight.angle
+                    )}
+                  >
+                    <VuiInput type="text" sx={{ color: 'white !important' }} placeholder=" Name" fontWeight="500" value={talukaName} onChange={(e) => setTalukaName(e.target.value)} />
+                  </GradientBorder>
+                </Grid>
+              </Grid>
+            </VuiBox>
 
-        <VuiBox mb={3}>         
-          <GradientBorder
-            minWidth="100%"
-            padding="1px"
-            borderRadius={borders.borderRadius.lg}
-            backgroundImage="linear-gradient(180deg, rgba(255,255,255,0.2), rgba(0,0,0,0.2))"
-          >
-            <VuiInput
-              type="text"
-              placeholder="Enter Dist Name"
-              fontWeight="500"
-              sx={{ color: 'white !important'}}
-              value={distName}
-              onChange={(e) => setDistName(e.target.value)}
-            />
-          </GradientBorder>
-        </VuiBox>
+            <VuiBox mb={2} mt={2}>
+              <Grid xs={12} lg={12} xl={12} container>
+                <Grid item xs={4} lg={4} xl={4}>
+                  <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                   Dist Name
+                  </VuiTypography>
+                </Grid>
+                <Grid item xs={8} lg={8} xl={8}>
+                  <GradientBorder
+                    minWidth="100%"
+                    padding="1px"
+                    borderRadius={borders.borderRadius.lg}
+                    backgroundImage={radialGradient(
+                      palette.gradients.borderLight.main,
+                      palette.gradients.borderLight.state,
+                      palette.gradients.borderLight.angle
+                    )}
+                  >
+                    <VuiInput type="text" sx={{ color: 'white !important' }} placeholder=" Name" fontWeight="500" value={distName} onChange={(e) => setDistName(e.target.value)} />
+                  </GradientBorder>
+                </Grid>
+              </Grid>
+            </VuiBox>
 
         <Box display="flex" justifyContent="space-between">
           <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}  sx={{ color: 'white !important', borderRadius: 1}}>

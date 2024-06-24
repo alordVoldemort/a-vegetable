@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Card, IconButton, Icon, Typography, Select, MenuItem, TextField, Grid } from '@mui/material';
+import { Box, Button, Card, IconButton, Icon, Typography, Select, MenuItem, TextField, Grid, InputAdornment } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
 import VuiBox from "components/VuiBox";
 import GradientBorder from "controllers/GradientBorder";
@@ -14,7 +14,6 @@ import { useFetch } from 'service/api';
 import './model.module.css';
 import { makeStyles } from '@mui/styles';
 
-
 const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [vegitableName, setVegitableName] = useState('');
   const [fromCity, setFromCity] = useState('');
@@ -22,8 +21,9 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
   const [driverName, setDriverName] = useState('');
   const [clientName, setClientName] = useState('');
   const [totalAmount, setTotalAmount] = useState('');
-  const [vegetableWeight, setVegetableWeight] = useState('')
-  const [advance, setAdvance] = useState('')
+  const [amountInWords, setAmountInWords] = useState('');
+  const [vegetableWeight, setVegetableWeight] = useState('');
+  const [advance, setAdvance] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const selectRef = useRef(null);
 
@@ -33,50 +33,104 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
 
   useEffect(() => {
     if (Object.keys(editItem).length > 0 && isEditable) {
-      setVegitableName(editItem.name)
-      setFromCity(editItem.cityFrom)
-      setToCity(editItem.cityTo)
-      setDriverName(editItem.driverId)
-      setClientName(editItem.clientId)
-      setTotalAmount(editItem.totalAmt)
-      setVegetableWeight(editItem.weight)
-      setAdvance(editItem.advance)
+      setVegitableName(editItem.name);
+      setFromCity(editItem.cityFrom);
+      setToCity(editItem.cityTo);
+      setDriverName(editItem.driverId);
+      setClientName(editItem.clientId);
+      setTotalAmount(editItem.totalAmt);
+      setVegetableWeight(editItem.weight);
+      setAdvance(editItem.advance);
     }
-  }, [editItem])
+  }, [editItem, isEditable]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      // vegitableName, done 
-      // fromCity, done
-      // toCity, done 
-      // driverName,done
-      // clientName, done
-      // // vegitableWeight,
-      // // weightUnit,
-      // // imageFile,
-      "name": vegitableName,
-      "clientId": clientName,
-      "driverId": driverName,
-      "cityFrom": fromCity,
-      "cityTo": toCity,
-      "weight": vegetableWeight,
-      "totalAmt": totalAmount,
-      "advance": advance,
-      "paymentType": 1, //phone pe gpay ntfc, others //dro   
-      "note": "",
-      "status": 1
-
+      name: vegitableName,
+      clientId: clientName,
+      driverId: driverName,
+      cityFrom: fromCity,
+      cityTo: toCity,
+      weight: vegetableWeight,
+      totalAmt: totalAmount,
+      advance: advance,
+      paymentType: 1,
+      note: "",
+      status: 1
     };
     onSubmit(formData);
     onClose();
   };
 
   const handleClick = () => {
-    // Open the dropdown when clicking on the empty area
     if (selectRef.current) {
       selectRef.current.click();
     }
   };
+
+  const numberToWords = (num) => {
+    const ones = [
+      '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+      'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'
+    ];
+    const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+  
+    if (isNaN(num)) return '';
+    if (num === 0) return 'Zero';
+  
+    let word = '';
+    let scaleIndex = 0;
+  
+    const chunkToWords = (chunk) => {
+      let chunkInWords = '';
+      let hundreds = Math.floor(chunk / 100);
+      chunk %= 100;
+  
+      if (hundreds) {
+        chunkInWords += ones[hundreds] + ' Hundred ';
+      }
+  
+      if (chunk < 20) {
+        chunkInWords += ones[chunk] + ' ';
+      } else {
+        let tensValue = Math.floor(chunk / 10);
+        let onesValue = chunk % 10;
+        chunkInWords += tens[tensValue] + ' ' + ones[onesValue] + ' ';
+      }
+  
+      return chunkInWords.trim();
+    };
+  
+    if (num >= 10000000) { // Crore
+      let crore = Math.floor(num / 10000000);
+      word += chunkToWords(crore) + ' Crore ';
+      num %= 10000000;
+    }
+  
+    if (num >= 100000) { // Lakh
+      let lakh = Math.floor(num / 100000);
+      word += chunkToWords(lakh) + ' Lakh ';
+      num %= 100000;
+    }
+  
+    if (num >= 1000) { // Thousand
+      let thousand = Math.floor(num / 1000);
+      word += chunkToWords(thousand) + ' Thousand ';
+      num %= 1000;
+    }
+  
+    word += chunkToWords(num);
+  
+    return word.trim();
+  };
+
+  const handleTotalAmountChange = (e) => {
+    const value = e.target.value;
+    setTotalAmount(value);
+    setAmountInWords(numberToWords(Number(value)));
+  };
+
   const classes = useStyles();
 
   return isOpen && (
@@ -85,13 +139,13 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
       top: 0,
       left: 0,
       width: '100%',
-      height: '100%',
+      height: '100vh',
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
     }}>
-      <Card sx={{ height: 'auto', overflowY: "auto", margin: 3, padding: 4, width: '400px', backgroundColor: '#fff' }}>
+      <Card sx={{ maxHeight: '80vh', overflowY: "auto", margin: 3, padding: 4, width: '400px', backgroundColor: '#fff' }}>
         <VuiTypography component="label" variant="button" color="white" fontWeight="large">
           CREATE NEW ENTRY
         </VuiTypography>
@@ -159,7 +213,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                     color: fromCity ? 'white !important' : ''
                   })}
                 >
-                  <MenuItem value="" disabled >Select City</MenuItem>
+                  <MenuItem value="" disabled>Select City</MenuItem>
                   {citiesData && citiesData.map(city => (
                     <MenuItem key={city.name} value={city.id}>{city.name}</MenuItem>
                   ))}
@@ -168,7 +222,6 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
             </Grid>
           </Grid>
         </VuiBox>
-
 
         <VuiBox mb={2} mt={2}>
           <Grid xs={12} lg={12} xl={12} container>
@@ -297,6 +350,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
             </Grid>
             <Grid item xs={8} lg={8} xl={8}>
               <GradientBorder
+                type="number"
                 minWidth="100%"
                 padding="1px"
                 borderRadius={borders.borderRadius.lg}
@@ -306,19 +360,29 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                   palette.gradients.borderLight.angle
                 )}
               >
-                <VuiInput type="text"
+                <VuiInput
+                  type="number"
                   inputProps={{
                     inputMode: 'numeric',
-                    pattern: '[0-9]*', // Optional pattern to enforce numeric input
+                    pattern: '[0-9]*',
                   }}
-                  sx={{ color: 'white !important' }} placeholder="Enter Total Amount" fontWeight="500" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} />
+                  sx={{ color: 'white !important' , paddingLeft:3}}
+                  placeholder="Enter Total Amount"
+                  fontWeight="500"
+                  value={totalAmount}
+                  onChange={handleTotalAmountChange}
+                  
+                  startAdornment={totalAmount ? <InputAdornment position="start" style={{position:'absolute', left:0, marginLeft:5}}>₹</InputAdornment>: ''}
+                />
               </GradientBorder>
+              <Typography mt={1} color="white" fontWeight="small" fontSize={10}>
+                {totalAmount && numberToWords(Number(totalAmount))}
+              </Typography>
             </Grid>
           </Grid>
         </VuiBox>
-
-
-        <VuiBox mb={2} mt={2}>
+        
+        <VuiBox mb={2} mt={2}>  
           <Grid xs={12} lg={12} xl={12} container>
             <Grid item xs={4} lg={4} xl={4}>
               <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
@@ -353,7 +417,7 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
           <Grid xs={12} lg={12} xl={12} container>
             <Grid item xs={4} lg={4} xl={4}>
               <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
-                Total Amount
+                Advance
               </VuiTypography>
             </Grid>
             <Grid item xs={8} lg={8} xl={8}>
@@ -367,12 +431,21 @@ const CreateEntry = ({ isOpen, onClose, onSubmit, editItem, isEditable }) => {
                   palette.gradients.borderLight.angle
                 )}
               >
-                <VuiInput type="int" placeholder="Total Amount" sx={{ color: 'white !important' }}
+                <VuiInput
+                  type="number"
+                  sx={{ color: 'white !important', paddingLeft:3 }}
+                  placeholder="Advance Amount"
                   fontWeight="500"
                   value={advance}
-                  onChange={(e) =>
-                    setAdvance(e.target.value)} />
+                
+                  onChange={(e) => setAdvance(e.target.value)}
+                  startAdornment={advance ? <InputAdornment position="start" style={{position:'absolute', left:0, marginLeft:5}}>₹</InputAdornment>: ''}
+                />
               </GradientBorder>
+              <Typography mt={1} color="white" fontWeight="small" fontSize={10}>
+              {advance && numberToWords(Number(advance))}
+              </Typography>
+           
             </Grid>
           </Grid>
         </VuiBox>
@@ -400,12 +473,12 @@ CreateEntry.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   selectRoot: {
-    backgroundColor: 'transparent', // Background color
-    color: 'black', // Text color
+    backgroundColor: 'transparent',
+    color: 'black',
   },
   selectSelect: {
     '&:focus': {
-      backgroundColor: 'transparent !important', // Selected color on focus
+      backgroundColor: 'transparent !important',
     },
   },
 }));

@@ -24,6 +24,8 @@ import { deleteClientEntry } from 'service/api';
 import { createDriverEntry } from 'service/api';
 import { updateDriverEntry } from 'service/api';
 import { deleteDriverEntry } from 'service/api';
+import { useVisionUIController } from 'context';
+import { setFixedNavbar } from 'context';
 
 
 function Tables() {
@@ -41,13 +43,20 @@ function Tables() {
   const [editCityItem, setEditCityItem] = useState({})
   const [editClientItem,setEditClientItem] = useState ({});
   const [editDriverItem,setEditDriverItem] = useState ({})
-  const dispatch = useDispatch();
+  const _dispatch = useDispatch();
 
 
 
   const { data: driversData, isLoading: isDriversLoading, isError: isDriversError } = useFetch('drivers');
   const { data: citiesData, isLoading: isCitiesLoading, isError: isCitiesError } = useFetch('city');
   const { data: clientsData, isLoading: isClientsLoading, isError: isClientsError } = useFetch('clients');
+
+  const [controller, dispatch] = useVisionUIController();
+  useEffect(() => {
+    // if (window.innerWidth < 1440) {
+      setFixedNavbar(dispatch, false);
+    // }
+  }, []);
 
   useEffect(() => {
     if (citiesData && citiesData.length > 0) {
@@ -65,13 +74,13 @@ function Tables() {
   const handleCustomEntry = async (formData) => {
     try {
       if (!isEditableCity) {
-        const customResponse = await dispatch(createCityEntry(formData));
+        const customResponse = await _dispatch(createCityEntry(formData));
         formData.id = entries.length + 1;
         setCityEntries([...entries, formData]);
       } else {
         const indexToUpdate = entries.findIndex(item => item.id === editCityItem.id);
         if (indexToUpdate !== -1) {
-          const updateResponse = await dispatch(updateCityEntry(editCityItem.id, formData));
+          const updateResponse = await _dispatch(updateCityEntry(editCityItem.id, formData));
           entries[indexToUpdate] = formData;
           setCityEntries([...entries]);
         }
@@ -96,7 +105,7 @@ function Tables() {
   const handleCityDelete = useCallback(async (value) => {
     if (window.confirm("Are you sure you want to delete this item? " + value.cityName)) {
       const result = entries.filter(item => item.id !== value.id);
-      const deleteResponse = await dispatch(deleteCityEntry(value.id));
+      const deleteResponse = await _dispatch(deleteCityEntry(value.id));
       setCityEntries(result);
     }
   }, [entries]);
@@ -107,12 +116,12 @@ function Tables() {
 
   const handelClientUser = async (formData) => {
     if (!isEditableClient) {
-      const clientResponse = await dispatch(createClientEntry(formData));
+      const clientResponse = await _dispatch(createClientEntry(formData));
       setClientEntry([...clients, formData]);
     } else {
       const indexToUpdate = clients.findIndex(item => item.id === editClientItem.id);
       if (indexToUpdate !== -1) {
-        const updateResponse = await dispatch(updateClientEntry(editClientItem.id, formData));
+        const updateResponse = await _dispatch(updateClientEntry(editClientItem.id, formData));
         clients[indexToUpdate] = formData;
         setClientEntry(...clients);
       }
@@ -133,7 +142,7 @@ function Tables() {
   const handleClientDelete = useCallback(async (value) => {
     if (window.confirm("Are you sure you want to delete this item? " + value.name)) {
       const result = clients.filter(item => item.id !== value.id);
-      const deleteResponse = await dispatch(deleteClientEntry(value.id));
+      const deleteResponse = await _dispatch(deleteClientEntry(value.id));
       setClientEntry(result);
     }
   }, [clients]);         
@@ -143,12 +152,12 @@ function Tables() {
 
   const handleAddDriver = async (formData) => {
     if (!isEditableDriver) {
-      const DriverResponse = await dispatch(createDriverEntry(formData));
+      const DriverResponse = await _dispatch(createDriverEntry(formData));
       setDriverEntry([...drivers,formData])
     } else {
       const indexToUpdate = drivers.findIndex(item => item.id === editDriverItem.id);
       if (indexToUpdate !== -1) {
-        const updateResponse = await dispatch(updateDriverEntry(editDriverItem.id, formData));
+        const updateResponse = await _dispatch(updateDriverEntry(editDriverItem.id, formData));
         drivers[indexToUpdate] = formData;
         setDriverEntry(...drivers)
     }  
@@ -168,7 +177,7 @@ function Tables() {
   const handleDeleteDriver = useCallback(async (value) => {
     if (window.confirm("Are you sure you want to delete this item? " + value.name)) {
       const result = drivers.filter(item => item.id !== value.id);
-      const deleteResponse = await dispatch(deleteDriverEntry(value.id));
+      const deleteResponse = await _dispatch(deleteDriverEntry(value.id));
 
       setDriverEntry(result);
     }
@@ -184,7 +193,7 @@ function Tables() {
           <Button
             variant="contained"
             color="primary"
-            sx={{ color: 'white !important', cursor: 'pointer', margin: 1, width:200 }}
+            sx={{ color: 'white !important', cursor: 'pointer', margin: 1, width: 200, border: '1px solid grey' }}
             onClick={() => {
               setIsOpen(true);
               setEditItem({});
@@ -212,6 +221,7 @@ function Tables() {
                     `${borderWidth[1]} solid ${grey[700]}`,
                 },
               },
+              border: '1px solid grey', // Added border to the table
             }}
           >
             <AgTable tableData={entries} handleDelete={handleCityDelete} handleEdit={handelCityEdit} />
@@ -222,7 +232,7 @@ function Tables() {
           <Button
             variant="contained"
             color="primary"
-            sx={{ color: 'white !important', cursor: 'pointer',  margin: 1, width:200}}
+            sx={{ color: 'white !important', cursor: 'pointer', margin: 1, width: 200, border: '1px solid grey' }}
             onClick={() => {
               setIsOpenAdd(true);
               setEditItem({});
@@ -250,9 +260,10 @@ function Tables() {
                     `${borderWidth[1]} solid ${grey[700]}`,
                 },
               },
+              border: '1px solid grey', // Added border to the table
             }}
           >
-<AgTable tableData={clients} handleDelete={handleClientDelete} handleEdit={handleClientEdit} />
+            <AgTable tableData={clients} handleDelete={handleClientDelete} handleEdit={handleClientEdit} />
           </VuiBox>
         </Card>
 
@@ -260,7 +271,7 @@ function Tables() {
           <Button
             variant="contained"
             color="primary"
-            sx={{ color: 'white !important', cursor: 'pointer',  margin: 1, width:200 }}
+            sx={{ color: 'white !important', cursor: 'pointer', margin: 1, width: 200, border: '1px solid grey' }}
             onClick={() => {
               setIsOpenDriver(true);
               setEditItem({});
@@ -270,7 +281,7 @@ function Tables() {
             Add Driver
           </Button>
         </VuiBox>
-        <Card>  
+        <Card>
           <VuiBox display="block" justifyContent="space-between" alignItems="center">
             <VuiTypography variant="lg" color="white">
               Add Driver
@@ -288,6 +299,7 @@ function Tables() {
                     `${borderWidth[1]} solid ${grey[700]}`,
                 },
               },
+              border: '1px solid grey', // Added border to the table
             }}
           >
             <AgTable tableData={drivers} handleDelete={handleDeleteDriver} handleEdit={handleEditDriver} />
@@ -312,8 +324,8 @@ function Tables() {
           isOpenAdd={isOpenAdd}
           onClose={() => setIsOpenAdd(false)}
           onSubmit={handelClientUser}
-        editItem={editClientItem}
-        isEditable={isEditableClient}
+          editItem={editClientItem}
+          isEditable={isEditableClient}
         />
       )}
 
@@ -322,8 +334,8 @@ function Tables() {
           isOpenDriver={isOpenDriver}
           onClose={() => setIsOpenDriver(false)}
           onSubmit={handleAddDriver}
-        editItem={editDriverItem}
-        isEditable={isEditableDriver}
+          editItem={editDriverItem}
+          isEditable={isEditableDriver}
         />
       )}
     </DashboardLayout>

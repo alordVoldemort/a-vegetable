@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Card, IconButton, Icon, TextField } from '@mui/material';
+import { Box, Button, Card, IconButton, Icon, TextField, Grid } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import '../../../assets/css/AddUser.css';
+import VuiBox from 'components/VuiBox';
+import VuiTypography from 'components/VuiTypography';
+import GradientBorder from 'controllers/GradientBorder';
+import borders from 'assets/theme/base/borders';
+import palette from "assets/theme/base/colors";
+import radialGradient from "assets/theme/functions/radialGradient";
+import VuiInput from 'components/VuiInput';
 
 const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [altPhone,  setAltPhone] = useState('');
-  const[carNumber,setCarNumber] = useState('');
+  const [altPhone, setAltPhone] = useState('');
+  const [carNumber, setCarNumber] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
@@ -27,11 +34,12 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) =>
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-    "Name" : name,
-    "Phone" :phone,
-    "Email" :email,
-    "Address":address,
-    "AltPhone": altPhone,
+      "name": name,
+      "phone": phone,
+      "email": email,
+      "address": address,
+      "altPhone": altPhone,
+      "status": 1
 
     };
     onSubmit(formData);
@@ -45,14 +53,26 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) =>
         top: 0,
         left: 0,
         width: '100%',
-        height: '100%',
+        height: '100vh',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+
       }}
     >
-      <Card sx={{ height: 'auto', overflowY: 'auto', margin: 3, padding: 0, width: '450px', backgroundColor: '#fff' }}>
+      <Card sx={{
+        maxHeight: '80vh',
+        overflowY: 'auto',
+        margin: 3,
+        padding: 4,
+        width: '400px',
+        backgroundColor: '#fff'
+      }}>
+         <VuiTypography component="label" variant="button" color="white" fontWeight="large">
+          CREATE CLIENT ENTRY
+        </VuiTypography>
+
         <IconButton
           size="small"
           color="inherit"
@@ -64,48 +84,125 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) =>
           <Icon>close</Icon>
         </IconButton>
         <form onSubmit={handleSubmit}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '1rem' }}>
-            <h1 className='title'>Name</h1>
-            <TextField
-              variant="outlined"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ placeholder: 'Enter your name' }}
-            />
-            <h1 className='title'>Phone</h1>
-            <TextField
-              variant="outlined"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ placeholder: 'Enter your Phone' }}
-            />
-            <h1 className='title'>Email</h1>
-            <TextField
-              variant="outlined"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ placeholder: 'Enter your email' }}
-            />
-            <h1 className='title'>Adderss</h1>
-            <TextField
-              variant="outlined"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ placeholder: 'Enter your Address' }}
-            />
-            <h1 className='title'>Alt Phone</h1>
-            <TextField
-              variant="outlined"
-              value={altPhone}
-              onChange={(e) => setAltPhone(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ placeholder: 'Enter your Alt Number' }}
-            />
-             
+          
+            <VuiBox mb={2} mt={2}>
+              <Grid xs={12} lg={12} xl={12} container>
+                <Grid item xs={4} lg={4} xl={4}>
+                  <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                    Name
+                  </VuiTypography>
+                </Grid>
+                <Grid item xs={8} lg={8} xl={8}>
+                  <GradientBorder
+                    minWidth="100%"
+                    padding="1px"
+                    borderRadius={borders.borderRadius.lg}
+                    backgroundImage={radialGradient(
+                      palette.gradients.borderLight.main,
+                      palette.gradients.borderLight.state,
+                      palette.gradients.borderLight.angle
+                    )}
+                  >
+                    <VuiInput type="text" sx={{ color: 'white !important' }} placeholder=" Name" fontWeight="500" value={name} onChange={(e) => setName(e.target.value)} />
+                  </GradientBorder>
+                </Grid>
+              </Grid>
+            </VuiBox>
+
+            <VuiBox mb={2} >
+              <Grid xs={12} lg={12} xl={12} container>
+                <Grid item xs={4} lg={4} xl={4}>
+                  <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                    Phone
+                  </VuiTypography>
+                </Grid>
+                <Grid item xs={8} lg={8} xl={8}>
+                  <GradientBorder
+                    minWidth="100%"
+                    padding="1px"
+                    borderRadius={borders.borderRadius.lg}
+                    backgroundImage={radialGradient(
+                      palette.gradients.borderLight.main,
+                      palette.gradients.borderLight.state,
+                      palette.gradients.borderLight.angle
+                    )}
+                  >
+                    <VuiInput type="text" sx={{ color: 'white !important' }} placeholder=" Enter Phone No" fontWeight="500" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  </GradientBorder>
+                </Grid>
+              </Grid>
+            </VuiBox>
+            <VuiBox mb={2} >
+              <Grid xs={12} lg={12} xl={12} container>
+                <Grid item xs={4} lg={4} xl={4}>
+                  <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                    Email
+                  </VuiTypography>
+                </Grid>
+                <Grid item xs={8} lg={8} xl={8}>
+                  <GradientBorder
+                    minWidth="100%"
+                    padding="1px"
+                    borderRadius={borders.borderRadius.lg}
+                    backgroundImage={radialGradient(
+                      palette.gradients.borderLight.main,
+                      palette.gradients.borderLight.state,
+                      palette.gradients.borderLight.angle
+                    )}
+                  >
+                    <VuiInput type="text" sx={{ color: 'white !important' }} placeholder=" Enter Mail" fontWeight="500" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  </GradientBorder>
+                </Grid>
+              </Grid>
+            </VuiBox>
+            <VuiBox mb={2} mt={2}>
+              <Grid xs={12} lg={12} xl={12} container>
+                <Grid item xs={4} lg={4} xl={4}>
+                  <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                    Adderss
+                  </VuiTypography>
+                </Grid>
+                <Grid item xs={8} lg={8} xl={8}>
+                  <GradientBorder
+                    minWidth="100%"
+                    padding="1px"
+                    borderRadius={borders.borderRadius.lg}
+                    backgroundImage={radialGradient(
+                      palette.gradients.borderLight.main,
+                      palette.gradients.borderLight.state,
+                      palette.gradients.borderLight.angle
+                    )}
+                  >
+                    <VuiInput type="text" sx={{ color: 'white !important' }} placeholder=" Enter Adderss" fontWeight="500" value={address} onChange={(e) => setAddress(e.target.value)} />
+                  </GradientBorder>
+                </Grid>
+              </Grid>
+            </VuiBox>
+
+            <VuiBox mb={2} mt={2}>
+              <Grid xs={12} lg={12} xl={12} container>
+                <Grid item xs={4} lg={4} xl={4}>
+                  <VuiTypography mt={1} component="label" variant="button" color="white" fontWeight="medium">
+                    Alt Number
+                  </VuiTypography>
+                </Grid>
+                <Grid item xs={8} lg={8} xl={8}>
+                  <GradientBorder
+                    minWidth="100%"
+                    padding="1px"
+                    borderRadius={borders.borderRadius.lg}
+                    backgroundImage={radialGradient(
+                      palette.gradients.borderLight.main,
+                      palette.gradients.borderLight.state,
+                      palette.gradients.borderLight.angle
+                    )}
+                  >
+                    <VuiInput type="text" sx={{ color: 'white !important' }} placeholder=" Enter Alt Number" fontWeight="500" value={altPhone} onChange={(e) => setAltPhone(e.target.value)} />
+                  </GradientBorder>
+                </Grid>
+              </Grid>
+            </VuiBox>
+
             <Box mt={2} display="flex" justifyContent="space-between">
               <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
                 {!isEditable ? 'Add Entry' : 'Update'}
@@ -114,7 +211,6 @@ const AddUserPopup = ({ isOpenAdd, onClose, onSubmit, isEditable, editItem }) =>
                 Cancel
               </Button>
             </Box>
-          </Box>
 
         </form>
 
