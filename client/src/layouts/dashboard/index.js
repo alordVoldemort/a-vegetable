@@ -99,12 +99,12 @@ function Dashboard() {
     async (value) => {
       if (
         window.confirm(
-          "Are you sure you want to delete this item? " + value.vegitableName
+          "Are you sure you want to delete this item? " + value.name
         )
       ) {
         const result = userData.filter((item) => item.id !== value.id);
         const deleteResponse = await _dispatch(deleteEntry(value.id));
-        setUserData(result);
+        setUserData(result || []);
       }         
     },
     [userData]
